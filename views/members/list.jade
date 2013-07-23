@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+	h1 Members
+	p
+		a(href="/members/create") Create Member
+	table
+		tr
+			th Name
+			th Unit
+			th Probationary
+			th Driver
+			th Crew Chief
+			th Actions
+
+		each member in members
+			tr
+				td= member.name.first + ' ' + member.name.last
+				td= member.unit
+				td= member.probationary
+				td= member.driver
+				td= member.crew_chief
+				td
+					a(href='/members/edit/'+member._id) Edit

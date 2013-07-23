@@ -6,3 +6,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+nav.main {
+	background-color: #eee;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+nav.main a {
+	padding-right: 10px;
+}
+
+.title {
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.hidden  {
+	display: none;
+}

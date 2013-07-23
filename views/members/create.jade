@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+	h1 Create Member
+	form(action="", method="post")
+		p First Name:
+			input(type="text", name="first_name")
+		p Last Name:
+			input(type="text", name="last_name")
+		p Unit:
+			input(type="text", name="unit")
+		p Probationary:
+			input(type="checkbox", name="probationary", value="true")
+		p Driver:
+			input(type="checkbox", name="driver", value="true")
+		p Crew Chief:
+			input(type="checkbox", name="crew_chief", value="true")
+		p
+			input(type="submit", value="Create")

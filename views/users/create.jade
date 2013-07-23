@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+
+	form(action="", method="post")
+		p
+			label Member
+			select(name="member")
+				option(value="") ----
+				each member in members
+					option(value=member._id)= member.name.first + ' ' + member.name.last
+		p
+			label Username
+			input(type="text", name="username")
+		p
+			label Password
+			input(type="password", name="password")
+		p
+			label Email
+			input(type="text", name="email")
+		p
+			label(for="send_email")
+				input#send_email(type="checkbox", name="send_email")
+				| Send the user an email with their password
+		p
+			input(type="submit", value="Create")

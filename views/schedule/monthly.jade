@@ -1,8 +1,0 @@
-extends ../layout
-
-block content
-	h1 MCEMS Monthly Schedule
-
-	ul
-		each shift in shifts
-			li #{shift.start} - #{shift.end}: #{shift.member.name} (#{shift.member.rideStatus})

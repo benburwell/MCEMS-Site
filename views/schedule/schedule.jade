@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+	include add_shift
+	include edit_shift
+	
+	span.hidden#display_month= month
+	span.hidden#display_year= year
+
+	h1.calendar= month + ' ' + year
+	nav.calendar
+		a(href=prev_month.url)= "« " + prev_month.name
+		|  — 
+		a(href="/schedule") Today
+		|  — 
+		a(href=next_month.url)= next_month.name + " »"
+	
+	.key
+		span.crew_chief Crew Chief
+		span.driver Driver
+		span.probationary Probationary
+	
+	table.calendar
+		tr
+			th Monday
+			th Tuesday
+			th Wednesday
+			th Thursday
+			th Friday
+			th Saturday
+			th Sunday
+		tr
+			- for (i = 0; i < 7; i++) {
+			include calendar_cell
+			- }
+		tr
+			- for (i = 7; i < 14; i++) {
+			include calendar_cell
+			- }
+		tr
+			- for (i = 14; i < 21; i++) {
+			include calendar_cell
+			- }
+		tr
+			- for (i = 21; i < 28; i++) {
+			include calendar_cell
+			- }
+		tr
+			- for (i = 28; i < 35; i++) {
+			include calendar_cell
+			- }
+		tr
+			- for (i = 35; i < 42; i++) {
+			include calendar_cell
+			- }

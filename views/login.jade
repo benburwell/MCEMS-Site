@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    
+    if invalid
+        .error Invalid credentials
+
+    form(action="/login", method="post")
+        .login_form
+            p
+                label(for="username") Username:
+                input#username(type="text", name="username", autofocus="autofocus")
+            p
+                label(for="password") Password:
+                input#password(type="password", name="password")
+            p
+                input(type="submit", value="Login")

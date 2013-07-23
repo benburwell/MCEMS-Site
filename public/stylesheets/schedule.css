@@ -1,0 +1,89 @@
+table.calendar {
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1.calendar, nav.calendar {
+	text-align: center;
+}
+
+nav.calendar {
+	padding-bottom: 15px;
+}
+
+table.calendar td {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+
+table.calendar td.incomplete {
+	background-color: #fdd;
+}
+
+table.calendar td.null {
+	background-color: #ccc;
+}
+
+table.calendar .crew_chief .shift .name, .key .crew_chief {
+	font-weight: bold;
+}
+
+table.calendar .crew_chief {
+	padding-bottom: 7px;
+}
+
+table.calendar .shift .time {
+	font-size: 10px;
+	padding-right: 3px;
+}
+
+table.calendar .shift .name {
+	font-size: 13px;
+	color: #000;
+}
+
+table.calendar .shift .unit {
+	font-size: 13px;
+	color: #999;
+}
+
+table.calendar .shift .probationary, .key .probationary {
+	font-style: italic;
+}
+
+table.calendar .shift .driver, .key .driver {
+	color: #33f;
+}
+
+table.calendar td:hover {
+	background-color: #ffffcc;
+	cursor: pointer;
+}
+
+table.calendar td.null:hover {
+	background-color: #ccc;
+	cursor: default;
+}
+
+table.calendar td.incomplete:hover {
+	background-color: #fcc;
+}
+
+.key {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 12px;
+}
+
+table.calendar .shift .name:hover {
+	border-bottom: 1px solid #000;
+}
+
+.key * {
+	padding-left: 2px;
+	padding-right: 2px;
+}

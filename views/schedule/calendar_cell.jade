@@ -1,0 +1,19 @@
+td(
+	class=(days[i].in_month ? (days[i].incomplete ? "incomplete" : "") : "null")
+)
+	.date= days[i].number
+	.crew_chief
+		each shift in days[i].shifts.crew_chief
+			.shift
+				span.time= shift.start + '–' + shift.end + ' '
+				a.name(data=shift.id)= shift.name
+				span.unit= ' ' + shift.unit
+	.member
+		each shift in days[i].shifts.member
+			.shift
+				span.time= shift.start + '–' + shift.end + ' '
+				a.name(
+					class=(shift.probationary ? "probationary" : (shift.driver ? "driver" : "")),
+					data=shift.id
+				)= shift.name
+				span.unit= ' ' + shift.unit
