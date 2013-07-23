@@ -1,9 +1,11 @@
 var mongoose;
 
-exports.connect = function (m) {
+var mongoose, postmark;
+exports._connect = function (m, p) {
 	mongoose = m;
+	postmark = p;
 	return;
-};
+}
 
 exports.list = function (req, res) {
 	var Member = mongoose.model('Member');

@@ -35,7 +35,9 @@ var uristring = process.env.MONGOLAB_URI
 mongoose.connect(uristring);
 
 // put mongoose in modules
-member.connect(mongoose);
+member._connect(mongoose, postmark);
+user._connect(mongoose, postmark);
+schedule._connect(mongoose, postmark);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -62,21 +64,21 @@ app.get('/', function (req, res) {
 
 // client auth
 app.get('/login', user.login_form);
-app.post('/login', user.login(mongoose));
+app.post('/login', user.login);
 app.get('/logout', user.logout);
 
 // schedule
-app.get('/schedule', schedule.schedule(mongoose));
-app.get('/schedule/:year/:month', schedule.month_schedule(mongoose));
-app.post('/schedule', schedule.create_shift(mongoose));
-app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift(mongoose));
-app.post('/schedule/shift/:shift_id', schedule.update_shift(mongoose));
-app.get('/shift/:shift_id', schedule.get_shift(mongoose));
+app.get('/schedule', schedule.schedule);
+app.get('/schedule/:year/:month', schedule.month_schedule);
+app.post('/schedule', schedule.create_shift);
+app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift);
+app.post('/schedule/shift/:shift_id', schedule.update_shift);
+app.get('/shift/:shift_id', schedule.get_shift);
 
 // user management
-app.get('/users', user.list(mongoose));
-app.get('/users/create', user.create_form(mongoose));
-app.post('/users/create', user.create(mongoose, postmark));
+app.get('/users', user.list);
+app.get('/users/create', user.create_form);
+app.post('/users/create', user.create);
 
 // member management
 app.get('/members', member.list);
@@ -87,9 +89,9 @@ app.post('/members/edit/:member', member.edit);
 app.post('/members/delete/:member', member.delete);
 
 // JSON feeds of the models
-app.get('/shifts.json', jsonFeed.shifts(mongoose));
-app.get('/members.json', jsonFeed.members(mongoose));
-app.get('/users.json', jsonFeed.users(mongoose));
+app.get('/shifts.json', jsonFeed.shifts);
+app.get('/members.json', jsonFeed.members);
+app.get('/users.json', jsonFeed.users);
 
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {
