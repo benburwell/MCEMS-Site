@@ -82,7 +82,7 @@ exports.create = function (req, res) {
 				edit: true
 			}
 		},
-		_member: req.body.member
+		_member: mongoose.Types.ObjectId.fromString(req.body.member)
 	}).save(function (err, user, count) {
 
 		postmark.send({
