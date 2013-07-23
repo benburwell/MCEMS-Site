@@ -1,3 +1,9 @@
+var mongoose;
+exports._connect = function (m) {
+	mongoose = m;
+	return;
+};
+
 exports.shift = {
 	start: Date,
 	end: Date,
@@ -6,7 +12,7 @@ exports.shift = {
 	driver: Boolean,
 	probationary: Boolean,
 	crew_chief: Boolean,
-	_member: { type: Number, ref: 'Member' }
+	_member: { type: mongoose.Types.ObjectId, ref: 'Member' }
 };
 
 exports.member = {
@@ -18,14 +24,14 @@ exports.member = {
 	probationary: Boolean,
 	driver: Boolean,
 	crew_chief: Boolean,
-	shifts: [ { type: Number, ref: 'Shift' } ]
+	shifts: [ { type: mongoose.Types.ObjectId, ref: 'Shift' } ]
 };
 
 exports.user = {
 	username: String,
 	password: String,
 	last_login: Date,
-	_member: { type: Number, ref: 'Member' },
+	_member: { type: mongoose.Types.ObjectId, ref: 'Member' },
 	email: String,
 	permissions: {
 		schedule: {

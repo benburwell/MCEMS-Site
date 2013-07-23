@@ -20,7 +20,9 @@ var express = require('express'),
 
 var app = express();
 
-// Database things
+// database things
+models._connect(mongoose);
+
 var Schema = mongoose.Schema;
 
 // create models
