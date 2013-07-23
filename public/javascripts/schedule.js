@@ -7,6 +7,17 @@ $(document).ready(function () {
 		autoOpen: false,
 		modal: true,
 		buttons: {
+			"Remove": function () {
+
+				$('#edit_shift').find('input').attr('disabled', 'disabled');
+				$('#edit_shift').find('select').attr('disabled', 'disabled');
+
+				$.post('/schedule/shift/delete/' + $('#edit_shift').attr('data'))
+					.done(function () {
+						location.reload();
+					}
+				);
+			},
 			"Save": function () {
 
 				$('#edit_shift').find('input').attr('disabled', 'disabled');
@@ -44,17 +55,6 @@ $(document).ready(function () {
 				$.post(url, data).done(function () {
 					location.reload();
 				});
-			},
-			"Remove": function () {
-
-				$('#edit_shift').find('input').attr('disabled', 'disabled');
-				$('#edit_shift').find('select').attr('disabled', 'disabled');
-
-				$.post('/schedule/shift/delete/' + $('#edit_shift').attr('data'))
-					.done(function () {
-						location.reload();
-					}
-				);
 			}
 		}
 	});
