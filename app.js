@@ -34,6 +34,9 @@ var uristring = process.env.MONGOLAB_URI
 	|| 'mongodb://localhost/mcems';
 mongoose.connect(uristring);
 
+// put mongoose in modules
+member.connect(mongoose);
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 
@@ -52,7 +55,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
 
 app.get('/', function (req, res) {
 	res.render('index', {user: req.session.user});
@@ -77,12 +79,12 @@ app.get('/users/create', user.create_form(mongoose));
 app.post('/users/create', user.create(mongoose, postmark));
 
 // member management
-app.get('/members', member.list(mongoose));
+app.get('/members', member.list);
 app.get('/members/create', member.create_form);
-app.post('/members/create', member.create(mongoose));
-app.get('/members/edit/:member', member.edit_form(mongoose));
-app.post('/members/edit/:member', member.edit(mongoose));
-app.post('/members/delete/:member', member.delete(mongoose));
+app.post('/members/create', member.create);
+app.get('/members/edit/:member', member.edit_form);
+app.post('/members/edit/:member', member.edit);
+app.post('/members/delete/:member', member.delete);
 
 // JSON feeds of the models
 app.get('/shifts.json', jsonFeed.shifts(mongoose));
