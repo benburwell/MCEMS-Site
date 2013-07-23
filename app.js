@@ -28,10 +28,14 @@ mongoose.model('User', new Schema(models.member));
 mongoose.model('Member', new Schema(models.user));
 
 // connect to db
-mongoose.connect('mongodb://localhost/mcems');
+var uristring = process.env.MONGOLAB_URI
+	|| process.env.MONGOHQ_URL
+	|| 'mongodb://localhost/mcems';
+mongoose.connect(uristring);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
