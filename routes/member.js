@@ -28,7 +28,12 @@ exports.create = function (mongoose) {
 			driver: (req.body.driver == 'true')? true : false,
 			crew_chief: (req.body.crew_chief == 'true')? true : false
 		}).save(function (err, member, count) {
-			res.redirect('/members');
+
+			if (err) {
+				console.log(err);
+			}
+			
+			return res.redirect('/members');
 		});
 	};
 };
@@ -38,9 +43,9 @@ exports.edit_form = function (mongoose) {
 		var Member = mongoose.model('Member');
 		Member.findOne({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err, item) {
 			if (err) {
-				res.json(404, {error: 'No such member'});
+				return res.json(404, {error: 'No such member'});
 			} else {
-				res.render('members/edit', {member: item});
+				return res.render('members/edit', {member: item});
 			}
 		});
 	};

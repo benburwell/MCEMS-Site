@@ -12,5 +12,9 @@
     "node-schedule": "0.1.8",
     "moment": "2.0.0",
     "postmark": "*"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
   }
 }
