@@ -25,8 +25,8 @@ var Schema = mongoose.Schema;
 
 // create models
 mongoose.model('Shift', new Schema(models.shift));
-mongoose.model('User', new Schema(models.member));
-mongoose.model('Member', new Schema(models.user));
+mongoose.model('User', new Schema(models.user));
+mongoose.model('Member', new Schema(models.member));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
