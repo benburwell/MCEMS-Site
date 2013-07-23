@@ -95,10 +95,8 @@ exports.create = function (mongoose, postmark) {
 					+ "\t Password: " + req.body.password + "\n\n"
 					+ "To log in, go to https://bergems.herokuapp.com/login \n\n"
 			}, function (error, success) {
-				return;
+				return res.redirect('/users');
 			});
-
-			return res.redirect('/users');
 		});
 	};
 };
