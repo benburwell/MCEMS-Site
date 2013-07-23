@@ -1,8 +1,4 @@
-var mongoose;
-exports._connect = function (m) {
-	mongoose = m;
-	return;
-};
+var mongoose = require('mongoose');
 
 exports.shift = {
 	start: Date,
@@ -12,7 +8,7 @@ exports.shift = {
 	driver: Boolean,
 	probationary: Boolean,
 	crew_chief: Boolean,
-	_member: { type: mongoose.Types.ObjectId, ref: 'Member' }
+	_member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' }
 };
 
 exports.member = {
@@ -24,14 +20,14 @@ exports.member = {
 	probationary: Boolean,
 	driver: Boolean,
 	crew_chief: Boolean,
-	shifts: [ { type: mongoose.Types.ObjectId, ref: 'Shift' } ]
+	shifts: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Shift' } ]
 };
 
 exports.user = {
 	username: String,
 	password: String,
 	last_login: Date,
-	_member: { type: mongoose.Types.ObjectId, ref: 'Member' },
+	_member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
 	email: String,
 	permissions: {
 		schedule: {
