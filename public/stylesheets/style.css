@@ -27,3 +27,8 @@ nav.main a {
 .hidden  {
 	display: none;
 }
+
+.error {
+	color: #900;
+	font-style: italic;
+}

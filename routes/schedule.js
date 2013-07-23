@@ -112,7 +112,7 @@ exports.month_schedule = function (mongoose) {
 				}
 			});
 
-			res.render('schedule/schedule', {
+			return res.render('schedule/schedule', {
 				days: days,
 				month: now.format('MMMM'),
 				year: now.format('YYYY'),

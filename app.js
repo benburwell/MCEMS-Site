@@ -7,6 +7,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	http = require('http'),
 	path = require('path'),
+	postmark = require('postmark')(process.env.POSTMARK_API_KEY),
 
 	// models for mongoose
 	models = require('./models'),
@@ -73,7 +74,7 @@ app.get('/shift/:shift_id', schedule.get_shift(mongoose));
 // user management
 app.get('/users', user.list(mongoose));
 app.get('/users/create', user.create_form(mongoose));
-app.post('/users/create', user.create(mongoose));
+app.post('/users/create', user.create(mongoose, postmark));
 
 // member management
 app.get('/members', member.list(mongoose));

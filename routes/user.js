@@ -52,7 +52,7 @@ exports.list = function (mongoose) {
 				res.json(500, {error: 'Error retriving users'});
 				return;
 			}
-			res.render('users/list', {users: users});
+			return res.render('users/list', {users: users});
 		});
 	};
 };
@@ -61,12 +61,12 @@ exports.create_form = function (mongoose) {
 	return function (req, res) {
 		var Member = mongoose.model('Member');
 		Member.find(function (err, members, count) {
-			res.render('users/create', {members: members});
+			return res.render('users/create', {members: members});
 		});
 	};
 };
 
-exports.create = function (mongoose) {
+exports.create = function (mongoose, postmark) {
 	return function (req, res) {
 
 		var User = mongoose.model('User');
@@ -84,7 +84,21 @@ exports.create = function (mongoose) {
 			},
 			_member: req.body.member
 		}).save(function (err, user, count) {
-			res.redirect('/users');
+
+			postmark.send({
+				'From': 'bburwell1@gmail.com',
+				'To': req.body.email,
+				'Subject': 'MCEMS Account Created',
+				'TextBody': "Hello! \n\n"
+					+ "An account has been created for you on the MCEMS website. \n\n"
+					+ "\t Username: " + req.body.username + "\n"
+					+ "\t Password: " + req.body.password + "\n\n"
+					+ "To log in, go to https://bergems.herokuapp.com/login \n\n"
+			}, function (error, success) {
+				return;
+			});
+
+			return res.redirect('/users');
 		});
 	};
 };
