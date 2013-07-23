@@ -77,7 +77,15 @@ exports.create = function (req, res) {
 		email: req.body.email,
 		last_login: null,
 		permissions: {
-			calendar: {
+			schedule: {
+				view: true,
+				edit: true
+			},
+			users: {
+				view: true,
+				edit: true
+			},
+			members: {
 				view: true,
 				edit: true
 			}
