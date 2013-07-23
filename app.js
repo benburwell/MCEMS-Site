@@ -38,6 +38,7 @@ mongoose.connect(uristring);
 member._connect(mongoose, postmark);
 user._connect(mongoose, postmark);
 schedule._connect(mongoose, postmark);
+jsonFeed._connect(mongoose, postmark);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
