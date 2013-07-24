@@ -67,7 +67,7 @@ exports.create = function (req, res) {
 	var User = mongoose.model('User');
 
 	var member = (req.body.member == '----')?
-		null : mongoose.Schema.Types.ObjectId.fromString(req.body.member);
+		null : mongoose.Types.ObjectId.fromString(req.body.member);
 
 	new User({
 		username: req.body.username,
