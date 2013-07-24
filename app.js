@@ -80,6 +80,8 @@ app.get('/shift/:shift_id', schedule.get_shift);
 app.get('/users', user.list);
 app.get('/users/create', user.create_form);
 app.post('/users/create', user.create);
+app.get('/users/edit/:user_id', user.edit_form);
+app.post('/users/edit/:user_id', user.edit);
 
 // member management
 app.get('/members', member.list);

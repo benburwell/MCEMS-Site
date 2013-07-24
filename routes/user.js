@@ -6,13 +6,8 @@ exports._connect = function (m, p) {
 }
 
 exports.login_form = function (req, res) {
-	
-	if (req.session.showInvalidMessage) {
-		res.render('login', {invalid: true});
-	} else {
-		res.render('login');
-	}
-
+	var invalid = req.session.showInvalidMessage? true : false;
+	res.render('login', { invalid: invalid });
 	req.session.showInvalidMessage = false;
 };
 
@@ -71,6 +66,9 @@ exports.create = function (req, res) {
 
 	var User = mongoose.model('User');
 
+	var member = (req.body.member == '----')?
+		null : mongoose.Schema.Types.ObjectId.fromString(req.body.member);
+
 	new User({
 		username: req.body.username,
 		password: req.body.password,
@@ -90,7 +88,7 @@ exports.create = function (req, res) {
 				edit: true
 			}
 		},
-		_member: mongoose.Types.ObjectId.fromString(req.body.member)
+		_member: member
 	}).save(function (err, user, count) {
 
 		postmark.send({
@@ -103,7 +101,33 @@ exports.create = function (req, res) {
 				+ "\t Password: " + req.body.password + "\n\n"
 				+ "To log in, go to https://bergems.herokuapp.com/login \n\n"
 		}, function (error, success) {
+			if (error) {
+				console.log('postmark error: '+error);
+			}
 			return res.redirect('/users');
 		});
 	});
+};
+
+exports.edit_form = function (req, res) {
+	if (req.params.user_id) {
+		var User = mongoose.model('User');
+
+		User.findOne({
+			_id: mongoose.Schema.Types.ObjectId.fromString(req.params.user_id)
+		},
+		function (err, user) {
+			res.render('users/edit', {user: user});
+		});
+
+	} else {
+		res.render('error', {
+			title: 'No such user',
+			message: 'The user you selected does not appear to exist.'
+		});
+	}
+};
+
+exports.edit = function (req, res) {
+	res.redirect('/users');
 };
