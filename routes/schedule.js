@@ -14,6 +14,10 @@ exports.schedule = function (req, res) {
 
 exports.month_schedule = function (req, res) {
 
+	if (!req.session.member) {
+		return res.redirect('/');
+	}
+
 	// test that year and month are valid
 	var intRegex = /^\d+$/;
 	if (!intRegex.test(req.params.month) || !intRegex.test(req.params.year)) {
@@ -45,30 +49,36 @@ exports.month_schedule = function (req, res) {
 				number: "",
 				shifts: {
 					crew_chief: [],
-					member: []
+					member: [],
+					training_corps: []
 				},
 				incomplete: false,
-				in_month: false
+				in_month: false,
+				editable: true
 			}
 		} else if (i - month_start < days_in_month) {
 			day = {
 				number: i - month_start + 1,
 				shifts: {
 					crew_chief: [],
-					member: []
+					member: [],
+					training_corps: []
 				},
 				incomplete: false,
-				in_month: true
+				in_month: true,
+				editable: true
 			}
 		} else {
 			day = {
 				number: "",
 				shifts: {
 					crew_chief: [],
-					member: []
+					member: [],
+					training_corps: []
 				},
 				incomplete: false,
-				in_month: false
+				in_month: false,
+				editable: true
 			}
 		}
 		days[i] = day;
@@ -104,19 +114,28 @@ exports.month_schedule = function (req, res) {
 				unit: shift.unit,
 				driver: shift.driver,
 				probationary: shift.probationary,
-				crew_chief: shift.crew_chief
+				crew_chief: shift.crew_chief,
+				training_corps: shift.training_corps
 			};
 
+			var n = month_start + moment(shift.start).date() - 1;
+
 			if (shift.crew_chief) {
-				var n = month_start + moment(shift.start).date() - 1;
 				days[n].shifts.crew_chief.push(s);
+			} else if (shift.training_corps) {
+				days[n].shifts.training_corps.push(s);
 			} else {
-				var n = month_start + moment(shift.start).date() - 1;
 				days[n].shifts.member.push(s);
 			}
 		});
 
-		return res.render('schedule/schedule', {
+		var view = 'schedule/schedule_editOwn';
+
+		if (req.session.member.account.permissions.schedule) {
+			view = 'schedule/schedule_admin';
+		}
+
+		return res.render(view, {
 			days: days,
 			month: now.format('MMMM'),
 			year: now.format('YYYY'),
@@ -134,53 +153,65 @@ exports.month_schedule = function (req, res) {
 
 exports.create_shift = function (req, res) {
 
-	var Shift = mongoose.model('Shift');
+	if (req.session.member) {
 
-	new Shift({
-		start: new Date(req.body.start),
-		end: new Date(req.body.end),
-		name: req.body.name,
-		unit: req.body.unit,
-		crew_chief: (req.body.crew_chief == 'true')? true : false,
-		probationary: (req.body.probationary == 'true')? true : false,
-		driver: (req.body.driver == 'true')? true : false,
-		_member: null
-	}).save(function (err, shift, count) {
-		res.redirect('/schedule');
-	});
+		var Shift = mongoose.model('Shift');
+
+		display_name = req.session.member.name.first.substring(0, 1)
+			+ '. ' + req.session.member.name.last;
+
+		new Shift({
+			start: new Date(req.body.start),
+			end: new Date(req.body.end),
+			name: display_name,
+			unit: req.session.member.unit,
+			crew_chief: req.session.member.status.crew_chief,
+			probationary: req.session.member.status.probationary,
+			driver: req.session.member.status.driver,
+			training_corps: req.session.member.status.training_corps,
+			_member: req.session.member._id
+		}).save(function (err, shift, count) {
+			res.json(200, {status: 'ok'});
+		});
+	} else {
+		res.json(403, {status: 'not authorized'});
+	}
 };
 
 exports.delete_shift = function (req, res) {
-	var Shift = mongoose.model('Shift');
-	Shift.findOne({
-		_id: mongoose.Types.ObjectId.fromString(req.params.shift_id)
-	}).remove();
+	if (req.session.member) {
+		var Shift = mongoose.model('Shift');
+		Shift.findOne({
+			_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+			_member: req.session.member._id
+		}).remove();
 
-	res.json(200, {status: "complete"});
+		res.json(200, {status: "complete"});
+	} else {
+		res.json(401, {status: "unauthorized"});
+	}
 };
 
 exports.update_shift = function (req, res) {
-	var Shift = mongoose.model('Shift');
-	Shift.update(
-		{ _id: mongoose.Types.ObjectId.fromString(req.params.shift_id) },
-		{
+	if (req.session.member) {
+		var Shift = mongoose.model('Shift');
+		Shift.update({ 
+			_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+			_member: req.session.member._id
+		}, {
 			start: new Date(req.body.start),
-			end: new Date(req.body.end),
-			name: req.body.name,
-			unit: req.body.unit,
-			driver: (req.body.driver == 'true')? true : false,
-			probationary: (req.body.probationary == 'true')? true : false,
-			crew_chief: (req.body.crew_chief == 'true')? true : false,
-			_member: null
-		},
-		function (err, count) {
+			end: new Date(req.body.end)
+		}, function (err, count) {
 			if (err) {
 				res.json(500, {status: "error"});
 			} else {
 				res.json(200, {status: "success"});
 			}
-		}
-	);
+		});
+	} else {
+		res.json(401, {status: "unauthorized"});
+	}
+	
 };
 
 exports.get_shift = function (req, res) {

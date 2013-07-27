@@ -1,0 +1,119 @@
+extends ../layout
+
+block content
+	h1= 'Edit ' + member.name.first + ' ' + member.name.last
+	#reset_password_dialog(title="Reset Password")
+		.status
+	form(action="", method="post")
+		p First Name:
+			input(
+				type="text",
+				name="first_name",
+				value=member.name.first
+			)
+		p Last Name:
+			input(
+				type="text",
+				name="last_name",
+				value=member.name.last
+			)
+		p Username:
+			input(
+				type="text",
+				name="username",
+				value=member.account.username
+			)
+		p Password:
+			input(
+				type="password",
+				disabled="disabled",
+				value="123456"
+			)
+			button#resetPassword(type="button") Reset Password
+		p Login Enabled:
+			input(
+				type="checkbox",
+				name="login_enabled",
+				value="true",
+				checked=(member.account.login_enabled)? "checked" : undefined
+			)
+		p Unit:
+			input(
+				type="text",
+				name="unit",
+				value=member.unit
+			)
+		p Training Corps:
+			input(
+				type="checkbox", 
+				name="training_corps",
+				value="true",
+				checked=(member.status.training_corps)? "checked" : undefined
+			)
+		p Probationary:
+			input(
+				type="checkbox",
+				name="probationary",
+				value="true",
+				checked=(member.status.probationary)? "checked" : undefined
+			)
+		p EMT:
+			input(
+				type="checkbox",
+				name="emt",
+				value="true",
+				checked=(member.status.emt)? "checked" : undefined
+			)
+		p Driver Trainee:
+			input(
+				type="checkbox",
+				name="driver_trainee",
+				value="true",
+				checked=(member.status.driver_trainee)? "checked" : undefined
+			)
+		p Driver:
+			input(
+				type="checkbox",
+				name="driver",
+				value="true",
+				checked=(member.status.driver)? "checked" : undefined
+			)
+		p Crew Chief Trainee:
+			input(
+				type="checkbox",
+				name="crew_chief_trainee",
+				value="true",
+				checked=(member.status.crew_chief_trainee)? "checked" : undefined
+			)
+		p Crew Chief:
+			input(
+				type="checkbox",
+				name="crew_chief",
+				value="true",
+				checked=(member.status.crew_chief)? "checked" : undefined
+			)
+		p Manage Schedule:
+			input(
+				type="checkbox",
+				name="schedule",
+				value="true",
+				checked=(member.account.permissions.schedule)? "checked" : undefined
+			)
+		p Manage Members:
+			input(
+				type="checkbox",
+				name="members",
+				value="true"
+				checked=(member.account.permissions.members)? "checked" : undefined
+			)
+		p Manage Accounts:
+			input(
+				type="checkbox",
+				name="accounts",
+				value="true",
+				checked=(member.account.permissions.members)? "checked" : undefined
+			)
+		p
+			input(type="submit", value="Save")
+	form(action="/members/delete/"+member._id, method="post")
+		input(type="submit", value="Delete")

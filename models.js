@@ -8,7 +8,11 @@ exports.shift = {
 	driver: Boolean,
 	probationary: Boolean,
 	crew_chief: Boolean,
-	_member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' }
+	training_corps: Boolean,
+	_member: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Member'
+	}
 };
 
 exports.member = {
@@ -17,30 +21,52 @@ exports.member = {
 		last: String
 	},
 	unit: Number,
-	probationary: Boolean,
-	driver: Boolean,
-	crew_chief: Boolean,
-	shifts: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Shift' } ]
-};
-
-exports.user = {
-	username: String,
-	password: String,
-	last_login: Date,
-	_member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
-	email: String,
-	permissions: {
-		schedule: {
-			view: Boolean,
-			edit: Boolean
+	join: Date,
+	separation: Date,
+	account: {
+		username: String,
+		password: {
+			hash: String,
+			salt: String,
+			reset_key: String,
+			reset_key_expiry: Date
 		},
-		users: {
-			view: Boolean,
-			edit: Boolean
-		},
-		members: {
-			view: Boolean,
-			edit: Boolean
+		last_login: Date,
+		created: Date,
+		login_enabled: Boolean,
+		permissions: {
+			schedule: Boolean,
+			site: Boolean,
+			files: Boolean,
+			members: Boolean,
+			accounts: Boolean
 		}
+	},
+	campus_box: String,
+	campus_address: String,
+	home_address: {
+		line_1: String,
+		line_2: String,
+		city: String,
+		state: String,
+		zip: String,
+		country: String
+	},
+	phone: String,
+	certifications: [{
+		type: String,
+		number: String,
+		issue: Date,
+		expiry: Date
+	}],
+	status: {
+		executive: String,
+		training_corps: Boolean,
+		probationary: Boolean,
+		emt: Boolean,
+		driver_trainee: Boolean,
+		driver: Boolean,
+		crew_chief_trainee: Boolean,
+		crew_chief: Boolean
 	}
 };

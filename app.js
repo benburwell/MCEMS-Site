@@ -8,13 +8,16 @@ var express = require('express'),
 	http = require('http'),
 	path = require('path'),
 	postmark = require('postmark')(process.env.POSTMARK_API_KEY),
+	crypto = require('crypto'),
 
 	// models for mongoose
 	models = require('./models'),
 
+	// pepper for passwords
+	pepper = require('./pepper'),
+
 	// routes
 	jsonFeed = require('./routes/json'),
-	user = require('./routes/user'),
 	member = require('./routes/member'),
 	schedule = require('./routes/schedule');
 
@@ -25,7 +28,6 @@ var Schema = mongoose.Schema;
 
 // create models
 mongoose.model('Shift', new Schema(models.shift));
-mongoose.model('User', new Schema(models.user));
 mongoose.model('Member', new Schema(models.member));
 
 // connect to db
@@ -36,7 +38,6 @@ mongoose.connect(uristring);
 
 // put mongoose in modules
 member._connect(mongoose, postmark);
-user._connect(mongoose, postmark);
 schedule._connect(mongoose, postmark);
 jsonFeed._connect(mongoose, postmark);
 
@@ -49,6 +50,10 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));
+app.use(function (req, res, next) {
+	res.locals.authMember = req.session.member;
+	next();
+});
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
@@ -60,13 +65,13 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', function (req, res) {
-	res.render('index', {user: req.session.user});
+	res.render('index', {member: req.session.member});
 });
 
 // client auth
-app.get('/login', user.login_form);
-app.post('/login', user.login);
-app.get('/logout', user.logout);
+app.get('/login', member.login_form);
+app.post('/login', member.login);
+app.get('/logout', member.logout);
 
 // schedule
 app.get('/schedule', schedule.schedule);
@@ -76,13 +81,6 @@ app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift);
 app.post('/schedule/shift/:shift_id', schedule.update_shift);
 app.get('/shift/:shift_id', schedule.get_shift);
 
-// user management
-app.get('/users', user.list);
-app.get('/users/create', user.create_form);
-app.post('/users/create', user.create);
-app.get('/users/edit/:user_id', user.edit_form);
-app.post('/users/edit/:user_id', user.edit);
-
 // member management
 app.get('/members', member.list);
 app.get('/members/create', member.create_form);
@@ -90,11 +88,13 @@ app.post('/members/create', member.create);
 app.get('/members/edit/:member', member.edit_form);
 app.post('/members/edit/:member', member.edit);
 app.post('/members/delete/:member', member.delete);
+app.post('/members/reset_password/:member', member.reset_password);
+app.get('/me/change_password', member.change_password_form);
+app.post('/me/change_password', member.change_password);
 
 // JSON feeds of the models
 app.get('/shifts.json', jsonFeed.shifts);
 app.get('/members.json', jsonFeed.members);
-app.get('/users.json', jsonFeed.users);
 
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {

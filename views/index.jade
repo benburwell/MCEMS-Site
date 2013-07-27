@@ -1,14 +1,4 @@
 extends layout
 
 block content
-    h1 Muhlenberg College EMS
-    if user
-        p
-            | Welcome, 
-            span= user.username
-            | &#160; &mdash; &#160;
-            a(href="/logout") Logout
-    else
-        p MCEMS is a student-run, volunteer EMS organization serving the campus of Muhlenberg College in Allentown, Pennsylvania.
-        p
-            a(href="/login") Log in to schedule shifts
+    p MCEMS is a student-run, volunteer EMS organization serving the campus of Muhlenberg College in Allentown, Pennsylvania.

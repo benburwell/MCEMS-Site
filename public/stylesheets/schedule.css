@@ -31,7 +31,7 @@ table.calendar .crew_chief .shift .name, .key .crew_chief {
 	font-weight: bold;
 }
 
-table.calendar .crew_chief {
+table.calendar .crew_chief, table.calendar .member {
 	padding-bottom: 7px;
 }
 
@@ -56,6 +56,10 @@ table.calendar .shift .probationary, .key .probationary {
 
 table.calendar .shift .driver, .key .driver {
 	color: #33f;
+}
+
+table.calendar .shift .training_corps, .key .training_corps {
+	color: #999;
 }
 
 table.calendar td:hover {

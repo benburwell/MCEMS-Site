@@ -9,11 +9,21 @@ html
     script(src='/jquery/jquery-ui.min.js')
     script(src='/javascripts/moment.min.js')
     script(src='/javascripts/schedule.js')
+    script(src='/javascripts/members.js')
   body
     .title Muhlenberg College EMS
     nav.main
         a(href="/") Home
-        a(href="/schedule") Schedule
-        a(href="/users") Users
-        a(href="/members") Members
+        if authMember
+            a(href="/schedule") Schedule
+            if authMember.account.permissions.members || authMember.account.permissions.accounts
+                a(href="/members") Members
+            a(href="/me/change_password") Change Password
+            a(href="/logout") Logout (
+                span= authMember.name.first
+                |  
+                span= authMember.name.last
+                | )
+        else
+            a(href="/login") Log In
     block content

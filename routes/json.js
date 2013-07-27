@@ -18,10 +18,3 @@ exports.members = function (req, res) {
 		res.json(200, items);
 	});
 };
-
-exports.users = function (req, res) {
-	var model = mongoose.model('User');
-	model.find(function (err, items, count) {
-		res.json(200, items);
-	});
-};

@@ -2,10 +2,9 @@ $(document).ready(function () {
 
 	// set up edit dialog
 	$('#edit_shift').dialog({
-		height: 500,
-		width: 400,
 		autoOpen: false,
 		modal: true,
+		width: 400,
 		buttons: {
 			"Remove": function () {
 
@@ -44,12 +43,7 @@ $(document).ready(function () {
 						+ $('#edit_end_hour').val()
 						+ ':'
 						+ $('#edit_end_minute').val()
-					),
-					name: $('#edit_name').val(),
-					unit: $('#edit_unit').val(),
-					crew_chief: $('#edit_crew_chief').is(':checked'),
-					driver: $('#edit_driver').is(':checked'),
-					probationary: $('#edit_probationary').is(':checked')
+					)
 				};
 
 				$.post(url, data).done(function () {
@@ -61,10 +55,9 @@ $(document).ready(function () {
 
 	// set up add dialog
 	$('#add_shift').dialog({
-		height: 500,
-		width: 400,
 		autoOpen: false,
 		modal: true,
+		width: 400,
 		buttons: {
 			"Add Shift": function () {
 				
@@ -92,12 +85,7 @@ $(document).ready(function () {
 						+ $('#end_hour').val()
 						+ ':'
 						+ $('#end_minute').val()
-					),
-					name: $('#name').val(),
-					unit: $('#unit').val(),
-					crew_chief: $('#crew_chief').is(':checked'),
-					driver: $('#driver').is(':checked'),
-					probationary: $('#probationary').is(':checked')
+					)
 				};
 
 				$.post(url, data).done(function () {
@@ -163,21 +151,6 @@ $(document).ready(function () {
 			$('#edit_end_day').val(shift_end.format('D'));
 			$('#edit_end_hour').val(shift_end.format('H'));
 			$('#edit_end_minute').val(shift_end.format('mm'));
-
-			$('#edit_name').val(shift.name);
-			$('#edit_unit').val(shift.unit);
-
-			if (shift.probationary) {
-				$('#edit_probationary').attr('checked', 'checked');
-			}
-
-			if (shift.driver) {
-				$('#edit_driver').attr('checked', 'checked');
-			}
-
-			if (shift.crew_chief) {
-				$('#edit_crew_chief').attr('checked', 'checked');
-			}
 
 			// finished loading, enable editing
 			$('#edit_shift').find('input').removeAttr('disabled');

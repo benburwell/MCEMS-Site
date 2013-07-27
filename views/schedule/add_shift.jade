@@ -1,44 +1,34 @@
 #add_shift(title="Add Shift")
-		p Start: 
-			span#start_month
-			span#start_day
-			span  at 
-			select#start_hour
-				- for (i = 0; i < 24; i++) {
-				option= i
-				- }
-			| :
-			select#start_minute
-				- for (i = 0; i < 60; i++) {
-				option= (i < 10)? '0' + i : i 
-				- }
-		p End:
-			select#end_month
-				- ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].forEach(function (month) {
-				option= month
-				- })
-			|  
-			select#end_day
-				- for (i = 1; i < 32; i ++) {
-				option= i
-				- }
-			|  at 
-			select#end_hour
-				- for (i = 0; i < 24; i++) {
-				option= i
-				- }
-			| :
-			select#end_minute
-				- for (i = 0; i < 60; i++) {
-				option= (i < 10)? '0' + i : i 
-				- }
-		p Name:
-			input#name
-		p Unit:
-			input#unit
-		p Driver
-			input#driver(type="checkbox")
-		p Probationary
-			input#probationary(type="checkbox")
-		p Crew Chief
-			input#crew_chief(type="checkbox")
+	p Start: 
+		span#start_month
+		span#start_day
+		span  at 
+		select#start_hour
+			- for (i = 0; i < 24; i++) {
+			option= i
+			- }
+		| :
+		select#start_minute
+			- for (i = 0; i < 60; i++) {
+			option= (i < 10)? '0' + i : i 
+			- }
+	p End:
+		select#end_month
+			- ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].forEach(function (month) {
+			option= month
+			- })
+		|  
+		select#end_day
+			- for (i = 1; i < 32; i ++) {
+			option= i
+			- }
+		|  at 
+		select#end_hour
+			- for (i = 0; i < 24; i++) {
+			option= i
+			- }
+		| :
+		select#end_minute
+			- for (i = 0; i < 60; i++) {
+			option= (i < 10)? '0' + i : i 
+			- }
