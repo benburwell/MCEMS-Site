@@ -115,7 +115,7 @@ app.get('/emergency_make_admin_account', function (req, res) {
 			username: 'admin',
 			password: {
 				salt: salt,
-				hash: pw.digest('hex');
+				hash: pw.digest('hex')
 			},
 			login_enabled: true,
 			permissions: {
