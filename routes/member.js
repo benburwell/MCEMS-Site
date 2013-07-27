@@ -305,9 +305,11 @@ exports.reset_password = function (req, res) {
 
 exports.delete = function (req, res) {
 	var Member = mongoose.model('Member');
-	Member.remove({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err) {
-		res.redirect('/members');
-	});
+	if (req.session.member && req.session.member.account.permissions.members) {
+		Member.remove({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err) {
+			res.redirect('/members');
+		});
+	}
 };
 
 exports.change_password_form = function (req, res) {
