@@ -4,15 +4,33 @@ block content
 	h1 Members
 	p
 		a(href="/members/create") Create Member
-	table
+	table.spread
 		tr
 			th Name
 			th Unit
+			th Username
+			th Login Enabled
+			th Training Corps
+			th Probationary
+			th EMT
+			th Driver Trainee
+			th Driver
+			th Crew Chief Trainee
+			th Crew Chief
 			th Actions
 
 		each member in members
 			tr
 				td= member.name.first + ' ' + member.name.last
 				td= member.unit
+				td= member.account.username
+				td= member.account.login_enabled? 'Yes' : ''
+				td= member.status.training_corps? 'Yes' : ''
+				td= member.status.probationary? 'Yes' : ''
+				td= member.status.emt? 'Yes' : ''
+				td= member.status.driver_trainee? 'Yes' : ''
+				td= member.status.driver? 'Yes' : ''
+				td= member.status.crew_chief_trainee? 'Yes' : ''
+				td= member.status.crew_chief? 'Yes' : ''
 				td
 					a(href='/members/edit/'+member._id) Edit

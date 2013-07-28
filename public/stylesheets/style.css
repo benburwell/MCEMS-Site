@@ -32,3 +32,7 @@ nav.main a {
 	color: #900;
 	font-style: italic;
 }
+
+table.spread td, table.spread th {
+	padding: 5px;
+}
