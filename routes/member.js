@@ -70,7 +70,11 @@ exports.list = function (req, res) {
 		|| req.session.member.account.permissions.accounts)) {
 
 		var Member = mongoose.model('Member');
-		Member.find(function (err, members, count) {
+		Member
+			.find()
+			.sort('name.last')
+			.sort('name.first')
+			.exec(function (err, members, count) {
 			if (err) {
 				return res.json(500, {error: err});
 			} else {
