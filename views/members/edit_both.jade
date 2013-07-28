@@ -113,6 +113,13 @@ block content
 				value="true",
 				checked=(member.account.permissions.accounts)? "checked" : undefined
 			)
+		p Manage Events:
+			input(
+				type="checkbox",
+				name="events",
+				value="true",
+				checked=(member.account.permissions.events)? "checked" : undefined
+			)
 		p
 			input(type="submit", value="Save")
 	form(action="/members/delete/"+member._id, method="post")

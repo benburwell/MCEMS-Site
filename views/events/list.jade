@@ -1,0 +1,17 @@
+extends ../layout
+block content
+	h1 Event Signups
+	if authMember
+		if authMember.account.permissions.events
+			a(href='/events/create') Create Event
+	if events.length != 0
+		ul
+			for event in events
+				li
+					a(href=event.link)= event.title
+					if authMember
+						if authMember.account.permissions.events
+							span  — 
+							a.danger(data=event.id, href='#', onclick="return false;") Delete
+	else
+		p No event signups to show.

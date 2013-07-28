@@ -39,7 +39,8 @@ exports.member = {
 			site: Boolean,
 			files: Boolean,
 			members: Boolean,
-			accounts: Boolean
+			accounts: Boolean,
+			events: Boolean
 		}
 	},
 	campus_box: String,
@@ -69,4 +70,13 @@ exports.member = {
 		crew_chief_trainee: Boolean,
 		crew_chief: Boolean
 	}
+};
+
+exports.event = {
+	title: String,
+	type: {
+		type: String,
+		enum: ['Medical', 'PR']
+	},
+	link: String
 };

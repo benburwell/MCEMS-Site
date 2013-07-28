@@ -1,0 +1,17 @@
+extends ../layout
+block content
+	h1 Create Event
+	form(action='/events/create', method='post')
+		p
+			label Title:
+			input(type="text", name="title")
+		p
+			label Type:
+			select(name="type")
+				option Medical
+				option PR
+		p
+			label Link:
+			input(type="text", name="link")
+		p
+			input(type="submit", value="Create Event")

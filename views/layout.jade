@@ -10,20 +10,26 @@ html
     script(src='/javascripts/moment.min.js')
     script(src='/javascripts/schedule.js')
     script(src='/javascripts/members.js')
+    script(src='/javascripts/events.js')
   body
     .title Muhlenberg College EMS
+    nav.auth
+        if authMember
+            span Loggged in as 
+            span= authMember.name.first + ' ' + authMember.name.last
+            span  — 
+            a(href="/me/change_password") Change Password
+            span  — 
+            a(href="/logout") Log Out
+        else
+            a(href="/login") Log In
     nav.main
         a(href="/") Home
         if authMember
             a(href="/schedule") Schedule
+            a(href="/events") Event Signups
             if authMember.account.permissions.members || authMember.account.permissions.accounts
                 a(href="/members") Members
-            a(href="/me/change_password") Change Password
-            a(href="/logout") Logout (
-                span= authMember.name.first
-                |  
-                span= authMember.name.last
-                | )
         else
             a(href="/login") Log In
     block content

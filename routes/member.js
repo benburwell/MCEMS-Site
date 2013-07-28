@@ -1,8 +1,6 @@
 var pepper = require('../pepper'),
 	crypto = require('crypto');
 
-var mongoose;
-
 var mongoose, postmark;
 exports._connect = function (m, p) {
 	mongoose = m;
@@ -142,7 +140,8 @@ exports.create = function (req, res) {
 					permissions: {
 						schedule: (req.body.schedule == 'true')? true : false,
 						members: (req.body.members == 'true')? true : false,
-						accounts: (req.body.accounts == 'true')? true : false
+						accounts: (req.body.accounts == 'true')? true : false,
+						events: (req.body.events == 'true')? true : false
 					}
 				},
 				status: {
@@ -208,7 +207,8 @@ exports.edit = function (req, res) {
 		'account.login_enabled': (req.body.login_enabled == 'true')? true : false,
 		'account.permissions.schedule': (req.body.schedule == 'true')? true : false,
 		'account.permissions.members': (req.body.members == 'true')? true : false,
-		'account.permissions.accounts': (req.body.accounts == 'true')? true : false
+		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
+		'account.permissions.events': (req.body.events == 'true')? true : false
 	};
 
 	var member = {
@@ -230,6 +230,7 @@ exports.edit = function (req, res) {
 		'account.permissions.schedule': (req.body.schedule == 'true')? true : false,
 		'account.permissions.members': (req.body.members == 'true')? true : false,
 		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
+		'account.permissions.events': (req.body.events == 'true')? true : false,
 		
 		'name.first': req.body.first_name,
 		'name.last': req.body.last_name,

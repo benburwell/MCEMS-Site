@@ -19,6 +19,7 @@ var express = require('express'),
 	// routes
 	jsonFeed = require('./routes/json'),
 	member = require('./routes/member'),
+	events = require('./routes/events'),
 	schedule = require('./routes/schedule');
 
 var app = express();
@@ -29,6 +30,7 @@ var Schema = mongoose.Schema;
 // create models
 mongoose.model('Shift', new Schema(models.shift));
 mongoose.model('Member', new Schema(models.member));
+mongoose.model('Event', new Schema(models.event));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -40,6 +42,7 @@ mongoose.connect(uristring);
 member._connect(mongoose, postmark);
 schedule._connect(mongoose, postmark);
 jsonFeed._connect(mongoose, postmark);
+events._connect(mongoose, postmark);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -92,6 +95,12 @@ app.post('/members/reset_password/:member', member.reset_password);
 app.get('/me/change_password', member.change_password_form);
 app.post('/me/change_password', member.change_password);
 
+// events
+app.get('/events', events.list);
+app.get('/events/create', events.create_form);
+app.post('/events/create', events.create);
+app.post('/events/delete/:event', events.delete);
+
 // JSON feeds of the models
 app.get('/shifts.json', jsonFeed.shifts);
 app.get('/members.json', jsonFeed.members);
@@ -133,3 +142,10 @@ app.get('/emergency_make_admin_account', function (req, res) {
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+// this will prevent heroku from sleeping
+setInterval(function () {
+	http.get('http://bergems.herokuapp.com/', function (res) {
+		console.log('Got home page');
+	});
+}, 45 * 60 * 1000);

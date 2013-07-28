@@ -40,3 +40,13 @@ table.spread td, table.spread th {
 table.spread tr:hover {
 	background-color: #ffc;
 }
+
+a.danger {
+	color: #900;
+}
+
+nav.auth {
+	font-size: 12px;
+	text-align: right;
+	margin: 5px;
+}
