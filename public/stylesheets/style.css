@@ -36,3 +36,7 @@ nav.main a {
 table.spread td, table.spread th {
 	padding: 5px;
 }
+
+table.spread tr:hover {
+	background-color: #ffc;
+}
