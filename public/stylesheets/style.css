@@ -33,12 +33,21 @@ nav.main a {
 	font-style: italic;
 }
 
+table.spread {
+	border-collapse: collapse;
+}
+
 table.spread td, table.spread th {
-	padding: 5px;
+	padding: 8px;
+	margin: 0;
 }
 
 table.spread tr:hover {
 	background-color: #ffc;
+}
+
+table.spread tr:first-child:hover {
+	background-color: transparent;
 }
 
 a.danger {
@@ -49,4 +58,17 @@ nav.auth {
 	font-size: 12px;
 	text-align: right;
 	margin: 5px;
+}
+
+.help {
+	color: #fff;
+	background-color: #900;
+	font-size: 12px;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 8px;
 }

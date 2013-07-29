@@ -64,7 +64,6 @@ $(document).ready(function () {
 				$('#add_shift').find('input').attr('disabled', 'disabled');
 				$('#add_shift').find('select').attr('disabled', 'disabled');
 
-				var url = '/schedule';
 				var data = {
 					start: new Date(
 						$('#start_month').text()
@@ -85,10 +84,15 @@ $(document).ready(function () {
 						+ $('#end_hour').val()
 						+ ':'
 						+ $('#end_minute').val()
-					)
+					),
+					member: null
 				};
 
-				$.post(url, data).done(function () {
+				if ($('#member_to_add').val() != undefined) {
+					data.member = $('#member_to_add').val();
+				}
+
+				$.post('/schedule', data).done(function () {
 					location.reload();
 				});
 			}

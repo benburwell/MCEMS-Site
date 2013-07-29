@@ -32,3 +32,12 @@
 			- for (i = 0; i < 60; i++) {
 			option= (i < 10)? '0' + i : i 
 			- }
+	if authMember
+		if authMember.account.permissions.schedule
+			p Member:
+				select#member_to_add
+					for member in members
+						option(
+							value=member.id,
+							checked=(member._id == authMember._id)? 'checked' : undefined
+						)= member.name.first + ' ' + member.name.last
