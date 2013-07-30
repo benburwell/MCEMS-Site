@@ -100,7 +100,7 @@ $(document).ready(function () {
 	});
 
 	// add shift popup on click
-	$('.calendar td').not('.null').on('click', function () {
+	$('.calendar td.editable').on('click', function () {
 		var date = $(this).children('.date').first().text();
 		$('#add_shift').dialog('open');
 
@@ -126,9 +126,10 @@ $(document).ready(function () {
 	});
 
 	// edit shift popup on click
-	$('table.calendar .shift .name').on('click', function (e) {
+	$('table.calendar td.editable .shift.editable .name').on('click', function (e) {
 
 		e.stopPropagation();
+		$(this).focus();
 
 		// set data for delete
 		var id = $(this).attr('data');

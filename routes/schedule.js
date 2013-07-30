@@ -7,6 +7,33 @@ exports._connect = function (m, p) {
 	return;
 }
 
+var beginEditingForMoment = function (m) {
+	return moment(m)
+		.subtract('months', 1)
+		.date(15)
+		.hour(0)
+		.minute(0)
+		.second(0);
+};
+
+var endEditingForMoment = function (m) {
+	return moment(m)
+		.subtract('months', 1)
+		.endOf('month')
+		.hour(23)
+		.minute(59)
+		.second(59);
+};
+
+// for checking if a moment is editable by non-schedulers
+var momentIsEditable = function (m) {
+
+	var start = beginEditingForMoment(m);
+	var end = endEditingForMoment(m);
+
+	return start <= moment() && moment() < end;
+};
+
 exports.schedule = function (req, res) {
 	var now = moment();
 	res.redirect('/schedule/' + now.year() + '/' + now.format('MM') );
@@ -39,48 +66,34 @@ exports.month_schedule = function (req, res) {
 
 	var days_in_month = now.endOf("month").date();
 
+	var month_is_editable = req.session.member.account.permissions.schedule
+		|| momentIsEditable(now);
+
 	// set up days
 	for (var i = 0; i < 42; i++) {
 
-		var day;
+		var day = {
+			number: "",
+			shifts: {
+				crew_chief: [],
+				member: [],
+				training_corps: []
+			},
+			incomplete: false,
+			in_month: true,
+			editable: month_is_editable
+		};
 
 		if (i < month_start) {
-			day = {
-				number: "",
-				shifts: {
-					crew_chief: [],
-					member: [],
-					training_corps: []
-				},
-				incomplete: false,
-				in_month: false,
-				editable: true
-			}
+			day.in_month = false;
+			day.editable = false;
 		} else if (i - month_start < days_in_month) {
-			day = {
-				number: i - month_start + 1,
-				shifts: {
-					crew_chief: [],
-					member: [],
-					training_corps: []
-				},
-				incomplete: false,
-				in_month: true,
-				editable: true
-			}
+			day.number = i - month_start + 1;
 		} else {
-			day = {
-				number: "",
-				shifts: {
-					crew_chief: [],
-					member: [],
-					training_corps: []
-				},
-				incomplete: false,
-				in_month: false,
-				editable: true
-			}
+			day.in_month = false;
+			day.editable = false;
 		}
+
 		days[i] = day;
 	}
 
@@ -104,6 +117,9 @@ exports.month_schedule = function (req, res) {
 
 		shifts.forEach(function (shift) {
 
+			var shiftEditable = req.session.member.account.permissions.schedule
+				|| shift._member == req.session.member._id;
+
 			var s = {
 				id: shift.id,
 				start: moment(shift.start).format('HHmm'),
@@ -115,31 +131,14 @@ exports.month_schedule = function (req, res) {
 				driver: shift.driver,
 				probationary: shift.probationary,
 				crew_chief: shift.crew_chief,
-				training_corps: shift.training_corps
+				training_corps: shift.training_corps,
+				editable: shiftEditable
 			};
 
 			var n = month_start + moment(shift.start).date() - 1;
 
 			if (shift.crew_chief) {
-
 				days[n].shifts.crew_chief.push(s);
-
-				if (days[n].cc_start) {
-					if (days[n].cc_start > shift.start) {
-						days[n].cc_start = shift.start;
-					}
-				} else {
-					days[n].cc_start = shift.start;
-				}
-
-				if (days[n].cc_end) {
-					if (days[n].cc_end < shift.end) {
-						days[n].cc_end = shift.end;
-					}
-				} else {
-					days[n].cc_end = shift.end;
-				}
-
 			} else if (shift.training_corps) {
 				days[n].shifts.training_corps.push(s);
 			} else {
@@ -177,49 +176,55 @@ exports.create_shift = function (req, res) {
 
 	if (req.session.member) {
 
-		var Shift = mongoose.model('Shift');
+		if (req.session.member.account.permissions.schedule
+			|| momentIsEditable( moment(req.body.start) )) {
 
-		if (req.session.member.account.permissions.schedule) {
-			var id = mongoose.Types.ObjectId.fromString(req.body.member);
+			var Shift = mongoose.model('Shift');
 
-			var Member = mongoose.model('Member');
-			Member.findOne({_id: id}, function (err, member) {
+			if (req.session.member.account.permissions.schedule) {
+				var id = mongoose.Types.ObjectId.fromString(req.body.member);
+
+				var Member = mongoose.model('Member');
+				Member.findOne({_id: id}, function (err, member) {
+					var data = {
+						start: new Date(req.body.start),
+						end: new Date(req.body.end),
+						name: member.name.first.substring(0, 1) + '. '
+							+ member.name.last,
+						unit: member.unit,
+						crew_chief: member.status.crew_chief,
+						probationary: member.status.probationary,
+						driver: member.status.driver,
+						training_corps: member.status.training_corps,
+						_member: member._id
+					};
+
+					new Shift(data).save(function (err) {
+						res.json(200, {status: 'ok'});
+					});
+				})
+			} else {
+				var display_name = req.session.member.name.first.substring(0, 1)
+				+ '. ' + req.session.member.name.last;
+
 				var data = {
 					start: new Date(req.body.start),
 					end: new Date(req.body.end),
-					name: member.name.first.substring(0, 1) + '. '
-						+ member.name.last,
-					unit: member.unit,
-					crew_chief: member.status.crew_chief,
-					probationary: member.status.probationary,
-					driver: member.status.driver,
-					training_corps: member.status.training_corps,
-					_member: member._id
+					name: display_name,
+					unit: req.session.member.unit,
+					crew_chief: req.session.member.status.crew_chief,
+					probationary: req.session.member.status.probationary,
+					driver: req.session.member.status.driver,
+					training_corps: req.session.member.status.training_corps,
+					_member: req.session.member._id
 				};
 
 				new Shift(data).save(function (err) {
 					res.json(200, {status: 'ok'});
 				});
-			})
+			}
 		} else {
-			var display_name = req.session.member.name.first.substring(0, 1)
-			+ '. ' + req.session.member.name.last;
-
-			var data = {
-				start: new Date(req.body.start),
-				end: new Date(req.body.end),
-				name: display_name,
-				unit: req.session.member.unit,
-				crew_chief: req.session.member.status.crew_chief,
-				probationary: req.session.member.status.probationary,
-				driver: req.session.member.status.driver,
-				training_corps: req.session.member.status.training_corps,
-				_member: req.session.member._id
-			};
-
-			new Shift(data).save(function (err) {
-				res.json(200, {status: 'ok'});
-			});
+			res.json(401, {status: 'not authorized'});
 		}
 	} else {
 		res.json(403, {status: 'not authorized'});
@@ -234,15 +239,26 @@ exports.delete_shift = function (req, res) {
 		if (req.session.member.account.permissions.schedule) {
 			Shift.findOne({
 				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id)
-			}).remove();
+			}).remove(function (err) {
+				res.json(200, {status: 'complete'});
+			});
 		} else {
 			Shift.findOne({
 				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
 				_member: req.session.member._id
-			}).remove();
-		}
+			}, function (err, shift) {
 
-		res.json(200, {status: "complete"});
+				if (momentIsEditable( moment(shift.start) )) {
+					Shift.remove({
+						_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+						_member: req.session.member._id
+					}, function (err) {
+						res.json(200, {status: "complete"});
+					});
+				}
+
+			});
+		}
 	} else {
 		res.json(401, {status: "unauthorized"});
 	}
@@ -264,14 +280,23 @@ exports.update_shift = function (req, res) {
 			};
 		}
 
-		Shift.update(search, {
-			start: new Date(req.body.start),
-			end: new Date(req.body.end)
-		}, function (err, count) {
-			if (err) {
-				res.json(500, {status: "error"});
+		Shift.findOne(search, function (err, shift) {
+
+			if (req.session.member.account.permissions.schedule
+				|| momentIsEditable( moment(shift.start) )) {
+
+				Shift.update(search, {
+					start: new Date(req.body.start),
+					end: new Date(req.body.end)
+				}, function (err, count) {
+					if (err) {
+						res.json(500, {status: "error"});
+					} else {
+						res.json(200, {status: "success"});
+					}
+				});
 			} else {
-				res.json(200, {status: "success"});
+				res.json(401, {status: "unauthorized"});
 			}
 		});
 	} else {

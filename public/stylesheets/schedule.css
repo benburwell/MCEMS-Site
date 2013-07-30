@@ -62,14 +62,9 @@ table.calendar .shift .training_corps, .key .training_corps {
 	color: #999;
 }
 
-table.calendar td:hover {
+table.calendar td.editable:hover {
 	background-color: #ffffcc;
 	cursor: pointer;
-}
-
-table.calendar td.null:hover {
-	background-color: #ccc;
-	cursor: default;
 }
 
 table.calendar td.incomplete:hover {
@@ -83,7 +78,7 @@ table.calendar td.incomplete:hover {
 	font-size: 12px;
 }
 
-table.calendar .shift .name:hover {
+table.calendar td.editable .shift.editable .name:hover {
 	border-bottom: 1px solid #000;
 }
 
