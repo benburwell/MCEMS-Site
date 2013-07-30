@@ -171,7 +171,11 @@ exports.month_schedule = function (req, res) {
 		}
 
 		var Member = mongoose.model('Member');
-		Member.find(function (err, members) {
+		Member
+			.find()
+			.sort('name.last')
+			.sort('name.first')
+			.exec(function (err, members) {
 
 			var System = mongoose.model('System');
 			System.findOne({property: 'schedule_message'}, function (err, msg) {
