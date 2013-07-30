@@ -363,3 +363,16 @@ exports.change_password = function (req, res) {
 		res.redirect('/');
 	}
 };
+
+exports.display_self = function (req, res) {
+	if (req.session.member) {
+		if (req.session.member.account.permissions.members
+			|| req.session.member.account.permissions.accounts) {
+			res.redirect('/members/edit/' + req.session.member._id);
+		} else {
+			res.render('members/self', {member: req.session.member});
+		}
+	} else {
+		res.redirect('/');
+	}
+}

@@ -17,7 +17,10 @@ html
     nav.auth
         if authMember
             span Loggged in as 
-            span= authMember.name.first + ' ' + authMember.name.last
+            if authMember.account.permissions.accounts || authMember.account.permissions.members
+                a(href='/members/edit/' + authMember._id)= authMember.name.first + ' ' + authMember.name.last
+            else
+                a(href='/me')= authMember.name.first + ' ' + authMember.name.last
             span  — 
             a(href="/me/change_password") Change Password
             span  — 

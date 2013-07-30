@@ -97,6 +97,7 @@ app.post('/members/delete/:member', member.delete);
 app.post('/members/reset_password/:member', member.reset_password);
 app.get('/me/change_password', member.change_password_form);
 app.post('/me/change_password', member.change_password);
+app.get('/me', member.display_self);
 
 // events
 app.get('/events', events.list);

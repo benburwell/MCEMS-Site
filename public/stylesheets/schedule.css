@@ -105,3 +105,7 @@ table.calendar td.editable .shift.editable .name:hover {
 #message.editable:hover {
 	cursor: pointer;
 }
+
+#message #updated_message {
+	width: 500px;
+}
