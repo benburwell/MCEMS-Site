@@ -144,13 +144,6 @@ app.get('/emergency_make_admin_account', function (req, res) {
 	});
 });
 
-app.get('/hook', function (req, res) {
-	var System = mongoose.model('System');
-	new System({property: 'schedule_message', value: 'no message'}).save(function (err) {
-		res.redirect('/');
-	});
-});
-
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
