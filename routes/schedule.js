@@ -154,19 +154,24 @@ exports.month_schedule = function (req, res) {
 
 		var Member = mongoose.model('Member');
 		Member.find(function (err, members) {
-			return res.render(view, {
-				days: days,
-				month: now.format('MMMM'),
-				year: now.format('YYYY'),
-				prev_month: {
-					name: prev_month.format('MMMM'),
-					url: '/schedule/' + prev_month.year() + '/' + (prev_month.month()+1)
-				},
-				next_month: {
-					name: next_month.format('MMMM'),
-					url: '/schedule/' + next_month.year() + '/' + (next_month.month()+1)
-				},
-				members: members
+
+			var System = mongoose.model('System');
+			System.findOne({property: 'schedule_message'}, function (err, msg) {
+				return res.render(view, {
+					days: days,
+					month: now.format('MMMM'),
+					year: now.format('YYYY'),
+					prev_month: {
+						name: prev_month.format('MMMM'),
+						url: '/schedule/' + prev_month.year() + '/' + (prev_month.month()+1)
+					},
+					next_month: {
+						name: next_month.format('MMMM'),
+						url: '/schedule/' + next_month.year() + '/' + (next_month.month()+1)
+					},
+					members: members,
+					message: msg.value
+				});
 			});
 		});
 	});
@@ -319,4 +324,26 @@ exports.get_shift = function (req, res) {
 	} else {
 		res.json(401, {error: 'unauthorized'});
 	}
+};
+
+exports.edit_message = function (req, res) {
+
+	if (req.session.member) {
+		if (req.session.member.account.permissions.schedule) {
+
+			var System = mongoose.model('System');
+			System.update(
+				{property: 'schedule_message'},
+				{value: req.body.message},
+				function (err) {
+					res.redirect('/schedule');
+				});
+
+		} else {
+			res.redirect('/schedule');
+		}
+	} else {
+		res.redirect('/');
+	}
+
 };

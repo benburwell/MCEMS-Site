@@ -14,6 +14,14 @@ block content
 		a(href="/schedule") Today
 		|  — 
 		a(href=next_month.url)= next_month.name + " »"
+
+	if authMember.account.permissions.schedule
+		if message
+			#message.editable= message
+		else
+			#message.editable Click to Add Message
+	else if message
+		#message= message
 	
 	.key
 		span.crew_chief Crew Chief

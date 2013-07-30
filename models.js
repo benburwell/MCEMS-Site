@@ -80,3 +80,8 @@ exports.event = {
 	},
 	link: String
 };
+
+exports.system = {
+	property: String,
+	value: String
+}

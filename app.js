@@ -31,6 +31,7 @@ var Schema = mongoose.Schema;
 mongoose.model('Shift', new Schema(models.shift));
 mongoose.model('Member', new Schema(models.member));
 mongoose.model('Event', new Schema(models.event));
+mongoose.model('System', new Schema(models.system));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -84,6 +85,8 @@ app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift);
 app.post('/schedule/shift/:shift_id', schedule.update_shift);
 app.get('/shift/:shift_id', schedule.get_shift);
 
+app.post('/schedule/message', schedule.edit_message);
+
 // member management
 app.get('/members', member.list);
 app.get('/members/create', member.create_form);
@@ -135,6 +138,13 @@ app.get('/emergency_make_admin_account', function (req, res) {
 		}
 	}).save(function (err, member) {
 		return res.redirect('/login');
+	});
+});
+
+app.get('/hook', function (req, res) {
+	var System = mongoose.model('System');
+	new System({property: 'schedule_message', value: 'no message'}).save(function (err) {
+		res.redirect('/');
 	});
 });
 

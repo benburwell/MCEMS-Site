@@ -163,5 +163,34 @@ $(document).ready(function () {
 		});
 		
 	});
+	
+	var editingMessage = false;
 
+	$('#message.editable').on('click', function (e) {
+
+		if (!editingMessage) {
+			editingMessage = true;
+			$('#message').html(
+				'<input id="updated_message" type="text" value="'
+				+ $('#message').text()
+				+ '"> '
+				+ '<button type="button" id="update_message">Save</button>'
+				);
+
+				$('#updated_message').focus();
+
+			$('#update_message').on('click', function () {
+
+				$('#updated_message').attr('disabled', 'disabled');
+				$('#update_message').attr('disabled', 'disabled');
+
+				$.post('/schedule/message', {
+					message: $('#updated_message').val()
+				}).done(function () {
+					$('#message').html($('#updated_message').val());
+					editingMessage = false;
+				});
+			});
+		}
+	});
 });

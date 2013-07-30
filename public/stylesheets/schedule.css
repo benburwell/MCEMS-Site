@@ -86,3 +86,15 @@ table.calendar td.editable .shift.editable .name:hover {
 	padding-left: 2px;
 	padding-right: 2px;
 }
+
+#message {
+	text-align: center;
+	background-color: #ffc;
+	padding: 8px;
+	color: #666;
+	border: 1px solid #ccc;
+}
+
+#message.editable:hover {
+	cursor: pointer;
+}
