@@ -92,7 +92,14 @@ table.calendar td.editable .shift.editable .name:hover {
 	background-color: #ffc;
 	padding: 8px;
 	color: #666;
-	border: 1px solid #ccc;
+	border-width: 1px;
+	border-color: #eee;
+	border-top-style: none;
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	margin-left: 50px;
+	margin-right: 50px;
 }
 
 #message.editable:hover {
