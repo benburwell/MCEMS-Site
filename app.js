@@ -84,7 +84,9 @@ app.post('/schedule', schedule.create_shift);
 app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift);
 app.post('/schedule/shift/:shift_id', schedule.update_shift);
 app.get('/shift/:shift_id', schedule.get_shift);
-
+app.get('/schedule/requirements.json', schedule.get_requirements);
+app.get('/schedule/requirements/:member.json', schedule.get_requirements_for_member)
+app.get('/schedule/requirements', schedule.requirements_form);
 app.post('/schedule/message', schedule.edit_message);
 
 // member management

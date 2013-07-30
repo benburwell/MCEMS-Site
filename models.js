@@ -69,7 +69,15 @@ exports.member = {
 		driver: Boolean,
 		crew_chief_trainee: Boolean,
 		crew_chief: Boolean
-	}
+	},
+	shift_requirements: [
+		{
+			year: Number,
+			month: Number,
+			weekdays: Number,
+			weekends: Number
+		}
+	]
 };
 
 exports.event = {
@@ -84,4 +92,4 @@ exports.event = {
 exports.system = {
 	property: String,
 	value: String
-}
+};

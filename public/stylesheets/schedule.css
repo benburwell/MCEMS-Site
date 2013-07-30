@@ -100,6 +100,8 @@ table.calendar td.editable .shift.editable .name:hover {
 	border-right-style: solid;
 	margin-left: 50px;
 	margin-right: 50px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 
 #message.editable:hover {

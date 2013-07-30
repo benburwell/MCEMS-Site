@@ -8,6 +8,15 @@ exports._connect = function (m, p) {
 }
 
 var beginEditingForMoment = function (m) {
+
+	if (m.month() == 8) {
+		return moment(m)
+			.date(1)
+			.hour(0)
+			.minute(0)
+			.second(0);
+	}
+
 	return moment(m)
 		.subtract('months', 1)
 		.date(15)
@@ -17,6 +26,15 @@ var beginEditingForMoment = function (m) {
 };
 
 var endEditingForMoment = function (m) {
+
+	if (m.month() == 8) {
+		return moment(m)
+			.date(15)
+			.hour(23)
+			.minute(59)
+			.second(59);
+	}
+
 	return moment(m)
 		.subtract('months', 1)
 		.endOf('month')
@@ -345,5 +363,44 @@ exports.edit_message = function (req, res) {
 	} else {
 		res.redirect('/');
 	}
+};
+
+exports.get_requirements = function (req, res) {
+
+	if (!req.session.member) {
+		return res.redirect('/');
+	}
+
+	res.json(200, {requirements: req.session.member.shift_requirements});
+};
+
+exports.get_requirements_for_member = function (req, res) {
+
+	if (req.session.member
+		&& req.session.member.account.permissions.schedule) {
+
+		var Member = mongoose.model('Member');
+		Member.findOne(
+			{ _id: mongoose.Types.ObjectId.fromString(req.params.member)},
+			function (err, member) {
+				res.json(200, {requirements: member.shift_requirements});
+			});
+
+	} else {
+		res.json(401, {status: 'not authorized'});
+	}
+
+}
+
+exports.requirements_form = function (req, res) {
+
+	if (!req.session.member) {
+		return res.redirect('/');
+	}
+
+	if (!req.session.member.account.permissions.schedule) {
+		return res.redirect('/schedule');
+	}
+
 
 };
