@@ -39,5 +39,5 @@
 					for member in members
 						option(
 							value=member.id,
-							checked=(member._id == authMember._id)? 'checked' : undefined
+							selected=(member._id == authMember._id)? 'selected' : undefined
 						)= member.name.first + ' ' + member.name.last
