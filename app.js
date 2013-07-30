@@ -111,39 +111,6 @@ app.post('/events/delete/:event', events.delete);
 app.get('/shifts.json', jsonFeed.shifts);
 app.get('/members.json', jsonFeed.members);
 
-app.get('/emergency_make_admin_account', function (req, res) {
-
-	var salt = '123456asdfjklwefb82';
-	var pw = crypto.createHash('sha1');
-	pw.update('temp_123');
-	pw.update(salt);
-	pw.update(pepper.pepper);
-
-
-	var Member = mongoose.model('Member');
-	new Member({
-		name: {
-			first: 'Admin',
-			last: 'User'
-		},
-		account: {
-			username: 'admin',
-			password: {
-				salt: salt,
-				hash: pw.digest('hex')
-			},
-			login_enabled: true,
-			permissions: {
-				schedule: true,
-				members: true,
-				accounts: true
-			}
-		}
-	}).save(function (err, member) {
-		return res.redirect('/login');
-	});
-});
-
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
