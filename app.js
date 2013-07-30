@@ -53,7 +53,7 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
-app.use(express.session({secret: '1234567890QWERTY'}));
+app.use(express.session({secret: pepper.secret}));
 app.use(function (req, res, next) {
 	res.locals.authMember = req.session.member;
 	next();
