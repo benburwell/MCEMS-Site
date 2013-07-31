@@ -2,7 +2,7 @@ extends schedule
 
 block day_cell
 	td(
-		class=(days[i].in_month? (days[i].editable? "editable" : "") : "null")
+		class=(days[i].in_month? (days[i].editable? ( (i%7 == 5 || i%7 == 6)? 'editable weekend' : 'editable') : "") : "null")
 	)
 		.date= days[i].number
 		.crew_chief

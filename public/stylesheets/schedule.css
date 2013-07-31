@@ -15,7 +15,7 @@ nav.calendar {
 table.calendar td {
 	width: 200px;
 	height: 200px;
-	border: 1px solid #ccc;
+	border: 1px solid #999;
 	vertical-align: top;
 }
 
@@ -24,7 +24,7 @@ table.calendar td.incomplete {
 }
 
 table.calendar td.null {
-	background-color: #ccc;
+	background-color: #999;
 }
 
 table.calendar .crew_chief .shift .name, .key .crew_chief {
@@ -60,6 +60,10 @@ table.calendar .shift .driver, .key .driver {
 
 table.calendar .shift .training_corps, .key .training_corps {
 	color: #999;
+}
+
+table.calendar td.weekend {
+	background-color: #eee;
 }
 
 table.calendar td.editable:hover {
