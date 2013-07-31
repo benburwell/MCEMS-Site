@@ -9,7 +9,7 @@ exports._connect = function (m, p) {
 
 var beginEditingForMoment = function (m) {
 
-	if (m.month() == 8) {
+	if (m.month() == 7) {
 		return moment(m)
 			.date(1)
 			.hour(0)
@@ -27,7 +27,7 @@ var beginEditingForMoment = function (m) {
 
 var endEditingForMoment = function (m) {
 
-	if (m.month() == 8) {
+	if (m.month() == 7) {
 		return moment(m)
 			.date(15)
 			.hour(23)
