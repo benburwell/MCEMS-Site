@@ -1,25 +1,22 @@
-
-/**
- * Module dependencies.
- */
-
-var express = require('express'),
+// require components
+var express  = require('express'),
 	mongoose = require('mongoose'),
-	http = require('http'),
-	path = require('path'),
+	http     = require('http'),
+	path     = require('path'),
 	postmark = require('postmark')(process.env.POSTMARK_API_KEY),
-	crypto = require('crypto'),
+	crypto   = require('crypto'),
 
 	// models for mongoose
-	models = require('./models'),
+	models   = require('./models'),
 
 	// pepper for passwords
-	pepper = require('./pepper'),
+	pepper   = require('./pepper'),
 
 	// routes
 	jsonFeed = require('./routes/json'),
-	member = require('./routes/member'),
-	events = require('./routes/events'),
+	member   = require('./routes/member'),
+	events   = require('./routes/events'),
+	pages    = require('./routes/pages'),
 	schedule = require('./routes/schedule');
 
 var app = express();
@@ -45,19 +42,23 @@ schedule._connect(mongoose, postmark);
 jsonFeed._connect(mongoose, postmark);
 events._connect(mongoose, postmark);
 
-// all environments
+// settings for all environments
 app.set('port', process.env.PORT || 3000);
-
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+// middleware stack
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(express.session({secret: pepper.secret }));
+
+// this will set authMember for easy use in Jade templates
 app.use(function (req, res, next) {
 	res.locals.authMember = req.session.member;
 	next();
 });
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
@@ -68,9 +69,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', function (req, res) {
-	res.render('index', {member: req.session.member});
-});
+// static content pages
+app.get('/', pages.index);
 
 // client auth
 app.get('/login', member.login_form);
