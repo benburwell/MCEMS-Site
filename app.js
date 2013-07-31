@@ -113,7 +113,7 @@ app.get('/members.json', jsonFeed.members);
 
 app.get('/postmark', function (req, res) {
 	postmark.send({
-		"From": "bburwell1@gmail.com",
+		"From": "bb246500@muhlenberg.edu",
 		"To": "bburwell1@gmail.com",
 		"Subject": "Test",
 		"TextBody": "Test Message"
