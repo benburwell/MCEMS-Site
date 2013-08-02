@@ -1,23 +1,25 @@
 // require components
-var express  = require('express'),
-	mongoose = require('mongoose'),
-	http     = require('http'),
-	path     = require('path'),
-	postmark = require('postmark')(process.env.POSTMARK_API_KEY),
-	crypto   = require('crypto'),
+var express      = require('express'),
+	mongoose     = require('mongoose'),
+	http         = require('http'),
+	path         = require('path'),
+	postmark     = require('postmark')(process.env.POSTMARK_API_KEY),
+	crypto       = require('crypto'),
+	assetManager = require('connect-assetmanager'),
+	assetHandler = require('connect-assetmanager-handlers'),
 
 	// models for mongoose
-	models   = require('./models'),
+	models       = require('./models'),
 
 	// pepper for passwords
-	pepper   = require('./pepper'),
+	pepper       = require('./pepper'),
 
 	// routes
-	jsonFeed = require('./routes/json'),
-	member   = require('./routes/member'),
-	events   = require('./routes/events'),
-	pages    = require('./routes/pages'),
-	schedule = require('./routes/schedule');
+	jsonFeed     = require('./routes/json'),
+	member       = require('./routes/member'),
+	events       = require('./routes/events'),
+	pages        = require('./routes/pages'),
+	schedule     = require('./routes/schedule');
 
 var app = express();
 
@@ -42,6 +44,28 @@ schedule._connect(mongoose, postmark);
 jsonFeed._connect(mongoose, postmark);
 events._connect(mongoose, postmark);
 
+// asset manager configuration
+var asset_manager_groups = {
+	'js': {
+		'route': /\/static\/mcems\.js/,
+		'path': './public/javascripts/',
+		'dataType': 'javascript',
+		'files': ['*'],
+		'postManipulate': {
+			'^': [ assetHandler.yuiJsOptimize ]
+		}
+	},
+	'css': {
+		'route': /\/static\/mcems\.css/,
+		'path': './public/stylesheets/',
+		'dataType': 'css',
+		'files': ['*'],
+		'postManipulate': {
+			'^': [ assetHandler.yuiCssOptimize ]
+		}
+	}
+};
+
 // settings for all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -62,6 +86,7 @@ app.use(function (req, res, next) {
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
+app.use(assetManager(asset_manager_groups));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only

@@ -12,7 +12,9 @@
     "node-schedule": "0.1.8",
     "moment": "2.0.0",
     "postmark": "*",
-    "crypto": "*"
+    "crypto": "*",
+    "connect-assetmanager": ">= 0.0.28",
+    "connect-assetmanager-handlers": ">= 0.0.18"
   },
   "engines": {
     "node": "0.10.x",
