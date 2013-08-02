@@ -111,22 +111,6 @@ app.post('/events/delete/:event', events.delete);
 app.get('/shifts.json', jsonFeed.shifts);
 app.get('/members.json', jsonFeed.members);
 
-app.get('/postmark', function (req, res) {
-	postmark.send({
-		"From": "bburwell1@gmail.com",
-		"To": "bburwell1@gmail.com",
-		"Subject": "Test",
-		"TextBody": "Test Message"
-	}, function (error, success) {
-		if (error) {
-			res.json(500, {error: error});
-		} else {
-			res.json(200, {status: "ok"});
-		}
-	});
-});
-
-// Hook to create admin account for recovery
 app.get('/emergency_make_admin_account', function (req, res) {
 	if (false) {
 		var salt = '123456asdfjklwefb82';
