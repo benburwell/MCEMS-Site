@@ -22,7 +22,6 @@ exports.member = {
 	},
 	unit: Number,
 	join: Date,
-	separation: Date,
 	account: {
 		username: String,
 		password: {
@@ -79,6 +78,20 @@ exports.member = {
 		}
 	]
 };
+
+exports.email = {
+	address: String,
+	mobile: {
+		carrier: String,
+		number: String
+	},
+	_member: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Member'
+	},
+	confirmed: Boolean,
+	confirm_code: Number
+}
 
 exports.event = {
 	title: String,

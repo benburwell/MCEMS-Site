@@ -1,0 +1,51 @@
+.edit_member {
+	position: relative;
+}
+
+.edit_member fieldset {
+	border: 1px solid #666;
+	width: 300px;
+	padding: 10px;
+	height: 500px;
+}
+
+.edit_member legend {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.edit_member .member {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.edit_member .account {
+	position: absolute;
+	top: 0;
+	left: 350px;
+}
+
+.edit_member .certifications {
+	position: absolute;
+	top: 0;
+	left: 700px;
+}
+
+.edit_member .emails {
+	position: absolute;
+	top: 0;
+	left: 1050px;
+}
+
+.edit_member .save {
+	position: absolute;
+	top: 550px;
+	left: 60px;
+}
+
+.edit_member .delete {
+	position: absolute;
+	top: 550px;
+	left: 0;
+}

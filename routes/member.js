@@ -1,3 +1,10 @@
+var jsonConcat = function (o1, o2) {
+	for (var key in o2) {
+ 		o1[key] = o2[key];
+	}
+	return o1;
+};
+
 var pepper = require('../pepper'),
 	crypto = require('crypto');
 
@@ -173,25 +180,18 @@ exports.edit_form = function (req, res) {
 			return res.json(404, {error: 'No such member'});
 		} else {
 			if (req.session.member != undefined) {
-				if (req.session.member.account.permissions.members) {
-					if (req.session.member.account.permissions.accounts) {
-						return res.render('members/edit_both', {member: item});
-					} else {
-						return res.render('members/edit_member', {member: item});
-					}
-				} else if (req.session.member.account.permissions.accounts) {
-					return res.render('members/edit_account', {member: item});
-				} else {
-					return res.render('error', {
-						title: 'Not Allowed',
-						message: 'You do not have permission to access this feature.'
-					});
-				}
-			} else {
-				return res.render('error', {
-					title: 'Not Allowed',
-					message: 'You do not have permission to access this feature.'
+
+				var edit_account = req.session.member.account.permissions.accounts;
+				var edit_member = req.session.member.account.permissions.members;
+
+				res.render('members/edit', {
+					member: item,
+					edit_account: edit_account,
+					edit_member: edit_member
 				});
+
+			} else {
+				return res.redirect('/');
 			}
 		}
 	});
@@ -224,25 +224,7 @@ exports.edit = function (req, res) {
 		'status.crew_chief': (req.body.crew_chief == 'true')? true : false
 	};
 
-	var both = {
-		'account.username': req.body.username,
-		'account.login_enabled': (req.body.login_enabled == 'true')? true : false,
-		'account.permissions.schedule': (req.body.schedule == 'true')? true : false,
-		'account.permissions.members': (req.body.members == 'true')? true : false,
-		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
-		'account.permissions.events': (req.body.events == 'true')? true : false,
-		
-		'name.first': req.body.first_name,
-		'name.last': req.body.last_name,
-		'unit': req.body.unit,
-		'status.training_corps': (req.body.training_corps == 'true')? true : false,
-		'status.probationary': (req.body.probationary == 'true')? true : false,
-		'status.emt': (req.body.emt == 'true')? true : false,
-		'status.driver_trainee': (req.body.driver_trainee == 'true')? true : false,
-		'status.driver': (req.body.driver == 'true')? true : false,
-		'status.crew_chief_trainee': (req.body.crew_chief_trainee == 'true')? true : false,
-		'status.crew_chief': (req.body.crew_chief == 'true')? true : false
-	}
+	var both = jsonConcat(account, member);
 
 	var id = mongoose.Types.ObjectId.fromString(req.params.member);
 	var update;
@@ -370,7 +352,11 @@ exports.display_self = function (req, res) {
 			|| req.session.member.account.permissions.accounts) {
 			res.redirect('/members/edit/' + req.session.member._id);
 		} else {
-			res.render('members/self', {member: req.session.member});
+			res.render('members/edit', {
+				member: req.session.member,
+				edit_member: false,
+				edit_account: false
+			});
 		}
 	} else {
 		res.redirect('/');

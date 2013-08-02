@@ -1,0 +1,76 @@
+fieldset.member
+	legend Member Details
+	p First Name:
+		input(
+			type="text",
+			name="first_name",
+			value=member.name.first,
+			disabled=(edit_member? undefined : 'disabled'))
+	p Last Name:
+		input(
+			type="text",
+			name="last_name",
+			value=member.name.last,
+			disabled=(edit_member? undefined : 'disabled'))
+	p Unit:
+		input(
+			type="text",
+			name="unit",
+			value=member.unit,
+			disabled=(edit_member? undefined : 'disabled'))
+	p
+		input#training_corps(
+			type="checkbox", 
+			name="training_corps",
+			value="true",
+			checked=(member.status.training_corps)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="training_corps") Training Corps
+	p
+		input#probationary(
+			type="checkbox",
+			name="probationary",
+			value="true",
+			checked=(member.status.probationary)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="probationary") Probationary:
+	p
+		input#emt(
+			type="checkbox",
+			name="emt",
+			value="true",
+			checked=(member.status.emt)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="emt") EMT
+	p
+		input#driver_trainee(
+			type="checkbox",
+			name="driver_trainee",
+			value="true",
+			checked=(member.status.driver_trainee)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="driver_trainee") Driver Trainee
+	p
+		input#driver(
+			type="checkbox",
+			name="driver",
+			value="true",
+			checked=(member.status.driver)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="driver") Driver
+	p
+		input#crew_chief_trainee(
+			type="checkbox",
+			name="crew_chief_trainee",
+			value="true",
+			checked=(member.status.crew_chief_trainee)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="crew_chief_trainee") Crew Chief Trainee
+	p
+		input#crew_chief(
+			type="checkbox",
+			name="crew_chief",
+			value="true",
+			checked=(member.status.crew_chief)? "checked" : undefined,
+			disabled=(edit_member? undefined : 'disabled'))
+		label(for="crew_chief") Crew Chief

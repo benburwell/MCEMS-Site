@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+	h1= 'Edit ' + member.name.first + ' ' + member.name.last
+	#reset_password_dialog(title="Reset Password")
+		.status
+	.edit_member
+		form(action="", method="post")
+			include member_details
+			include account_details
+			include certifications
+			include emails
+			input.save(
+				type="submit",
+				value="Save")
+		form(action="/members/delete/"+member._id, method="post")
+			p
+				input.delete(
+					type="submit",
+					value="Delete")
