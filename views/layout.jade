@@ -28,6 +28,5 @@ html
         if authMember
             a(href="/schedule") Schedule
             a(href="/events") Event Signups
-            if authMember.account.permissions.members || authMember.account.permissions.accounts
-                a(href="/members") Members
+            a(href="/members") Members
     block content

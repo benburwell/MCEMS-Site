@@ -29,4 +29,6 @@ $(document).ready(function () {
 		}, "json");
 
 	});
+
+	$('#home_state').val($('#member_home_state').text());
 });

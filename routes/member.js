@@ -70,9 +70,7 @@ exports.logout = function (req, res) {
 
 exports.list = function (req, res) {
 
-	if (req.session.member &&
-		(req.session.member.account.permissions.members
-		|| req.session.member.account.permissions.accounts)) {
+	if (req.session.member) {
 
 		var Member = mongoose.model('Member');
 		Member
@@ -88,10 +86,7 @@ exports.list = function (req, res) {
 		});
 
 	} else {
-		res.render('error', {
-			title: 'Unauthorized',
-			message: 'Sorry, you are not allowed to perform that function.'
-		});
+		res.redirect('/');
 	}
 };
 
@@ -215,6 +210,17 @@ exports.edit = function (req, res) {
 		'name.first': req.body.first_name,
 		'name.last': req.body.last_name,
 		'unit': req.body.unit,
+		'class_year': req.body.class_year,
+		'campus_box': req.body.campus_box,
+		'campus_address': req.body.campus_address,
+		'home_address.line_1': req.body.home_address_line_1,
+		'home_address.line_2': req.body.home_address_line_2,
+		'home_address.city': req.body.home_city,
+		'home_address.state': req.body.home_state,
+		'home_address.zip': req.body.home_zip,
+		'home_address.country': req.body.home_country,
+		'phone': req.body.phone,
+		'school_email': req.body.school_email,
 		'status.training_corps': (req.body.training_corps == 'true')? true : false,
 		'status.probationary': (req.body.probationary == 'true')? true : false,
 		'status.emt': (req.body.emt == 'true')? true : false,

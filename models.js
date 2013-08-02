@@ -21,7 +21,6 @@ exports.member = {
 		last: String
 	},
 	unit: Number,
-	join: Date,
 	account: {
 		username: String,
 		password: {
@@ -42,6 +41,7 @@ exports.member = {
 			events: Boolean
 		}
 	},
+	class_year: Number,
 	campus_box: String,
 	campus_address: String,
 	home_address: {
@@ -52,13 +52,8 @@ exports.member = {
 		zip: String,
 		country: String
 	},
+	school_email: String,
 	phone: String,
-	certifications: [{
-		type: String,
-		number: String,
-		issue: Date,
-		expiry: Date
-	}],
 	status: {
 		executive: String,
 		training_corps: Boolean,
@@ -68,15 +63,7 @@ exports.member = {
 		driver: Boolean,
 		crew_chief_trainee: Boolean,
 		crew_chief: Boolean
-	},
-	shift_requirements: [
-		{
-			year: Number,
-			month: Number,
-			weekdays: Number,
-			weekends: Number
-		}
-	]
+	}
 };
 
 exports.email = {
