@@ -41,23 +41,47 @@ exports.create = function (req, res) {
 
 	if (req.body.address) {
 		data.address = req.body.address;
+
+		postmark.send({
+			"From": "bb246500@muhlenberg.edu",
+			"To": data.address,
+			"Subject": "MCEMS Confirmation Code",
+			"TextBody": "Hi,\n\nTo confirm this email address, go to "
+				+ "your profile and click on this address. Enter the "
+				+ "confirmation code: " + data.confirm_code
+				+ "\n\n Thanks!"
+		}, function (error, success) {
+			new Email(data).save(function (err) {
+				res.json(200, {status: 'ok'});
+			});
+		});
+
 	} else {
 		switch (req.body.carrier) {
 			case 'Verizon':
 				data.address = req.body.number + '@vtext.com';
 				data.mobile.carrier = 'Verizon';
-				data.mobile.number = req.body.number;
+				data.mobile.number = req.body.number.replace(/\D/g, '');
 				break;
 			case 'AT&T':
 				data.address = req.body.number + '@txt.att.com';
 				data.mobile.carrier = 'AT&T';
 				data.mobile.number = req.body.number;
+			default:
+				return;
 		}
-	}
 
-	new Email(data).save(function (err) {
-		res.json(200, {status: 'ok'});
-	});
+		postmark.send({
+			"From": "bb246500@muhlenberg.edu",
+			"To": data.address,
+			"Subject": "",
+			"TextBody": "MCEMS Confirmation Code: " + data.confirm_code
+		}, function (error, success) {
+			new Email(data).save(function (err) {
+				res.json(200, {status: 'ok'});
+			});
+		});
+	}
 
 };
 

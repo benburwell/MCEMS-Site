@@ -25,7 +25,7 @@ exports.send = function (req, res) {
 			emails.forEach(function (email) {
 
 				var message = {
-					'From': 'ems@muhlenberg.edu',
+					'From': 'bb246500@muhlenberg.edu',
 					'To': email.address,
 					'Subject': req.body.subject,
 					'TextBody': null
@@ -51,9 +51,9 @@ exports.send = function (req, res) {
 
 			});
 
-			/*postmark.batch(messages, function (error, success) {
+			postmark.batch(messages, function (error, success) {
 				res.render('broadcast/sent', {emails: emails});
-			});*/
+			});
 
 			res.render('broadcast/sent', {emails: emails});
 
