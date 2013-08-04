@@ -1,2 +1,7 @@
 fieldset.emails
-	legend Emails
+	legend Addresses
+	if authMember._id == member._id
+		button#showAddEmailDialog(type="button") Add Email Address
+		|  
+		button#showAddMobileDialog(type="button") Add Cell Phone
+	#emailContainer(class=(authMember._id == member._id)? 'editable' : undefined)

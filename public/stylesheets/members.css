@@ -55,8 +55,8 @@
 	left: 0;
 }
 
-/* certifications */
-#certificationContainer .certification {
+/* certifications & emails */
+#certificationContainer .certification, #emailContainer .email {
 	border: 1px solid #666;
 	border-radius: 8px;
 	font-size: 12px;
@@ -65,12 +65,24 @@
 	background-color: #eee;
 }
 
+#emailContainer .email.confirmed {
+	background-color: #efe;
+}
+
+#emailContainer .email.unconfirmed {
+	background-color: #fee;
+}
+
 #certificationContainer.editable .certification:hover {
 	background-color: #fcc;
 	cursor: pointer;
 }
 
-#certificationContainer .certification p {
+#emailContainer.editable .email:hover {
+	cursor: pointer;
+}
+
+#certificationContainer .certification p, #emailContainer .email p {
 	margin: 0;
 	padding: 0;
 }

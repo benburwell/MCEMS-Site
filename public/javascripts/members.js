@@ -2,6 +2,8 @@ var loadCerts = function () {
 
 	var id = $('#member_id').text();
 
+	if (id == '') return;
+
 	// show loading message
 	$('#certificationContainer').text('Loading...');
 
@@ -39,9 +41,49 @@ var loadCerts = function () {
 				$.post('/members/certifications/delete', {
 					id: $(this).attr('data')
 				}, function () {
-					loadCerts(id);
+					loadCerts();
 				});
 			}
+		});
+	});
+};
+
+var loadEmails = function () {
+
+	var id = $('#member_id').text();
+
+	if (id == '') return;
+
+	// show loading message
+	$('#emailContainer').text('Loading...');
+
+	// get the JSON feed
+	$.getJSON('/members/emails/' + id + '.json', function (emails) {
+
+		// clear loading message
+		$('#emailContainer').text('');
+
+		// display emails
+		emails.forEach(function (email) {
+
+			var html = '<div class="email '
+				+ (email.confirmed? 'confirmed' : 'unconfirmed')
+				+ '" data="' + email._id + '">';
+
+			if (email.mobile) {
+				html += '<p>' + email.mobile.number + ' (' + email.mobile.carrier + ')</p>';
+			} else {
+				html += '<p>' + email.address + '</p>';
+			}
+			
+			html += '</div>';
+
+			$('#emailContainer').append(html);
+		});
+
+		$('.editable .email').on('click', function () {
+			$('#editEmailDialog').attr('data', $(this).attr('data'));
+			$('#editEmailDialog').dialog('open');
 		});
 	});
 };
@@ -109,7 +151,7 @@ $(document).ready(function () {
 
 				$.post('/members/certifications/create', data, function (data) {
 					$('#addCertificationDialog').dialog('close');
-					loadCerts(id);
+					loadCerts();
 				});
 			}
 		}
@@ -121,6 +163,86 @@ $(document).ready(function () {
 
 	$('#home_state').val($('#member_home_state').text());
 
-	loadCerts(id);
+	$('#addEmailDialog').dialog({
+		modal: true,
+		autoOpen: false,
+		width: 400,
+		open: function () {
+			$('#emailAddress').val('');
+		},
+		buttons: {
+			"Add": function () {
+				var data = {
+					address: $('#emailAddress').val()
+				};
+
+				$.post('/members/emails/create', data, function (data) {
+					$('#addEmailDialog').dialog('close');
+					loadEmails();
+				});
+			}
+		}
+	});
+
+	$('#addMobileDialog').dialog({
+		modal: true,
+		autoOpen: false,
+		width: 400,
+		open: function () {
+			$('#mobileNumber').val('');
+		},
+		buttons: {
+			"Add": function () {
+				var data = {
+					carrier: $('#carrier').val(),
+					number: $('#mobileNumber').val()
+				};
+
+				$.post('/members/emails/create', data, function (data) {
+					$('#addMobileDialog').dialog('close');
+					loadEmails();
+				});
+			}
+		}
+	});
+
+	$('#editEmailDialog').dialog({
+		modal: true,
+		autoOpen: false,
+		width: 400,
+		open: function () {
+			$('#confirmationCode').val('');
+		},
+		buttons: {
+			"Remove": function () {
+				$.post('/members/emails/delete', {
+					id: $(this).attr('data')
+				}, function () {
+					$('#editEmailDialog').dialog('close');
+					loadEmails();
+				});
+			},
+			"Confirm": function () {
+				$.post('/members/emails/confirm', {
+					id: $(this).attr('data'),
+					code: $('#confirmationCode').val()
+				}, function () {
+					$('#editEmailDialog').dialog('close');
+					loadEmails();
+				});
+			}
+		}
+	})
+
+	$('#showAddEmailDialog').click(function () {
+		$('#addEmailDialog').dialog('open');
+	});
+
+	$('#showAddMobileDialog').click(function () {
+		$('#addMobileDialog').dialog('open');
+	});
+
+	loadCerts();
+	loadEmails();
 
 });
