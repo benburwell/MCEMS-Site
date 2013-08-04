@@ -71,4 +71,5 @@ nav.auth {
 	width: 100%;
 	margin: 0;
 	padding: 8px;
+	z-index: 100;
 }

@@ -2,7 +2,8 @@ extends ../layout
 
 block content
 	h1= 'Edit ' + member.name.first + ' ' + member.name.last
-	#member_home_state= member.home_address.state
+	.hidden#member_home_state= member.home_address.state
+	.hidden#member_id= member._id
 	include reset_password_dialog
 	include add_certification_dialog
 	.edit_member

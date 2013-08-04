@@ -1,4 +1,6 @@
-var loadCerts = function (id) {
+var loadCerts = function () {
+
+	var id = $('#member_id').text();
 
 	// show loading message
 	$('#certificationContainer').text('Loading...');
@@ -14,10 +16,17 @@ var loadCerts = function (id) {
 
 			var html = '<div class="certification" data="' + cert._id + '">'
 				+ '<p><b>Type:</b> ' + cert.type + '</p>'
-				+ '<p><b>Number:</b> ' + cert.number + '</p>'
-				+ '<p><b>Issued:</b> ' + moment(cert.issue).format('MMMM DD YYYY') + '</p>'
-				+ '<p><b>Expires:</b> ' + moment(cert.expiry).format('MMMM DD YYYY') + '</p>'
-				+ '</div>';
+				+ '<p><b>Number:</b> ' + cert.number + '</p>';
+
+			if (cert.issue) {
+				html += '<p><b>Issued:</b> ' + moment(cert.issue).format('MMMM DD YYYY') + '</p>';
+			}
+
+			if (cert.expiry) {
+				html += '<p><b>Expires:</b> ' + moment(cert.expiry).format('MMMM DD YYYY') + '</p>';
+			}
+			
+			html += '</div>';
 
 			$('#certificationContainer').append(html);
 		});
@@ -36,8 +45,7 @@ var loadCerts = function (id) {
 
 $(document).ready(function () {
 
-	var url = document.location.toString();
-	var id = url.substring(url.lastIndexOf('/') + 1);
+	var id = $('#member_id').text();
 
 	$('#reset_password_dialog').dialog({
 		modal: true,
@@ -54,9 +62,7 @@ $(document).ready(function () {
 		$('#reset_password_dialog').dialog('open');
 		$('#reset_password_dialog .status').text('Resetting...');
 
-		var url = document.location.toString();
-		var id = url.substring(url.lastIndexOf('/') + 1);
-		
+		var id = $('#member_id').text();
 		var reset = '/members/reset_password/' + id;
 
 		$.post(reset, function (data) {
@@ -76,15 +82,29 @@ $(document).ready(function () {
 		modal: true,
 		autoOpen: false,
 		width: 400,
+		open: function () {
+			$('#certificationNumber').val('');
+			$('#issueDate').val('');
+			$('#expiryDate').val('');
+		},
 		buttons: {
 			"Save": function () {
-				$.post('/members/certifications/create', {
+
+				var data = {
 					type: $('#certificationType').val(),
-					issue: new Date($('#issueDate').val()),
-					expiry: new Date($('#expiryDate').val()),
 					number: $('#certificationNumber').val(),
 					member: id
-				}, function (data) {
+				};
+
+				if ($('#issueDate').val() != '') {
+					data.issue = new Date($('#issueDate').val());
+				}
+
+				if ($('#expiryDate').val() != '') {
+					data.expiry = new Date($('#expiryDate').val());
+				}
+
+				$.post('/members/certifications/create', data, function (data) {
 					$('#addCertificationDialog').dialog('close');
 					loadCerts(id);
 				});

@@ -13,7 +13,7 @@ exports.get_json = function (req, res) {
 
 	// if they can't see members and aren't looking at self
 	if (!req.session.member.account.permissions.members
-		&& req.session.member.id !== req.params.member) {
+		&& req.session.member._id != req.params.member) {
 		return res.redirect('/');
 	}
 
@@ -39,13 +39,22 @@ exports.create = function (req, res) {
 	}
 
 	var Certification = mongoose.model('Certification');
-	new Certification({
+
+	var data = {
 		type: req.body.type,
-		issue: new Date(req.body.issue),
-		expiry: new Date(req.body.expiry),
 		number: req.body.number,
 		_member: id
-	}).save(function (err) {
+	};
+
+	if (req.body.issue !== undefined) {
+		data.issue = new Date(req.body.issue);
+	}
+
+	if (req.body.expiry !== undefined) {
+		data.expiry = new Date(req.body.expiry);
+	}
+
+	new Certification(data).save(function (err) {
 		if (err) {
 			res.json(500, {status: 'error', message: err});
 		} else {

@@ -2,7 +2,7 @@
 	position: relative;
 }
 
-#member_home_state {
+.hidden {
 	display: none;
 }
 
