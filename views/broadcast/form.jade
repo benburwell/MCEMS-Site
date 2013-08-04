@@ -1,0 +1,12 @@
+extends ../layout
+block content
+	h1 Broadcast Message
+	form(action="/broadcast", method="post")
+		p Subject:
+			input(type="text", name="subject")
+		p Brief Message (for mobile devices)
+			input(type="text", name="brief")
+		p Full Message
+			input(type="text", name="full")
+		p
+			input(type="submit", value="Broadcast Message")

@@ -31,4 +31,6 @@ html
             a(href="/members") Members
             if authMember.account.permissions.members
                 a(href="/members/certifications") Certifications
+            if authMember.account.permissions.broadcast
+                a(href="/broadcast") Broadcast
     block content

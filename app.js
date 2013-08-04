@@ -21,6 +21,7 @@ var express        = require('express'),
 	pages          = require('./routes/pages'),
 	certifications = require('./routes/certifications'),
 	emails         = require('./routes/emails'),
+	broadcast      = require('./routes/broadcast'),
 	schedule       = require('./routes/schedule');
 
 var app = express();
@@ -49,6 +50,7 @@ jsonFeed._connect(mongoose, postmark);
 events._connect(mongoose, postmark);
 certifications._connect(mongoose, postmark);
 emails._connect(mongoose, postmark);
+broadcast._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -149,6 +151,9 @@ app.get('/events', events.list);
 app.get('/events/create', events.create_form);
 app.post('/events/create', events.create);
 app.post('/events/delete/:event', events.delete);
+
+app.get('/broadcast', broadcast.form);
+app.post('/broadcast', broadcast.send);
 
 // JSON feeds of the models
 app.get('/shifts.json', jsonFeed.shifts);

@@ -1,0 +1,14 @@
+extends ../layout
+block content
+	h1 Message Sent
+	p Your message has been sent to the following addresses:
+	table.spread
+		tr
+			th Name
+			th Email
+			th Version
+		for email in emails
+			tr
+				td= email._member.name.first + ' ' + email._member.name.last
+				td= email.address
+				td= email.mobile.carrier? 'Brief' : 'Full'
