@@ -143,7 +143,8 @@ exports.create = function (req, res) {
 						schedule: (req.body.schedule == 'true')? true : false,
 						members: (req.body.members == 'true')? true : false,
 						accounts: (req.body.accounts == 'true')? true : false,
-						events: (req.body.events == 'true')? true : false
+						events: (req.body.events == 'true')? true : false,
+						broadcast: (req.body.broadcast == 'true')? true : false
 					}
 				},
 				status: {
@@ -203,7 +204,8 @@ exports.edit = function (req, res) {
 		'account.permissions.schedule': (req.body.schedule == 'true')? true : false,
 		'account.permissions.members': (req.body.members == 'true')? true : false,
 		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
-		'account.permissions.events': (req.body.events == 'true')? true : false
+		'account.permissions.events': (req.body.events == 'true')? true : false,
+		'account.permissions.broadcast': (req.body.broadcast == 'true')? true : false
 	};
 
 	var member = {

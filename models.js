@@ -38,7 +38,8 @@ exports.member = {
 			files: Boolean,
 			members: Boolean,
 			accounts: Boolean,
-			events: Boolean
+			events: Boolean,
+			broadcast: Boolean
 		}
 	},
 	class_year: Number,
