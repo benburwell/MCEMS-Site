@@ -15,15 +15,18 @@ var loadCerts = function () {
 		certs.forEach(function (cert) {
 
 			var html = '<div class="certification" data="' + cert._id + '">'
-				+ '<p><b>Type:</b> ' + cert.type + '</p>'
-				+ '<p><b>Number:</b> ' + cert.number + '</p>';
+				+ '<p><b>' + cert.type + '</b></p>';
+
+			if (cert.number) {
+				html += '<p><i>Number:</i> ' + cert.number + '</p>';
+			}
 
 			if (cert.issue) {
-				html += '<p><b>Issued:</b> ' + moment(cert.issue).format('MMMM D YYYY') + '</p>';
+				html += '<p><i>Issued:</i> ' + moment(cert.issue).format('MMMM D YYYY') + '</p>';
 			}
 
 			if (cert.expiry) {
-				html += '<p><b>Expires:</b> ' + moment(cert.expiry).format('MMMM D YYYY') + '</p>';
+				html += '<p><i>Expires:</i> ' + moment(cert.expiry).format('MMMM D YYYY') + '</p>';
 			}
 			
 			html += '</div>';
@@ -31,7 +34,7 @@ var loadCerts = function () {
 			$('#certificationContainer').append(html);
 		});
 
-		$('.certification').on('click', function () {
+		$('.editable .certification').on('click', function () {
 			if (confirm("Delete certification?")) {
 				$.post('/members/certifications/delete', {
 					id: $(this).attr('data')

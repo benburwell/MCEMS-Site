@@ -1,4 +1,5 @@
 fieldset.certifications
 	legend Certifications
-	button#addNewCertification(type="button") Add New Certification
-	#certificationContainer
+	if authMember.account.permissions.members
+		button#addNewCertification(type="button") Add New Certification
+	#certificationContainer(class=authMember.account.permissions.members? 'editable' : undefined)

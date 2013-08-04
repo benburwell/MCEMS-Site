@@ -32,13 +32,12 @@ exports.create = function (req, res) {
 		return res.json(403, {error: 'not authorized'});
 	}
 
-	var id = req.session.member._id;
-
-	if (req.session.member.account.permissions.members) {
-		if (req.body.member) {
-			id = mongoose.Types.ObjectId.fromString(req.body.member);			
-		}
+	if (!req.session.member.account.permissions.members) {
+		return res.json(403, {error: 'not authorized'});
 	}
+
+
+	var id = mongoose.Types.ObjectId.fromString(req.body.member);
 
 	var Certification = mongoose.model('Certification');
 
@@ -71,11 +70,11 @@ exports.delete = function (req, res) {
 		return res.json(403, {error: 'not authorized'});
 	}
 
-	var query = { _id: mongoose.Types.ObjectId.fromString(req.body.id) };
-
 	if (!req.session.member.account.permissions.members) {
-		query._member = req.session.member._id;
+		return res.json(403, {error: 'not authorized'});
 	}
+
+	var query = { _id: mongoose.Types.ObjectId.fromString(req.body.id) };
 
 	var Certification = mongoose.model('Certification');
 	Certification.findOne(query).remove(function (err) {

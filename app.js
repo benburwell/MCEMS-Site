@@ -142,7 +142,7 @@ app.post('/members/certifications/delete', certifications.delete);
 app.get('/members/emails/:member.json', emails.get_json);
 app.post('/members/emails/create', emails.create);
 app.post('/members/emails/delete', emails.delete);
-app.post('/members/emails/confirm', emails.confirm);
+app.post('/members/emails/confirm/:email', emails.confirm);
 
 // events
 app.get('/events', events.list);

@@ -11,7 +11,8 @@ fieldset.account
 			type="password",
 			disabled="disabled",
 			value="123456")
-		button#resetPassword(type="button") Reset Password
+		if authMember.account.permissions.accounts
+			button#resetPassword(type="button") Reset Password
 	p
 		input#login_enabled(
 			type="checkbox",

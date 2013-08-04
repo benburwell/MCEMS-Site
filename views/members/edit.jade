@@ -12,11 +12,13 @@ block content
 			include account_details
 			include certifications
 			include emails
-			input.save(
-				type="submit",
-				value="Save")
-		form(action="/members/delete/"+member._id, method="post")
-			p
-				input.delete(
+			if authMember.account.permissions.members || authMember.account.permissions.accounts
+				input.save(
 					type="submit",
-					value="Delete")
+					value="Save")
+		if authMember.account.permissions.members
+			form(action="/members/delete/"+member._id, method="post")
+				p
+					input.delete(
+						type="submit",
+						value="Delete")

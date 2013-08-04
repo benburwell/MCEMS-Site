@@ -65,7 +65,7 @@
 	background-color: #eee;
 }
 
-#certificationContainer .certification:hover {
+#certificationContainer.editable .certification:hover {
 	background-color: #fcc;
 	cursor: pointer;
 }
