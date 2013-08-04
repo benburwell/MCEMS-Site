@@ -1,25 +1,27 @@
 // require components
-var express      = require('express'),
-	mongoose     = require('mongoose'),
-	http         = require('http'),
-	path         = require('path'),
-	postmark     = require('postmark')(process.env.POSTMARK_API_KEY),
-	crypto       = require('crypto'),
-	assetManager = require('connect-assetmanager'),
-	assetHandler = require('connect-assetmanager-handlers'),
+var express        = require('express'),
+	mongoose       = require('mongoose'),
+	http           = require('http'),
+	path           = require('path'),
+	postmark       = require('postmark')(process.env.POSTMARK_API_KEY),
+	crypto         = require('crypto'),
+	assetManager   = require('connect-assetmanager'),
+	assetHandler   = require('connect-assetmanager-handlers'),
 
 	// models for mongoose
-	models       = require('./models'),
+	models         = require('./models'),
 
 	// pepper for passwords
-	pepper       = require('./pepper'),
+	pepper         = require('./pepper'),
 
 	// routes
-	jsonFeed     = require('./routes/json'),
-	member       = require('./routes/member'),
-	events       = require('./routes/events'),
-	pages        = require('./routes/pages'),
-	schedule     = require('./routes/schedule');
+	jsonFeed       = require('./routes/json'),
+	member         = require('./routes/member'),
+	events         = require('./routes/events'),
+	pages          = require('./routes/pages'),
+	certifications = require('./routes/certifications'),
+	emails         = require('./routes/emails'),
+	schedule       = require('./routes/schedule');
 
 var app = express();
 
@@ -31,6 +33,8 @@ mongoose.model('Shift', new Schema(models.shift));
 mongoose.model('Member', new Schema(models.member));
 mongoose.model('Event', new Schema(models.event));
 mongoose.model('System', new Schema(models.system));
+mongoose.model('Email', new Schema(models.email));
+mongoose.model('Certification', new Schema(models.certification));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -43,6 +47,8 @@ member._connect(mongoose, postmark);
 schedule._connect(mongoose, postmark);
 jsonFeed._connect(mongoose, postmark);
 events._connect(mongoose, postmark);
+certifications._connect(mongoose, postmark);
+emails._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -125,6 +131,17 @@ app.post('/members/reset_password/:member', member.reset_password);
 app.get('/me/change_password', member.change_password_form);
 app.post('/me/change_password', member.change_password);
 app.get('/me', member.display_self);
+
+// certifications
+app.get('/members/certifications/:member.json', certifications.get_json);
+app.post('/members/certifications/create', certifications.create);
+app.post('/members/certifications/delete', certifications.delete);
+
+// emails
+app.get('/members/emails/:member.json', emails.get_json);
+app.post('/members/emails/create', emails.create);
+app.post('/members/emails/delete', emails.delete);
+app.post('/members/emails/confirm', emails.confirm);
 
 // events
 app.get('/events', events.list);

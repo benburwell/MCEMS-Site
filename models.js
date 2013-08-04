@@ -63,7 +63,17 @@ exports.member = {
 		driver: Boolean,
 		crew_chief_trainee: Boolean,
 		crew_chief: Boolean
-	}
+	},
+	emails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Email' }],
+	certifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Certification' }]
+};
+
+exports.certification = {
+	type: String,
+	issue: Date,
+	expiry: Date,
+	number: String,
+	_member: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' }
 };
 
 exports.email = {

@@ -54,3 +54,23 @@
 	top: 550px;
 	left: 0;
 }
+
+/* certifications */
+#certificationContainer .certification {
+	border: 1px solid #666;
+	border-radius: 8px;
+	font-size: 12px;
+	padding: 10px;
+	margin: 10px;
+	background-color: #eee;
+}
+
+#certificationContainer .certification:hover {
+	background-color: #fcc;
+	cursor: pointer;
+}
+
+#certificationContainer .certification p {
+	margin: 0;
+	padding: 0;
+}
