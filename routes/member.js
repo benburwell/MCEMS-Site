@@ -318,6 +318,14 @@ exports.change_password_form = function (req, res) {
 exports.change_password = function (req, res) {
 
 	if (req.session.member) {
+
+		if (req.body.new_password && req.body.new_password.length < 5) {
+			return res.render('error', {
+				title: 'Error',
+				message: 'Your password must be 5 or more characters.'
+			});
+		}
+
 		// verify old password
 		var old = crypto.createHash('sha1');
 		old.update(req.body.old_password);
