@@ -1,12 +1,15 @@
 extends ../layout
 block content
 	h1 Broadcast Message
+	p Enter the message you would like to send. If you wish to only send a message by email, simply leave the brief message field empty.
 	form(action="/broadcast", method="post")
 		p Subject:
 			input(type="text", name="subject")
-		p Brief Message (for mobile devices)
-			input(type="text", name="brief")
-		p Full Message
-			input(type="text", name="full")
+		p Brief Message (for mobile devices):
+		p
+			input(type="text", name="brief", size="141", maxlength="140")
+		p Full Message:
+		p
+			textarea(name="full", rows="10", cols="100")
 		p
 			input(type="submit", value="Broadcast Message")
