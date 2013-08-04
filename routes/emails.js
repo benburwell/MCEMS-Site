@@ -19,7 +19,7 @@ exports.get_json = function (req, res) {
 	var id = mongoose.Types.ObjectId.fromString(req.params.member);
 
 	var Email = mongoose.model('Email');
-	Email.find( {_member: id}, function (err, items) {
+	Email.find( {_member: id}, 'address mobile confirmed', function (err, items) {
 		res.json(200, items);
 	});
 };
