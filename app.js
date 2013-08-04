@@ -3,7 +3,10 @@ var express        = require('express'),
 	mongoose       = require('mongoose'),
 	http           = require('http'),
 	path           = require('path'),
-	postmark       = require('postmark')(process.env.POSTMARK_API_KEY),
+
+	// use the local version until npmjs is updated
+	postmark       = require('./postmark')(process.env.POSTMARK_API_KEY),
+	
 	crypto         = require('crypto'),
 	assetManager   = require('connect-assetmanager'),
 	assetHandler   = require('connect-assetmanager-handlers'),
