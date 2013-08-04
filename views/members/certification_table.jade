@@ -1,0 +1,21 @@
+extends ../layout
+block content
+	h1 Certifications
+
+	table.spread
+		tr
+			th Name
+			th Type
+			th Number
+			th Issued
+			th Expires
+			th Expires In
+		for cert in certs
+			tr(class=cert.expiry? (moment(cert.expiry).diff(moment(), 'days') < 60 ? 'expiring_soon' : undefined) : undefined)
+				td
+					a(href='/members/edit/'+cert._member._id)= cert._member.name.first + ' ' + cert._member.name.last
+				td= cert.type
+				td= cert.number
+				td= cert.issue? moment(cert.issue).format('MMMM D YYYY') : ''
+				td= cert.expiry? moment(cert.expiry).format('MMMM D YYYY') : ''
+				td= cert.expiry? moment(cert.expiry).diff(moment(), 'days') + ' days' : ''

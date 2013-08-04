@@ -73,3 +73,7 @@ nav.auth {
 	padding: 8px;
 	z-index: 100;
 }
+
+.expiring_soon {
+	background-color: #fee;
+}

@@ -133,6 +133,7 @@ app.post('/me/change_password', member.change_password);
 app.get('/me', member.display_self);
 
 // certifications
+app.get('/members/certifications', certifications.table);
 app.get('/members/certifications/:member.json', certifications.get_json);
 app.post('/members/certifications/create', certifications.create);
 app.post('/members/certifications/delete', certifications.delete);

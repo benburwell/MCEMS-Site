@@ -29,4 +29,6 @@ html
             a(href="/schedule") Schedule
             a(href="/events") Event Signups
             a(href="/members") Members
+            if authMember.account.permissions.members
+                a(href="/members/certifications") Certifications
     block content

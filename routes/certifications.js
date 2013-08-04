@@ -4,6 +4,8 @@ exports._connect = function (m, p) {
 	postmark = p;
 };
 
+var moment = require('moment');
+
 exports.get_json = function (req, res) {
 	
 	// check that there is a member logged in
@@ -84,4 +86,17 @@ exports.delete = function (req, res) {
 		}
 	});
 	
+};
+
+exports.table = function (req, res) {
+	if (req.session.member
+		&& req.session.member.account.permissions.members) {
+
+		var Certification = mongoose.model('Certification');
+		Certification.find().populate('_member').exec(function (err, certs) {
+			res.render('members/certification_table', {certs: certs, moment: moment});
+		});
+	} else {
+		res.redirect('/');
+	}
 };

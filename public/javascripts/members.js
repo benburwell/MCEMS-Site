@@ -19,11 +19,11 @@ var loadCerts = function () {
 				+ '<p><b>Number:</b> ' + cert.number + '</p>';
 
 			if (cert.issue) {
-				html += '<p><b>Issued:</b> ' + moment(cert.issue).format('MMMM DD YYYY') + '</p>';
+				html += '<p><b>Issued:</b> ' + moment(cert.issue).format('MMMM D YYYY') + '</p>';
 			}
 
 			if (cert.expiry) {
-				html += '<p><b>Expires:</b> ' + moment(cert.expiry).format('MMMM DD YYYY') + '</p>';
+				html += '<p><b>Expires:</b> ' + moment(cert.expiry).format('MMMM D YYYY') + '</p>';
 			}
 			
 			html += '</div>';
