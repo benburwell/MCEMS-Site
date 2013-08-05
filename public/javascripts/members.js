@@ -105,7 +105,15 @@ var loadServiceCredits = function () {
 				html += 'unapproved">';
 			}
 
-			html += credit.description;
+			html += '<p>' + credit.description + '</p>';
+
+			if (credit.approved) {
+				html += '<p><i>Approved by '
+					+ credit._approver.name.first
+					+ ' '
+					+ credit._approver.name.last
+					+ '</i></p>';
+			}
 
 			html += '</div>';
 

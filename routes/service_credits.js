@@ -13,7 +13,8 @@ exports.list = function (req, res) {
 		ServiceCredit
 			.find()
 			.sort('approved')
-			.populate('_member')
+			.populate('_member', 'name')
+			.populate('_approver', 'name')
 			.exec(function (err, items) {
 				res.render('service_credits/list', { credits: items, moment: require('moment') });
 		});
@@ -37,9 +38,12 @@ exports.json = function (req, res) {
 		var id = mongoose.Types.ObjectId.fromString(req.params.member);
 
 		var ServiceCredit = mongoose.model('ServiceCredit');
-		ServiceCredit.find({ _member: id }, function (err, credits) {
-			res.json(200, credits);
-		});
+		ServiceCredit
+			.find({ _member: id })
+			.populate('_approver', 'name')
+			.exec(function (err, credits) {
+				res.json(200, credits);
+			});
 
 	} else {
 		res.json(403, {});

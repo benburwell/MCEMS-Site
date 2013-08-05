@@ -1,23 +1,27 @@
 extends ../layout
 block content
-	h1 Unapproved Service Credits
+	h1 Service Credits
 	table.spread
 		tr
 			th Member
 			th Date
 			th Description
 			th Date of Request
+			th Approved By
 			th Actions
 		for credit in credits
-			tr(class=credit.approved? 'approved' : undefined)
+			tr(class=(credit.approved? 'approved' : undefined)) 
 				td= credit._member.name.first + ' ' + credit._member.name.last
 				td= moment(credit.credit_date).format('MMMM D YYYY')
 				td= credit.description
 				td= moment(credit.request_date).format('MMMM D YYYY')
-				td
-					if credit.approved
+				if credit.approved
+					td= credit._approver.name.first + ' ' + credit._approver.name.last
+					td
 						button.reject(data=credit.id) Delete
-					else
+				else
+					td  
+					td
 						button.approve(data=credit.id) Approve
 						|  
 						button.reject(data=credit.id) Reject
