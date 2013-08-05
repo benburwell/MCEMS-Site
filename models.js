@@ -39,7 +39,8 @@ exports.member = {
 			members: Boolean,
 			accounts: Boolean,
 			events: Boolean,
-			broadcast: Boolean
+			broadcast: Boolean,
+			service_credit: Boolean
 		}
 	},
 	class_year: Number,
@@ -66,7 +67,8 @@ exports.member = {
 		crew_chief: Boolean
 	},
 	emails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Email' }],
-	certifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Certification' }]
+	certifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Certification' }],
+	service_credits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ServiceCredit' }]
 };
 
 exports.certification = {
@@ -90,6 +92,21 @@ exports.email = {
 	confirmed: Boolean,
 	confirm_code: Number
 }
+
+exports.service_credit = {
+	_member: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Member'
+	},
+	_approver: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Member'
+	},
+	description: String,
+	request_date: Date,
+	credit_date: Date,
+	approved: Boolean
+};
 
 exports.event = {
 	title: String,

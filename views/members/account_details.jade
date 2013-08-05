@@ -61,3 +61,11 @@ fieldset.account
 			checked=(member.account.permissions.broadcast)? "checked" : undefined,
 			disabled=(edit_account? undefined : 'disabled'))
 		label(for="broadcast") Broadcast Messages
+	p
+		input#service_credit(
+			type="checkbox",
+			name="service_credit",
+			value="true",
+			checked=(member.account.permissions.service_credit)? "checked" : undefined,
+			disabled=(edit_account? undefined : 'disabled'))
+		label(for="service_credit") Approve Service Credits

@@ -1,31 +1,32 @@
 // require components
-var express        = require('express'),
-	mongoose       = require('mongoose'),
-	http           = require('http'),
-	path           = require('path'),
+var express         = require('express'),
+	mongoose        = require('mongoose'),
+	http            = require('http'),
+	path            = require('path'),
 
 	// use the local version until npmjs is updated
-	postmark       = require('./postmark')(process.env.POSTMARK_API_KEY),
+	postmark        = require('./postmark')(process.env.POSTMARK_API_KEY),
 	
-	crypto         = require('crypto'),
-	assetManager   = require('connect-assetmanager'),
-	assetHandler   = require('connect-assetmanager-handlers'),
+	crypto          = require('crypto'),
+	assetManager    = require('connect-assetmanager'),
+	assetHandler    = require('connect-assetmanager-handlers'),
 
 	// models for mongoose
-	models         = require('./models'),
+	models          = require('./models'),
 
 	// pepper for passwords
-	pepper         = require('./pepper'),
+	pepper          = require('./pepper'),
 
 	// routes
-	jsonFeed       = require('./routes/json'),
-	member         = require('./routes/member'),
-	events         = require('./routes/events'),
-	pages          = require('./routes/pages'),
-	certifications = require('./routes/certifications'),
-	emails         = require('./routes/emails'),
-	broadcast      = require('./routes/broadcast'),
-	schedule       = require('./routes/schedule');
+	jsonFeed        = require('./routes/json'),
+	member          = require('./routes/member'),
+	events          = require('./routes/events'),
+	pages           = require('./routes/pages'),
+	certifications  = require('./routes/certifications'),
+	emails          = require('./routes/emails'),
+	broadcast       = require('./routes/broadcast'),
+	service_credits = require('./routes/service_credits'),
+	schedule        = require('./routes/schedule');
 
 var app = express();
 
@@ -39,6 +40,7 @@ mongoose.model('Event', new Schema(models.event));
 mongoose.model('System', new Schema(models.system));
 mongoose.model('Email', new Schema(models.email));
 mongoose.model('Certification', new Schema(models.certification));
+mongoose.model('ServiceCredit', new Schema(models.service_credit));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -54,6 +56,7 @@ events._connect(mongoose, postmark);
 certifications._connect(mongoose, postmark);
 emails._connect(mongoose, postmark);
 broadcast._connect(mongoose, postmark);
+service_credits._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -148,6 +151,13 @@ app.get('/members/emails/:member.json', emails.get_json);
 app.post('/members/emails/create', emails.create);
 app.post('/members/emails/delete', emails.delete);
 app.post('/members/emails/confirm', emails.confirm);
+
+// service credits
+app.get('/members/service-credits', service_credits.list);
+app.get('/members/service-credits/:member.json', service_credits.json);
+app.post('/members/service-credits', service_credits.create);
+app.post('/members/service-credits/approve/:credit', service_credits.approve);
+app.post('/members/service-credits/reject/:credit', service_credits.reject);
 
 // events
 app.get('/events', events.list);

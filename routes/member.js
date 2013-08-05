@@ -144,7 +144,8 @@ exports.create = function (req, res) {
 						members: (req.body.members == 'true')? true : false,
 						accounts: (req.body.accounts == 'true')? true : false,
 						events: (req.body.events == 'true')? true : false,
-						broadcast: (req.body.broadcast == 'true')? true : false
+						broadcast: (req.body.broadcast == 'true')? true : false,
+						service_credit: (req.body.service_credit == 'true')? true : false
 					}
 				},
 				status: {
@@ -171,26 +172,28 @@ exports.create = function (req, res) {
 
 exports.edit_form = function (req, res) {
 	var Member = mongoose.model('Member');
-	Member.findOne({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err, item) {
-		if (err) {
-			return res.json(404, {error: 'No such member'});
-		} else {
-			if (req.session.member != undefined) {
-
-				var edit_account = req.session.member.account.permissions.accounts;
-				var edit_member = req.session.member.account.permissions.members;
-
-				res.render('members/edit', {
-					member: item,
-					edit_account: edit_account,
-					edit_member: edit_member
-				});
-
+	Member
+		.findOne({ _id: mongoose.Types.ObjectId.fromString(req.params.member) })
+		.exec(function (err, item) {
+			if (err) {
+				return res.json(404, {error: 'No such member'});
 			} else {
-				return res.redirect('/');
+				if (req.session.member != undefined) {
+
+					var edit_account = req.session.member.account.permissions.accounts;
+					var edit_member = req.session.member.account.permissions.members;
+
+					res.render('members/edit', {
+						member: item,
+						edit_account: edit_account,
+						edit_member: edit_member
+					});
+
+				} else {
+					return res.redirect('/');
+				}
 			}
-		}
-	});
+		});
 };
 
 exports.edit = function (req, res) {
@@ -205,7 +208,8 @@ exports.edit = function (req, res) {
 		'account.permissions.members': (req.body.members == 'true')? true : false,
 		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
 		'account.permissions.events': (req.body.events == 'true')? true : false,
-		'account.permissions.broadcast': (req.body.broadcast == 'true')? true : false
+		'account.permissions.broadcast': (req.body.broadcast == 'true')? true : false,
+		'account.permissions.service_credit': (req.body.service_credit == 'true')? true : false
 	};
 
 	var member = {

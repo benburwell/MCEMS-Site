@@ -1,5 +1,7 @@
 .edit_member {
 	position: relative;
+	height: 600px;
+	border-bottom: 1px solid #666;
 }
 
 .hidden {
@@ -14,7 +16,7 @@
 	overflow: scroll;
 }
 
-.edit_member legend {
+.edit_member legend, h2 {
 	font-size: 20px;
 	font-weight: bold;
 }
@@ -56,7 +58,7 @@
 }
 
 /* certifications & emails */
-#certificationContainer .certification, #emailContainer .email {
+.certification, .email, .credit {
 	border: 1px solid #666;
 	border-radius: 8px;
 	font-size: 12px;
@@ -68,11 +70,11 @@
 	background-color: #eee;
 }
 
-#emailContainer .email.confirmed {
+#emailContainer .email.confirmed, .approved {
 	background-color: #efe;
 }
 
-#emailContainer .email.unconfirmed {
+#emailContainer .email.unconfirmed, .credit.unapproved {
 	background-color: #fee;
 }
 
@@ -89,4 +91,8 @@
 #certificationContainer .certification p, #emailContainer .email p {
 	margin: 0;
 	padding: 0;
+}
+
+.service_credits {
+	margin-top: 10px;
 }
