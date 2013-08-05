@@ -88,6 +88,32 @@ var loadEmails = function () {
 	});
 };
 
+var loadServiceCredits = function () {
+	var id = $('#member_id').text();
+
+	if (id == '') return;
+
+	$('#serviceCreditContainer').text('Loading...');
+	$.getJSON('/members/service-credits/' + id + '.json', function (credits) {
+		$('#serviceCreditContainer').text('');
+		credits.forEach(function (credit) {
+			var html = '<div class="credit ';
+
+			if (credit.approved) {
+				html += 'approved">';
+			} else {
+				html += 'unapproved">';
+			}
+
+			html += credit.description;
+
+			html += '</div>';
+
+			$('#serviceCreditContainer').append(html);
+		});
+	});
+};
+
 $(document).ready(function () {
 
 	var id = $('#member_id').text();
@@ -242,7 +268,35 @@ $(document).ready(function () {
 		$('#addMobileDialog').dialog('open');
 	});
 
+	$('#addServiceCreditDialog').dialog({
+		modal: true,
+		autoOpen: false,
+		width: 400,
+		open: function () {
+			$('#serviceCreditDescription').val('');
+			$('#serviceCreditDate').val('');
+		},
+		buttons: {
+			"Submit": function () {
+				$.post('/members/service-credits', {
+					date: moment($('#serviceCreditDate').val()).toDate(),
+					description: $('#serviceCreditDescription').val()
+				}, function () {
+					$('#addServiceCreditDialog').dialog('close');
+					loadServiceCredits();
+				});
+			}
+		}
+	});
+
+	$('#showAddServiceCreditDialog').click(function () {
+		$('#addServiceCreditDialog').dialog('open');
+	});
+
+	$('#serviceCreditDate').datepicker();
+
 	loadCerts();
 	loadEmails();
+	loadServiceCredits();
 
 });

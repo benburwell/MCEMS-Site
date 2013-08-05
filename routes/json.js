@@ -14,7 +14,7 @@ exports.shifts = function (req, res) {
 
 exports.members = function (req, res) {
 	var model = mongoose.model('Member');
-	model.find(function (err, items, count) {
+	model.find().populate('service_credits emails certifications').exec(function (err, items, count) {
 		res.json(200, items);
 	});
 };
