@@ -88,7 +88,7 @@
 	cursor: pointer;
 }
 
-#certificationContainer .certification p, #emailContainer .email p {
+#certificationContainer .certification p, #emailContainer .email p, .credit p {
 	margin: 0;
 	padding: 0;
 }
