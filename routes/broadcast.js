@@ -25,7 +25,7 @@ exports.send = function (req, res) {
 			emails.forEach(function (email) {
 
 				var message = {
-					'From': 'bb246500@muhlenberg.edu',
+					'From': 'ems@muhlenberg.edu',
 					'To': email.address,
 					'Subject': req.body.subject,
 					'TextBody': null

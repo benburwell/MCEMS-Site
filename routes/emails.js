@@ -43,7 +43,7 @@ exports.create = function (req, res) {
 		data.address = req.body.address;
 
 		postmark.send({
-			"From": "bb246500@muhlenberg.edu",
+			"From": "ems@muhlenberg.edu",
 			"To": data.address,
 			"Subject": "MCEMS Confirmation Code",
 			"TextBody": "Hi,\n\nTo confirm this email address, go to "
@@ -72,7 +72,7 @@ exports.create = function (req, res) {
 		}
 
 		postmark.send({
-			"From": "bb246500@muhlenberg.edu",
+			"From": "ems@muhlenberg.edu",
 			"To": data.address,
 			"Subject": "",
 			"TextBody": "MCEMS Confirmation Code: " + data.confirm_code
