@@ -3,7 +3,7 @@ block content
 	h1 Event Signups
 	if authMember
 		if authMember.account.permissions.events
-			a(href='/events/create') Create Event
+			a.button.icon.add(href='/events/create') Create Event
 	if events.length != 0
 		ul
 			for event in events
