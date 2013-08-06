@@ -438,4 +438,50 @@ exports.member_stats = function (req, res) {
 		res.json(403, {});
 	}
 
+};
+
+exports.future_shift_ics = function (req, res) {
+
+	if (req.session.member) {
+
+		var member = mongoose.Types.ObjectId.fromString(req.params.member);
+		var id = mongoose.Types.ObjectId.fromString(req.params.id);
+
+		if (req.session.member.account.permissions.members
+			|| req.session.member.account.permissions.accounts
+			|| req.session.member._id == member) {
+
+				var Shift = mongoose.model('Shift');
+				Shift.findOne({
+					_member: member,
+					_id: id
+				}, function (err, shift) {
+
+					res.type('ics');
+
+					var event = "BEGIN:VCALENDAR\n"
+						+ "METHOD:REQUEST\n"
+						+ "BEGIN:VEVENT\n"
+						+ "DTSTART:" + moment(shift.start).format("YYYYMMDD")
+						+ 'T'
+						+ moment(shift.start).format("HHmmss") + "\n"
+						+ "DTEND:" + moment(shift.end).format("YYYYMMDD")
+						+ 'T'
+						+ moment(shift.end).format("HHmmss") + "\n"
+						+ "SUMMARY:MCEMS Duty\n"
+						+ "END:VEVENT\n"
+						+ "END:VCALENDAR";
+
+					res.send(event);
+
+				});
+
+		} else {
+			res.json(403);
+		}
+
+	} else {
+		res.json(403);
+	}
+
 }

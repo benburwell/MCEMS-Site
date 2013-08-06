@@ -126,6 +126,7 @@ app.get('/shift/:shift_id', schedule.get_shift);
 app.post('/schedule/message', schedule.edit_message);
 app.get('/members/shifts/:member.json', schedule.member_shifts);
 app.get('/members/stats/:member.json', schedule.member_stats);
+app.get('/schedule/ical/:member/:id.ics', schedule.future_shift_ics);
 
 // member management
 app.get('/members', member.list);

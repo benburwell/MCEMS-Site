@@ -326,6 +326,10 @@ $(document).ready(function () {
 		shifts.forEach(function (shift) {
             
 			var html = '<div class="item">'
+                + '<p><a class="pill button calendar icon" '
+                + 'style="float:right;" '
+                + 'href="/schedule/ical/' + id + '/' + shift._id + '.ics">'
+                + 'iCal</a></p>'
 				+ '<p><b>' + moment(shift.start).format('MMMM Do') + '</b></p>'
 				+ '<p>' + moment(shift.start).format('HH:mm') + '&ndash;'
 			    + moment(shift.end).format('HH:mm') + '</p>'
