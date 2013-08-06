@@ -327,7 +327,7 @@ $(document).ready(function () {
             
 			var html = '<div class="item">'
 				+ '<p><b>' + moment(shift.start).format('MMMM Do') + '</b></p>'
-				+ '<p>' + moment(shift.start).format('HH:mm') + '–'
+				+ '<p>' + moment(shift.start).format('HH:mm') + '&ndash;'
 			    + moment(shift.end).format('HH:mm') + '</p>'
                 + '</div>';
 			$('#shiftContainer').append(html);
