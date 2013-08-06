@@ -174,7 +174,8 @@ $(document).ready(function () {
 				'<input id="updated_message" type="text" value="'
 				+ $('#message').text()
 				+ '"> '
-				+ '<button type="button" id="update_message">Save</button>'
+				+ '<button class="button" '
+				+ 'type="button" id="update_message">Save</button>'
 				);
 
 				$('#updated_message').focus();
