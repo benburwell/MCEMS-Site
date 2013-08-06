@@ -1,141 +1,142 @@
 fieldset.member
 	legend Member Details
-	p First Name:
-		input(
-			type="text",
-			name="first_name",
-			value=member.name.first,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Last Name:
-		input(
-			type="text",
-			name="last_name",
-			value=member.name.last,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Unit:
-		input(
-			type="text",
-			name="unit",
-			value=member.unit,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Class Year:
-		input(
-			type="text",
-			name="class_year",
-			value=member.class_year,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Campus Box:
-		input(
-			type="text",
-			name="campus_box",
-			value=member.campus_box,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Campus Address:
-		input(
-			type="text",
-			name="campus_address",
-			value=member.campus_address,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Home Address 1:
-		input(
-			type="text",
-			name="home_address_line_1",
-			value=member.home_address.line_1,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Home Address 2:
-		input(
-			type="text",
-			name="home_address_line_2",
-			value=member.home_address.line_2,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Home City:
-		input(
-			type="text",
-			name="home_city",
-			value=member.home_address.city,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Home State:
-		select#home_state(
-			name="home_state",
-			disabled=(edit_member? undefined : 'disabled'))
-			include state_options
-	p Home Zip:
-		input(
-			type="text",
-			name="home_zip",
-			value=member.home_address.zip,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Home Country:
-		input(
-			type="text",
-			name="home_country",
-			value=member.home_address.country,
-			disabled=(edit_member? undefined : 'disabled'))
-	p Phone:
-		input(
-			type="text",
-			name="phone",
-			value=member.phone,
-			disabled=(edit_member? undefined : 'disabled'))
-	p School Email:
-		input(
-			type="text",
-			name="school_email",
-			value=member.school_email,
-			disabled=(edit_member? undefined : 'disabled'))
-	p
-		input#training_corps(
-			type="checkbox", 
-			name="training_corps",
-			value="true",
-			checked=(member.status.training_corps)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="training_corps") Training Corps
-	p
-		input#probationary(
-			type="checkbox",
-			name="probationary",
-			value="true",
-			checked=(member.status.probationary)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="probationary") Probationary:
-	p
-		input#emt(
-			type="checkbox",
-			name="emt",
-			value="true",
-			checked=(member.status.emt)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="emt") EMT
-	p
-		input#driver_trainee(
-			type="checkbox",
-			name="driver_trainee",
-			value="true",
-			checked=(member.status.driver_trainee)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="driver_trainee") Driver Trainee
-	p
-		input#driver(
-			type="checkbox",
-			name="driver",
-			value="true",
-			checked=(member.status.driver)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="driver") Driver
-	p
-		input#crew_chief_trainee(
-			type="checkbox",
-			name="crew_chief_trainee",
-			value="true",
-			checked=(member.status.crew_chief_trainee)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="crew_chief_trainee") Crew Chief Trainee
-	p
-		input#crew_chief(
-			type="checkbox",
-			name="crew_chief",
-			value="true",
-			checked=(member.status.crew_chief)? "checked" : undefined,
-			disabled=(edit_member? undefined : 'disabled'))
-		label(for="crew_chief") Crew Chief
+	.container
+		p First Name:
+			input(
+				type="text",
+				name="first_name",
+				value=member.name.first,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Last Name:
+			input(
+				type="text",
+				name="last_name",
+				value=member.name.last,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Unit:
+			input(
+				type="text",
+				name="unit",
+				value=member.unit,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Class Year:
+			input(
+				type="text",
+				name="class_year",
+				value=member.class_year,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Campus Box:
+			input(
+				type="text",
+				name="campus_box",
+				value=member.campus_box,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Campus Address:
+			input(
+				type="text",
+				name="campus_address",
+				value=member.campus_address,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Home Address 1:
+			input(
+				type="text",
+				name="home_address_line_1",
+				value=member.home_address.line_1,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Home Address 2:
+			input(
+				type="text",
+				name="home_address_line_2",
+				value=member.home_address.line_2,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Home City:
+			input(
+				type="text",
+				name="home_city",
+				value=member.home_address.city,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Home State:
+			select#home_state(
+				name="home_state",
+				disabled=(edit_member? undefined : 'disabled'))
+				include state_options
+		p Home Zip:
+			input(
+				type="text",
+				name="home_zip",
+				value=member.home_address.zip,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Home Country:
+			input(
+				type="text",
+				name="home_country",
+				value=member.home_address.country,
+				disabled=(edit_member? undefined : 'disabled'))
+		p Phone:
+			input(
+				type="text",
+				name="phone",
+				value=member.phone,
+				disabled=(edit_member? undefined : 'disabled'))
+		p School Email:
+			input(
+				type="text",
+				name="school_email",
+				value=member.school_email,
+				disabled=(edit_member? undefined : 'disabled'))
+		p
+			input#training_corps(
+				type="checkbox", 
+				name="training_corps",
+				value="true",
+				checked=(member.status.training_corps)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="training_corps") Training Corps
+		p
+			input#probationary(
+				type="checkbox",
+				name="probationary",
+				value="true",
+				checked=(member.status.probationary)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="probationary") Probationary:
+		p
+			input#emt(
+				type="checkbox",
+				name="emt",
+				value="true",
+				checked=(member.status.emt)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="emt") EMT
+		p
+			input#driver_trainee(
+				type="checkbox",
+				name="driver_trainee",
+				value="true",
+				checked=(member.status.driver_trainee)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="driver_trainee") Driver Trainee
+		p
+			input#driver(
+				type="checkbox",
+				name="driver",
+				value="true",
+				checked=(member.status.driver)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="driver") Driver
+		p
+			input#crew_chief_trainee(
+				type="checkbox",
+				name="crew_chief_trainee",
+				value="true",
+				checked=(member.status.crew_chief_trainee)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="crew_chief_trainee") Crew Chief Trainee
+		p
+			input#crew_chief(
+				type="checkbox",
+				name="crew_chief",
+				value="true",
+				checked=(member.status.crew_chief)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="crew_chief") Crew Chief

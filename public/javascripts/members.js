@@ -16,7 +16,7 @@ var loadCerts = function () {
 		// display certs
 		certs.forEach(function (cert) {
 
-			var html = '<div class="certification" data="' + cert._id + '">'
+			var html = '<div class="item certification" data="' + cert._id + '">'
 				+ '<p><b>' + cert.type + '</b></p>';
 
 			if (cert.number) {
@@ -66,7 +66,7 @@ var loadEmails = function () {
 		// display emails
 		emails.forEach(function (email) {
 
-			var html = '<div class="email '
+			var html = '<div class="item email '
 				+ (email.confirmed? 'confirmed' : 'unconfirmed')
 				+ '" data="' + email._id + '">';
 
@@ -97,7 +97,7 @@ var loadServiceCredits = function () {
 	$.getJSON('/members/service-credits/' + id + '.json', function (credits) {
 		$('#serviceCreditContainer').text('');
 		credits.forEach(function (credit) {
-			var html = '<div class="credit ';
+			var html = '<div class="item credit ';
 
 			if (credit.approved) {
 				html += 'approved">';
@@ -303,8 +303,42 @@ $(document).ready(function () {
 
 	$('#serviceCreditDate').datepicker();
 
+	$('#deleteMember').click(function () {
+		if (confirm("Do you really want to delete this member forever?")) {
+			var id = $('#member_id').text();
+			$.post('/members/delete/' + id, {}, function (data) {
+				window.location.href = '/members';
+			});
+		}
+	});
+
+	$('#saveMember').click(function () {
+		$('#memberDetailForm').submit();
+	});
+
 	loadCerts();
 	loadEmails();
 	loadServiceCredits();
+
+	$.getJSON('/members/shifts/' + id + '.json', function (shifts) {
+
+        
+		shifts.forEach(function (shift) {
+            
+			var html = '<div class="item">'
+				+ '<p><b>' + moment(shift.start).format('MMMM Do') + '</b></p>'
+				+ '<p>' + moment(shift.start).format('HH:mm') + '–'
+			    + moment(shift.end).format('HH:mm') + '</p>'
+                + '</div>';
+			$('#shiftContainer').append(html);
+		});
+
+	});
+
+    $.getJSON('/members/stats/' + id + '.json', function (stats) {
+
+        $('#allTimeHours').text(stats.allTime);
+
+    });
 
 });

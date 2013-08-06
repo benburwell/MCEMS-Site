@@ -131,31 +131,30 @@ exports.create = function (req, res) {
 					first: req.body.first_name,
 					last: req.body.last_name
 				},
-				unit: req.body.unit,
 				account: {
 					username: req.body.username,
 					password: {
 						salt: salt,
 						hash: hash
 					},
-					login_enabled: (req.body.login_enabled == 'true')? true : false,
+					login_enabled: true,
 					permissions: {
-						schedule: (req.body.schedule == 'true')? true : false,
-						members: (req.body.members == 'true')? true : false,
-						accounts: (req.body.accounts == 'true')? true : false,
-						events: (req.body.events == 'true')? true : false,
-						broadcast: (req.body.broadcast == 'true')? true : false,
-						service_credit: (req.body.service_credit == 'true')? true : false
+						schedule: false,
+						members: false,
+						accounts: false,
+						events: false,
+						broadcast: false,
+						service_credit: false
 					}
 				},
 				status: {
-					training_corps: (req.body.training_corps == 'true')? true : false,
-					probationary: (req.body.probationary == 'true')? true : false,
-					emt: (req.body.emt == 'true')? true : false,
-					driver_trainee: (req.body.driver_trainee == 'true')? true : false,
-					driver: (req.body.driver == 'true')? true : false,
-					crew_chief_trainee: (req.body.crew_chief_trainee == 'true')? true : false,
-					crew_chief: (req.body.crew_chief == 'true')? true : false
+					training_corps: false,
+					probationary: false,
+					emt: false,
+					driver_trainee: false,
+					driver: false,
+					crew_chief_trainee: false,
+					crew_chief: false
 				}
 			}).save(function (err, member) {
 				return res.redirect('/members');
@@ -306,7 +305,7 @@ exports.delete = function (req, res) {
 	var Member = mongoose.model('Member');
 	if (req.session.member && req.session.member.account.permissions.members) {
 		Member.remove({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err) {
-			res.redirect('/members');
+			res.json(200, {status: 'done'});
 		});
 	}
 };

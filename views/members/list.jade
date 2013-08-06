@@ -4,7 +4,7 @@ block content
 	h1 Members
 	if authMember.account.permissions.accounts || authMember.account.permissions.members
 		p
-			a(href="/members/create") Create Member
+			a.button.big.icon.add(href="/members/create") Create Member
 	table.spread
 		tr
 			th Name
@@ -32,4 +32,4 @@ block content
 				td= member.status.crew_chief? 'Yes' : ''
 				if authMember.account.permissions.accounts || authMember.account.permissions.members
 					td
-						a(href='/members/edit/'+member._id) Edit
+						a.button.pill.icon.edit(href='/members/edit/'+member._id) Edit

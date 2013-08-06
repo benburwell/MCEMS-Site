@@ -1,71 +1,72 @@
 fieldset.account
 	legend Account Details
-	p Username:
-		input(
-			type="text",
-			name="username",
-			value=member.account.username,
-			disabled=(edit_account? undefined : 'disabled'))
-	p Password:
-		input(
-			type="password",
-			disabled="disabled",
-			value="123456")
-		if authMember.account.permissions.accounts
-			button#resetPassword(type="button") Reset Password
-	p
-		input#login_enabled(
-			type="checkbox",
-			name="login_enabled",
-			value="true",
-			checked=(member.account.login_enabled)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="login_enabled") Login Enabled
-	p
-		input#schedule(
-			type="checkbox",
-			name="schedule",
-			value="true",
-			checked=(member.account.permissions.schedule)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="schedule") Manage Schedule
-	p
-		input#members(
-			type="checkbox",
-			name="members",
-			value="true"
-			checked=(member.account.permissions.members)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="members") Manage Members
-	p
-		input#accounts(
-			type="checkbox",
-			name="accounts",
-			value="true",
-			checked=(member.account.permissions.accounts)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="accounts") Manage Accounts
-	p
-		input#events(
-			type="checkbox",
-			name="events",
-			value="true",
-			checked=(member.account.permissions.events)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="events") Manage Events
-	p
-		input#broadcast(
-			type="checkbox",
-			name="broadcast",
-			value="true",
-			checked=(member.account.permissions.broadcast)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="broadcast") Broadcast Messages
-	p
-		input#service_credit(
-			type="checkbox",
-			name="service_credit",
-			value="true",
-			checked=(member.account.permissions.service_credit)? "checked" : undefined,
-			disabled=(edit_account? undefined : 'disabled'))
-		label(for="service_credit") Approve Service Credits
+	.container
+		p Username:
+			input(
+				type="text",
+				name="username",
+				value=member.account.username,
+				disabled=(edit_account? undefined : 'disabled'))
+		p Password:
+			input(
+				type="password",
+				disabled="disabled",
+				value="123456")
+			if authMember.account.permissions.accounts
+				button#resetPassword.button.pill(type="button") Reset
+		p
+			input#login_enabled(
+				type="checkbox",
+				name="login_enabled",
+				value="true",
+				checked=(member.account.login_enabled)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="login_enabled") Login Enabled
+		p
+			input#schedule(
+				type="checkbox",
+				name="schedule",
+				value="true",
+				checked=(member.account.permissions.schedule)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="schedule") Manage Schedule
+		p
+			input#members(
+				type="checkbox",
+				name="members",
+				value="true"
+				checked=(member.account.permissions.members)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="members") Manage Members
+		p
+			input#accounts(
+				type="checkbox",
+				name="accounts",
+				value="true",
+				checked=(member.account.permissions.accounts)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="accounts") Manage Accounts
+		p
+			input#events(
+				type="checkbox",
+				name="events",
+				value="true",
+				checked=(member.account.permissions.events)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="events") Manage Events
+		p
+			input#broadcast(
+				type="checkbox",
+				name="broadcast",
+				value="true",
+				checked=(member.account.permissions.broadcast)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="broadcast") Broadcast Messages
+		p
+			input#service_credit(
+				type="checkbox",
+				name="service_credit",
+				value="true",
+				checked=(member.account.permissions.service_credit)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="service_credit") Approve Service Credits

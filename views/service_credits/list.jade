@@ -18,10 +18,9 @@ block content
 				if credit.approved
 					td= credit._approver.name.first + ' ' + credit._approver.name.last
 					td
-						button.reject(data=credit.id) Delete
+						button.reject.button.pill.danger.icon.trash(data=credit.id) Delete
 				else
 					td  
-					td
-						button.approve(data=credit.id) Approve
-						|  
-						button.reject(data=credit.id) Reject
+					td.button-group
+						button.approve.button.pill.icon.approve(data=credit.id) Approve
+						button.reject.button.pill.danger.icon.remove(data=credit.id) Reject

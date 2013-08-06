@@ -1,27 +1,28 @@
 extends ../layout
 
 block content
-	h1= member.name.first + ' ' + member.name.last
+
 	.hidden#member_home_state= member.home_address.state
 	.hidden#member_id= member._id
 	include reset_password_dialog
 	include add_certification_dialog
 	include add_email_dialog
 	include add_service_credit_dialog
-	.edit_member
-		form(action="", method="post")
-			include member_details
-			include account_details
-			include certifications
-			include emails
+
+	.member_details
+		h1= member.name.first + ' ' + member.name.last
+		.buttons.button-group
 			if authMember.account.permissions.members || authMember.account.permissions.accounts
-				input.save(
-					type="submit",
-					value="Save")
-		if authMember.account.permissions.members
-			form(action="/members/delete/"+member._id, method="post")
-				p
-					input.delete(
-						type="submit",
-						value="Delete")
-	include service_credits
+				button.button.big.primary#saveMember(type="button") Save
+			if authMember.account.permissions.members
+				button.button.big.danger.icon.trash#deleteMember(type="button") Delete
+		form#memberDetailForm(action="", method="post")
+			.edit_member
+				include member_details
+				include account_details
+				include certifications
+				include emails
+
+				include service_credits
+				include shifts
+				include hours

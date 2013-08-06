@@ -1,7 +1,6 @@
 .edit_member {
 	position: relative;
-	height: 600px;
-	border-bottom: 1px solid #666;
+	height: 1000px;
 }
 
 .hidden {
@@ -12,8 +11,12 @@
 	border: 1px solid #666;
 	width: 300px;
 	padding: 10px;
-	height: 500px;
+	height: 400px;
+}
+
+.edit_member fieldset .container {
 	overflow: scroll;
+	height: 360px;
 }
 
 .edit_member legend, h2 {
@@ -45,36 +48,49 @@
 	left: 1050px;
 }
 
-.edit_member .save {
+.edit_member .service_credits {
 	position: absolute;
-	top: 550px;
-	left: 60px;
+	top: 450px;
+	left: 0px;
 }
 
-.edit_member .delete {
+.edit_member .shifts {
 	position: absolute;
-	top: 550px;
-	left: 0;
+	top: 450px;
+	left: 350px;
+}
+
+.edit_member .hours {
+	position: absolute;
+	top: 450px;
+	left: 700px;
+}
+
+.member_details {
+	position: relative;
+}
+
+.member_details .buttons {
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
 /* certifications & emails */
-.certification, .email, .credit {
+.item {
 	border: 1px solid #666;
 	border-radius: 8px;
 	font-size: 12px;
 	padding: 10px;
 	margin: 10px;
-}
-
-#certificationContainer .certification {
 	background-color: #eee;
 }
 
-#emailContainer .email.confirmed, .approved {
+.email.confirmed, .approved {
 	background-color: #efe;
 }
 
-#emailContainer .email.unconfirmed, .credit.unapproved {
+.email.unconfirmed, .credit.unapproved {
 	background-color: #fee;
 }
 
@@ -88,7 +104,7 @@
 	cursor: pointer;
 }
 
-#certificationContainer .certification p, #emailContainer .email p, .credit p {
+.item p {
 	margin: 0;
 	padding: 0;
 }

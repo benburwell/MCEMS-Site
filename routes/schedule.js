@@ -369,42 +369,73 @@ exports.edit_message = function (req, res) {
 	}
 };
 
-exports.get_requirements = function (req, res) {
+exports.member_shifts = function (req, res) {
 
-	if (!req.session.member) {
-		return res.redirect('/');
-	}
+	if (req.session.member) {
 
-	res.json(200, {requirements: req.session.member.shift_requirements});
-};
+		var id = mongoose.Types.ObjectId.fromString(req.params.member);
+		if (req.session.member.account.permissions.members
+			|| req.session.member.account.permissions.accounts
+			|| req.session.member._id == id) {
 
-exports.get_requirements_for_member = function (req, res) {
+				var Shift = mongoose.model('Shift');
+				Shift.find({
+					_member: id,
+					start: {
+						"$gte": new Date()
+					}
+				}, function (err, shifts) {
+					res.json(200, shifts);
+				});
 
-	if (req.session.member
-		&& req.session.member.account.permissions.schedule) {
-
-		var Member = mongoose.model('Member');
-		Member.findOne(
-			{ _id: mongoose.Types.ObjectId.fromString(req.params.member)},
-			function (err, member) {
-				res.json(200, {requirements: member.shift_requirements});
-			});
+		} else {
+			res.json(403, {});
+		}
 
 	} else {
-		res.json(401, {status: 'not authorized'});
+		res.json(403, {});
+	}
+};
+
+exports.member_stats = function (req, res) {
+
+	if (req.session.member) {
+
+		var id = mongoose.Types.ObjectId.fromString(req.params.member);
+		if (req.session.member.account.permissions.members
+			|| req.session.member.account.permissions.accounts
+			|| req.session.member._id == id) {
+
+				var Shift = mongoose.model('Shift');
+				Shift.find({
+					_member: id
+				}, function (err, shifts) {
+					
+					var allTime = 0;
+
+					shifts.forEach(function (shift) {
+						
+						var start = moment(shift.start);
+						var end = moment(shift.end);
+
+						var diff = end.diff(start, "hours", true);
+
+						allTime += diff;
+					});
+
+					var data = {
+						allTime: allTime
+					}
+
+					res.json(200, data);
+				});
+
+		} else {
+			res.json(403, {});
+		}
+
+	} else {
+		res.json(403, {});
 	}
 
 }
-
-exports.requirements_form = function (req, res) {
-
-	if (!req.session.member) {
-		return res.redirect('/');
-	}
-
-	if (!req.session.member.account.permissions.schedule) {
-		return res.redirect('/schedule');
-	}
-
-
-};

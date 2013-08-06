@@ -3,6 +3,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.master {
+	width: 1400px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
 a {
   color: #00B7FF;
 }
@@ -76,4 +83,8 @@ nav.auth {
 
 .expiring_soon {
 	background-color: #fee;
+}
+
+input[type="text"], input[type="password"] {
+	font-size: 16px;
 }

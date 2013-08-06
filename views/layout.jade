@@ -8,31 +8,32 @@ html
     script(src='/static/moment.min.js')
     script(src='/static/mcems.js')
   body
-    .help Experiencing a problem? This is brand new software. Contact Ben Burwell for help.
-    .title Muhlenberg College EMS
-    nav.auth
-        if authMember
-            span Loggged in as 
-            if authMember.account.permissions.accounts || authMember.account.permissions.members
-                a(href='/members/edit/' + authMember._id)= authMember.name.first + ' ' + authMember.name.last
+    .master
+        .help Experiencing a problem? This is brand new software. Contact Ben Burwell for help.
+        .title Muhlenberg College EMS
+        nav.auth
+            if authMember
+                span Loggged in as 
+                if authMember.account.permissions.accounts || authMember.account.permissions.members
+                    a(href='/members/edit/' + authMember._id)= authMember.name.first + ' ' + authMember.name.last
+                else
+                    a(href='/me')= authMember.name.first + ' ' + authMember.name.last
+                span  — 
+                a(href="/me/change_password") Change Password
+                span  — 
+                a(href="/logout") Log Out
             else
-                a(href='/me')= authMember.name.first + ' ' + authMember.name.last
-            span  — 
-            a(href="/me/change_password") Change Password
-            span  — 
-            a(href="/logout") Log Out
-        else
-            a(href="/login") Log In
-    nav.main
-        a(href="/") Home
-        if authMember
-            a(href="/schedule") Schedule
-            a(href="/events") Event Signups
-            a(href="/members") Members
-            if authMember.account.permissions.members
-                a(href="/members/certifications") Certifications
-            if authMember.account.permissions.broadcast
-                a(href="/broadcast") Broadcast
-            if authMember.account.permissions.service_credit
-                a(href="/members/service-credits") Service Credits
-    block content
+                a(href="/login") Log In
+        nav.main
+            a(href="/") Home
+            if authMember
+                a(href="/schedule") Schedule
+                a(href="/events") Event Signups
+                a(href="/members") Members
+                if authMember.account.permissions.members
+                    a(href="/members/certifications") Certifications
+                if authMember.account.permissions.broadcast
+                    a(href="/broadcast") Broadcast
+                if authMember.account.permissions.service_credit
+                    a(href="/members/service-credits") Service Credits
+        block content
