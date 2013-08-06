@@ -65,7 +65,39 @@ exports.create = function (req, res) {
 		};
 		
 		new ServiceCredit(data).save(function (err) {
-			res.json(200, {status: 'done'});
+
+			// find members who can approve credits
+			var Member = mongoose.model('Member');
+			Member
+				.find()
+				.where('account.permissions.service_credit').equals(true)
+				.where('school_email').ne(null)
+				.select('school_email')
+				.exec(function (err, emails) {
+
+					var messages = [];
+
+					emails.forEach(function (email) {
+
+						var message = {
+							'To': email.school_email,
+							'From': 'ems@muhlenberg.edu',
+							'Subject': 'Service Credit Requested',
+							'TextBody': 'A member has requested a service'
+								+ 'credit. Description:\n\n'
+								+ data.description
+								+ '\n\nSign on to approve or reject.'
+						};
+
+						messages.push(message);
+
+					});
+
+					postmark.batch(messages, function (error, success) {
+						res.json(200, {status: 'done'});
+					});
+
+				});
 		});
 
 	} else {
