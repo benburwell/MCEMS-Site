@@ -73,7 +73,7 @@ exports.send = function (req, res) {
 						res.render('broadcast/sent', {emails: emails});
 					});
 
-					res.render('broadcast/sent', {emails: emails});
+					res.render('broadcast/sent', {messages: messages});
 
 				});
 		});
