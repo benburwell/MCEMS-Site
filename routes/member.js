@@ -6,6 +6,7 @@ var jsonConcat = function (o1, o2) {
 };
 
 var pepper = require('../pepper'),
+	moment = require('moment'),
 	crypto = require('crypto');
 
 var mongoose, postmark;
@@ -185,7 +186,8 @@ exports.edit_form = function (req, res) {
 					res.render('members/edit', {
 						member: item,
 						edit_account: edit_account,
-						edit_member: edit_member
+						edit_member: edit_member,
+						moment: moment
 					});
 
 				} else {

@@ -311,6 +311,35 @@ $(document).ready(function () {
 
 	$('#serviceCreditDate').datepicker();
 
+	$('#hoursInRangeDialog').dialog({
+		modal: true,
+		autoOpen: false,
+		width: 400,
+		open: function() {
+			$('#hour_range_start').val('');
+			$('#hour_range_end').val('');
+		}
+	});
+
+	$('#hour_range_start').datepicker();
+	$('#hour_range_end').datepicker();
+
+	var getHoursForRange = function () {
+		var url = '/members/stats/' + id + '.json?start='
+			+ $('#hour_range_start').val()
+			+ '&end=' + $('#hour_range_end').val();
+		$.getJSON(url, function (data) {
+			$('#result_hours').text(data.hours);
+		});
+	};
+
+	$('#hour_range_start').bind('change paste keyup', getHoursForRange);
+	$('#hour_range_start').bind('change paste keyup', getHoursForRange);
+
+	$('#getHoursForRange').click(function () {
+		$('#hoursInRangeDialog').dialog('open');
+	});
+
 	$('#deleteMember').click(function () {
 		if (confirm("Do you really want to delete this member forever?")) {
 			var id = $('#member_id').text();
@@ -328,29 +357,68 @@ $(document).ready(function () {
 	loadEmails();
 	loadServiceCredits();
 
-	$.getJSON('/members/shifts/' + id + '.json', function (shifts) {
+	if (id) {
+		$.getJSON('/members/shifts/' + id + '.json', function (shifts) {
 
-        
-		shifts.forEach(function (shift) {
-            
-			var html = '<div class="item">'
-                + '<p><a class="pill button calendar icon" '
-                + 'style="float:right;" '
-                + 'href="/schedule/ical/' + id + '/' + shift._id + '.ics">'
-                + 'iCal</a></p>'
-				+ '<p><b>' + moment(shift.start).format('MMMM Do') + '</b></p>'
-				+ '<p>' + moment(shift.start).format('HH:mm') + '&ndash;'
-			    + moment(shift.end).format('HH:mm') + '</p>'
-                + '</div>';
-			$('#shiftContainer').append(html);
+	        
+			shifts.forEach(function (shift) {
+	            
+				var html = '<div class="item">'
+	                + '<p><a class="pill button calendar icon" '
+	                + 'style="float:right;" '
+	                + 'href="/schedule/ical/' + id + '/' + shift._id + '.ics">'
+	                + 'iCal</a></p>'
+					+ '<p><b>' + moment(shift.start).format('MMMM Do') + '</b></p>'
+					+ '<p>' + moment(shift.start).format('HH:mm') + '&ndash;'
+				    + moment(shift.end).format('HH:mm') + '</p>'
+	                + '</div>';
+				$('#shiftContainer').append(html);
+			});
+
 		});
 
-	});
+	    $.getJSON('/members/stats/' + id + '.json', function (stats) {
+	        $('#allTimeHours').text(stats.hours);
+	    });
 
-    $.getJSON('/members/stats/' + id + '.json', function (stats) {
+	    var m1 = moment();
+	    var m2 = moment().subtract('months', 1);
+	    var m3 = moment().subtract('months', 2);
 
-        $('#allTimeHours').text(stats.allTime);
+	    var base = '/members/stats/' + id + '.json';
 
-    });
+	    var m1q = base + '?sy=' + m1.format('YYYY')
+	    	+ '&sm=' + m1.format('MM')
+	    	+ '&sd=01'
+	    	+ '&ey=' + m1.format('YYYY')
+	    	+ '&em=' + m1.format('MM')
+	    	+ '&ed=' + m1.endOf('month').format('DD');
+
+	    var m2q = base + '?sy=' + m2.format('YYYY')
+	    	+ '&sm=' + m2.format('MM')
+	    	+ '&sd=01'
+	    	+ '&ey=' + m2.format('YYYY')
+	    	+ '&em=' + m2.format('MM')
+	    	+ '&ed=' + m2.endOf('month').format('DD');
+
+	    var m3q = base + '?sy=' + m3.format('YYYY')
+	    	+ '&sm=' + m3.format('MM')
+	    	+ '&sd=01'
+	    	+ '&ey=' + m3.format('YYYY')
+	    	+ '&em=' + m3.format('MM')
+	    	+ '&ed=' + m3.endOf('month').format('DD');
+
+	    $.getJSON(m1q, function (stats) {
+	    	$('#m1hours').text(stats.hours);
+	    });
+
+	    $.getJSON(m2q, function (stats) {
+	    	$('#m2hours').text(stats.hours);
+	    });
+
+	    $.getJSON(m3q, function (stats) {
+	    	$('#m3hours').text(stats.hours);
+	    });
+	}
 
 });

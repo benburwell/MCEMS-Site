@@ -123,3 +123,13 @@
 	margin: 0;
 	padding: 0;
 }
+
+#result_hours {
+	text-align: center;
+	font-size: 3em;
+	font-weight: bold;
+}
+
+#hour_range_start, #hour_range_end {
+	width: 8em;
+}

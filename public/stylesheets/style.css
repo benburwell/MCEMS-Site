@@ -88,3 +88,20 @@ nav.auth {
 input[type="text"], input[type="password"], option {
 	font-size: 1em;
 }
+
+table.data {
+	border: 1px solid #000;
+	border-collapse: collapse;
+	background-color: #fff;
+}
+
+table.data th {
+	background-color: #eee;
+	padding: 1em;
+}
+
+table.data td {
+	text-align: center;
+	padding: 1em;
+	margin: 0;
+}

@@ -397,7 +397,7 @@ exports.member_shifts = function (req, res) {
 	}
 };
 
-exports.member_stats = function (req, res) {
+exports.member_hours_json = function (req, res) {
 
 	if (req.session.member) {
 
@@ -407,11 +407,23 @@ exports.member_stats = function (req, res) {
 			|| req.session.member._id == id) {
 
 				var Shift = mongoose.model('Shift');
-				Shift.find({
-					_member: id
-				}, function (err, shifts) {
+				var query = { _member: id };
+
+				if (req.query.sy && req.query.sm && req.query.sd) {
+					query.start = { '$gte': new Date(req.query.sy, +req.query.sm - 1, req.query.sd) };
+				} else if (req.query.start) {
+					query.start = { '$gte' : new Date(req.query.start) };
+				}
+
+				if (req.query.ey && req.query.em && req.query.ed) {
+					query.end = { '$lte': new Date(req.query.ey, +req.query.em - 1, req.query.ed) };
+				} else if (req.query.end) {
+					query.end = { '$lte' : new Date(req.query.end) };
+				}
+
+				Shift.find(query, function (err, shifts) {
 					
-					var allTime = 0;
+					var hours = 0;
 
 					shifts.forEach(function (shift) {
 						
@@ -420,11 +432,11 @@ exports.member_stats = function (req, res) {
 
 						var diff = end.diff(start, "hours", true);
 
-						allTime += diff;
+						hours += diff;
 					});
 
 					var data = {
-						allTime: allTime
+						hours: hours
 					}
 
 					res.json(200, data);
