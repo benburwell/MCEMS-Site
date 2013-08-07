@@ -10,6 +10,8 @@ var express         = require('express'),
 	crypto          = require('crypto'),
 	assetManager    = require('connect-assetmanager'),
 	assetHandler    = require('connect-assetmanager-handlers'),
+	cron            = require('cron').CronJob,
+	moment          = require('moment'),
 
 	// models for mongoose
 	models          = require('./models'),
@@ -219,3 +221,42 @@ setInterval(function () {
 		console.log('Got home page');
 	});
 }, 45 * 60 * 1000);
+
+// set up certification expiry emails
+var Certification = mongoose.model('Certification');
+Certification.find().populate('_member').exec(function (err, certs) {
+
+	certs.forEach(function (cert) {
+
+		if (cert.expiry) {
+			if (cert._member.school_email) {
+
+				var email = {
+					'To': cert._member.school_email,
+					'From': 'ems@muhlenberg.edu',
+					'Subject': 'Expiring Certification',
+					'TextBody': 'Hi '
+						+ cert._member.name.first + ', \n\n'
+						+ 'The ' + cert.type + ' certification you have on '
+						+ 'file with MCEMS expires in 60 days on '
+						+ moment(cert.expiry).format('MMMM D, YYYY') + '. \n\n'
+						+ 'Please provide the secretary with your updated certification '
+						+ 'as soon as you are able. \n\n'
+						+ 'Thanks!'
+				};
+
+				var send_date = moment(cert.expiry)
+					.subtract('days', 60)
+					.toDate();
+
+				var job = new cron({
+					cronTime: send_date,
+					onTick: function () {
+						postmark.send(email)
+					},
+					start: true
+				});
+			}
+		}
+	});
+});
