@@ -58,7 +58,8 @@ block content
 			- for (i = 28; i < 35; i++) {
 			block day_cell
 			- }
-		tr
-			- for (i = 35; i < 42; i++) {
-			block day_cell
-			- }
+		if days[35].number != ""
+			tr
+				- for (i = 35; i < 42; i++) {
+				block day_cell
+				- }
