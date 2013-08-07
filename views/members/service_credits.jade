@@ -1,6 +1,6 @@
 fieldset.service_credits
 	legend Service Credits
-	if member._id == authMember._id
-		button#showAddServiceCreditDialog.button.pill(type="button") Request Service Credit
 	.container
+		if member._id == authMember._id
+			button#showAddServiceCreditDialog.button.pill(type="button") Request Service Credit
 		#serviceCreditContainer

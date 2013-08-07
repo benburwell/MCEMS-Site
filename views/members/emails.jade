@@ -1,8 +1,8 @@
 fieldset.emails
 	legend Addresses
-	if authMember._id == member._id
-		button#showAddEmailDialog.button.pill(type="button") Add Email Address
-		|  
-		button#showAddMobileDialog.button.pill(type="button") Add Cell Phone
 	.container
-		#emailContainer(class=(authMember._id == member._id)? 'editable' : undefined)
+		if authMember._id == member._id
+			button#showAddEmailDialog.button.pill(type="button") Add Email Address
+			|  
+			button#showAddMobileDialog.button.pill(type="button") Add Cell Phone
+			#emailContainer(class=(authMember._id == member._id)? 'editable' : undefined)
