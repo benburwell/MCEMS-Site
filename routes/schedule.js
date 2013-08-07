@@ -185,11 +185,11 @@ exports.month_schedule = function (req, res) {
 					year: now.format('YYYY'),
 					prev_month: {
 						name: prev_month.format('MMMM'),
-						url: '/schedule/' + prev_month.year() + '/' + (prev_month.month()+1)
+						url: '/schedule/' + prev_month.format('YYYY/MM')
 					},
 					next_month: {
 						name: next_month.format('MMMM'),
-						url: '/schedule/' + next_month.year() + '/' + (next_month.month()+1)
+						url: '/schedule/' + next_month.format('YYYY/MM')
 					},
 					members: members,
 					message: msg.value
