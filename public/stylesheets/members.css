@@ -102,11 +102,11 @@
 }
 
 .email.confirmed, .approved {
-	background-color: #efe;
+	background-color: #dfd;
 }
 
-.email.unconfirmed, .credit.unapproved {
-	background-color: #fee;
+.email.unconfirmed, .credit.unapproved, .certification.expiring {
+	background-color: #fdd;
 }
 
 #certificationContainer.editable .certification:hover {

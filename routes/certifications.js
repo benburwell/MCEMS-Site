@@ -22,8 +22,27 @@ exports.get_json = function (req, res) {
 	var id = mongoose.Types.ObjectId.fromString(req.params.member);
 
 	var Certification = mongoose.model('Certification');
-	Certification.find( {_member: id}, function (err, items) {
-		res.json(200, items);
+	Certification
+		.find( {_member: id})
+		.sort('expiry')
+		.exec(function (err, items) {
+
+			var certs_expiring = [];
+			var other_certs = [];
+
+			items.forEach(function (cert) {
+				if (cert.expiry == null) {
+					other_certs.push(cert);
+				} else {
+					certs_expiring.push(cert);
+				}
+			});
+
+			other_certs.forEach(function (cert) {
+				certs_expiring.push(cert);
+			});
+
+			res.json(200, certs_expiring);
 	});
 };
 

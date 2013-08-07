@@ -16,7 +16,15 @@ var loadCerts = function () {
 		// display certs
 		certs.forEach(function (cert) {
 
-			var html = '<div class="item certification" data="' + cert._id + '">'
+			var expiring = cert.expiry && moment(cert.expiry).diff(moment(), 'days') < 60;
+
+			var html = '<div class="item certification';
+
+			if (expiring) {
+				html += ' expiring';
+			}
+
+			html += '" data="' + cert._id + '">'
 				+ '<p><b>' + cert.type + '</b></p>';
 
 			if (cert.number) {
