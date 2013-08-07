@@ -52,12 +52,30 @@ exports.send = function (req, res) {
 
 			});
 
-			postmark.batch(messages, function (error, success) {
-				res.render('broadcast/sent', {emails: emails});
-			});
+			// now get school_emails
+			var Member = mongoose.model('Member');
+			Member.find()
+				.where('school_email').ne(null)
+				.select('school_email')
+				.exec(function (err, emails) {
 
-			res.render('broadcast/sent', {emails: emails});
+					emails.forEach(function (email) {
+						var message = {
+							'From': 'ems@muhlenberg.edu',
+							'To': email.school_email,
+							'Subject': req.body.subject,
+							'TextBody': req.body.full
+						};
+						messages.push(message);
+					});
 
+					postmark.batch(messages, function (error, success) {
+						res.render('broadcast/sent', {emails: emails});
+					});
+
+					res.render('broadcast/sent', {emails: emails});
+
+				});
 		});
 
 	} else {
