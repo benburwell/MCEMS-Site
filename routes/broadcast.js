@@ -33,7 +33,8 @@ exports.send = function (req, res) {
 
 				if (email.mobile.carrier != undefined) {
 					if (req.body.brief) {
-						message.TextBody = req.body.brief
+						message.TextBody = req.body.brief,
+						message.Subject = ''
 					} else {
 						return;
 					}
