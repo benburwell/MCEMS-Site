@@ -1,10 +1,10 @@
 body {
-  padding: 50px;
+  padding: 3em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .master {
-	width: 1400px;
+	width: 80em;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -16,19 +16,19 @@ a {
 
 nav.main {
 	background-color: #eee;
-	padding: 10px;
-	border-radius: 5px;
+	padding: 1em;
+	border-radius: 0.5em;
 }
 
 nav.main a {
-	padding-right: 10px;
+	padding-right: 1em;
 }
 
 .title {
-	font-size: 36px;
+	font-size: 2.5em;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 10px;
+	margin-bottom: 0;
 }
 
 .hidden  {
@@ -45,7 +45,7 @@ table.spread {
 }
 
 table.spread td, table.spread th {
-	padding: 8px;
+	padding: 0.5em;
 	margin: 0;
 }
 
@@ -62,22 +62,22 @@ a.danger {
 }
 
 nav.auth {
-	font-size: 12px;
+	font-size: 0.85em;
 	text-align: right;
-	margin: 5px;
+	margin: 1em;
 }
 
 .help {
 	color: #fff;
 	background-color: #900;
-	font-size: 12px;
+	font-size: 0.8em;
 	text-align: center;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	margin: 0;
-	padding: 8px;
+	padding: 1em;
 	z-index: 100;
 }
 
@@ -85,6 +85,6 @@ nav.auth {
 	background-color: #fee;
 }
 
-input[type="text"], input[type="password"] {
-	font-size: 16px;
+input[type="text"], input[type="password"], option {
+	font-size: 1em;
 }

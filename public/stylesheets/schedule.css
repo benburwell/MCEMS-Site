@@ -9,12 +9,12 @@ h1.calendar, nav.calendar {
 }
 
 nav.calendar {
-	padding-bottom: 15px;
+	padding-bottom: 1em;
 }
 
 table.calendar td {
-	width: 200px;
-	height: 200px;
+	width: 12em;
+	height: 14em;
 	border: 1px solid #999;
 	vertical-align: top;
 }
@@ -32,21 +32,21 @@ table.calendar .crew_chief .shift .name, .key .crew_chief {
 }
 
 table.calendar .crew_chief, table.calendar .member {
-	padding-bottom: 7px;
+	padding-bottom: 0.5em;
 }
 
 table.calendar .shift .time {
-	font-size: 10px;
-	padding-right: 3px;
+	font-size: 0.65em;
+	padding-right: 0.2em;
 }
 
 table.calendar .shift .name {
-	font-size: 13px;
+	font-size: 0.8em;
 	color: #000;
 }
 
 table.calendar .shift .unit {
-	font-size: 13px;
+	font-size: 0.65em;
 	color: #999;
 }
 
@@ -77,9 +77,9 @@ table.calendar td.incomplete:hover {
 
 .key {
 	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 12px;
+	padding-top: 0.6em;
+	padding-bottom: 0.6em;
+	font-size: 0.8em;
 }
 
 table.calendar td.editable .shift.editable .name:hover {
@@ -87,14 +87,14 @@ table.calendar td.editable .shift.editable .name:hover {
 }
 
 .key * {
-	padding-left: 2px;
-	padding-right: 2px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 
 #message {
 	text-align: center;
 	background-color: #ffc;
-	padding: 8px;
+	padding: 0.5em;
 	color: #666;
 	border-width: 1px;
 	border-color: #eee;
@@ -102,10 +102,10 @@ table.calendar td.editable .shift.editable .name:hover {
 	border-left-style: solid;
 	border-bottom-style: solid;
 	border-right-style: solid;
-	margin-left: 50px;
-	margin-right: 50px;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
+	margin-left: 3em;
+	margin-right: 3em;
+	border-bottom-right-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
 }
 
 #message.editable:hover {
@@ -113,5 +113,5 @@ table.calendar td.editable .shift.editable .name:hover {
 }
 
 #message #updated_message {
-	width: 500px;
+	width: 40em;
 }

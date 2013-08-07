@@ -1,6 +1,6 @@
 .edit_member {
 	position: relative;
-	height: 1000px;
+	height: 70em;
 }
 
 .hidden {
@@ -8,19 +8,26 @@
 }
 
 .edit_member fieldset {
-	border: 1px solid #666;
-	width: 300px;
-	padding: 10px;
-	height: 400px;
+	border: none;
+	width: 20em;
+	padding: 0;
+	padding-top: 1em;
+	height: 30em;
 }
 
 .edit_member fieldset .container {
 	overflow: scroll;
-	height: 360px;
+	overflow-x: hidden;
+	height: 28em;
+	padding: 0.5em;
+}
+
+.edit_member fieldset .container:hover {
+	background-color: #ffc;
 }
 
 .edit_member legend, h2 {
-	font-size: 20px;
+	font-size: 1.2em;
 	font-weight: bold;
 }
 
@@ -33,37 +40,41 @@
 .edit_member .account {
 	position: absolute;
 	top: 0;
-	left: 350px;
+	left: 20em;
+}
+
+.edit_member .account input[type="password"] {
+	width: 4em;
 }
 
 .edit_member .certifications {
 	position: absolute;
 	top: 0;
-	left: 700px;
+	left: 40em;
 }
 
 .edit_member .emails {
 	position: absolute;
 	top: 0;
-	left: 1050px;
+	left: 60em;
 }
 
 .edit_member .service_credits {
 	position: absolute;
-	top: 450px;
+	top: 35em;
 	left: 0px;
 }
 
 .edit_member .shifts {
 	position: absolute;
-	top: 450px;
-	left: 350px;
+	top: 35em;
+	left: 20em;
 }
 
 .edit_member .hours {
 	position: absolute;
-	top: 450px;
-	left: 700px;
+	top: 35em;
+	left: 40em;
 }
 
 .member_details {
