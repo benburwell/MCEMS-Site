@@ -47,6 +47,10 @@
 	width: 4em;
 }
 
+.edit_member .member input[type="text"] {
+	width: 16em;
+}
+
 .edit_member .certifications {
 	position: absolute;
 	top: 0;

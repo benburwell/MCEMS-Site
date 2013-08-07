@@ -2,36 +2,47 @@ fieldset.member
 	legend Member Details
 	.container
 		p First Name:
+			br
 			input(
 				type="text",
 				name="first_name",
 				value=member.name.first,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Last Name:
+			br
 			input(
 				type="text",
 				name="last_name",
 				value=member.name.last,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Unit:
+			br
 			input(
 				type="text",
 				name="unit",
 				value=member.unit,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Class Year:
+			br
 			input(
 				type="text",
 				name="class_year",
 				value=member.class_year,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Campus Box:
+			br
 			input(
 				type="text",
 				name="campus_box",
 				value=member.campus_box,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Campus Address:
+			br
 			input(
 				type="text",
 				name="campus_address",
@@ -72,18 +83,23 @@ fieldset.member
 		//- 		name="home_country",
 		//- 		value=member.home_address.country,
 		//- 		disabled=(edit_member? undefined : 'disabled'))
+		
 		p Phone:
+			br
 			input(
 				type="text",
 				name="phone",
 				value=member.phone,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p Email:
+			br
 			input(
 				type="text",
 				name="school_email",
 				value=member.school_email,
 				disabled=(edit_member? undefined : 'disabled'))
+		
 		p
 			input#training_corps(
 				type="checkbox", 
