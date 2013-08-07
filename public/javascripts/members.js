@@ -243,7 +243,7 @@ $(document).ready(function () {
 	$('#editEmailDialog').dialog({
 		modal: true,
 		autoOpen: false,
-		width: 400,
+		width: 300,
 		open: function () {
 			$('#confirmationCode').val('');
 		},
