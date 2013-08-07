@@ -37,48 +37,48 @@ fieldset.member
 				name="campus_address",
 				value=member.campus_address,
 				disabled=(edit_member? undefined : 'disabled'))
-		p Home Address 1:
-			input(
-				type="text",
-				name="home_address_line_1",
-				value=member.home_address.line_1,
-				disabled=(edit_member? undefined : 'disabled'))
-		p Home Address 2:
-			input(
-				type="text",
-				name="home_address_line_2",
-				value=member.home_address.line_2,
-				disabled=(edit_member? undefined : 'disabled'))
-		p Home City:
-			input(
-				type="text",
-				name="home_city",
-				value=member.home_address.city,
-				disabled=(edit_member? undefined : 'disabled'))
-		p Home State:
-			select#home_state(
-				name="home_state",
-				disabled=(edit_member? undefined : 'disabled'))
-				include state_options
-		p Home Zip:
-			input(
-				type="text",
-				name="home_zip",
-				value=member.home_address.zip,
-				disabled=(edit_member? undefined : 'disabled'))
-		p Home Country:
-			input(
-				type="text",
-				name="home_country",
-				value=member.home_address.country,
-				disabled=(edit_member? undefined : 'disabled'))
+		//- p Home Address 1:
+		//- 	input(
+		//- 		type="text",
+		//- 		name="home_address_line_1",
+		//- 		value=member.home_address.line_1,
+		//- 		disabled=(edit_member? undefined : 'disabled'))
+		//- p Home Address 2:
+		//- 	input(
+		//- 		type="text",
+		//- 		name="home_address_line_2",
+		//- 		value=member.home_address.line_2,
+		//- 		disabled=(edit_member? undefined : 'disabled'))
+		//- p Home City:
+		//- 	input(
+		//- 		type="text",
+		//- 		name="home_city",
+		//- 		value=member.home_address.city,
+		//- 		disabled=(edit_member? undefined : 'disabled'))
+		//- p Home State:
+		//- 	select#home_state(
+		//- 		name="home_state",
+		//- 		disabled=(edit_member? undefined : 'disabled'))
+		//- 		include state_options
+		//- p Home Zip:
+		//- 	input(
+		//- 		type="text",
+		//- 		name="home_zip",
+		//- 		value=member.home_address.zip,
+		//- 		disabled=(edit_member? undefined : 'disabled'))
+		//- p Home Country:
+		//- 	input(
+		//- 		type="text",
+		//- 		name="home_country",
+		//- 		value=member.home_address.country,
+		//- 		disabled=(edit_member? undefined : 'disabled'))
 		p Phone:
 			input(
 				type="text",
 				name="phone",
 				value=member.phone,
 				disabled=(edit_member? undefined : 'disabled'))
-		p School Email:
+		p Email:
 			input(
 				type="text",
 				name="school_email",
