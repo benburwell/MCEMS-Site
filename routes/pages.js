@@ -56,7 +56,7 @@ exports.render = function (req, res) {
 
 exports.list = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
 
@@ -71,7 +71,7 @@ exports.list = function (req, res) {
 
 exports.edit_form = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
 		var id = mongoose.Types.ObjectId.fromString(req.params.page);
@@ -86,7 +86,7 @@ exports.edit_form = function (req, res) {
 
 exports.edit = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
 		var id = mongoose.Types.ObjectId.fromString(req.params.page);
@@ -109,7 +109,7 @@ exports.edit = function (req, res) {
 
 exports.create = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
 		new Page({
@@ -130,7 +130,7 @@ exports.create = function (req, res) {
 
 exports.create_form = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		res.render('pages/create');
 
@@ -141,7 +141,7 @@ exports.create_form = function (req, res) {
 
 exports.delete = function (req, res) {
 	if (req.session.member
-		&& req.session.member.account.permissions.site) {
+		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
 		var id = mongoose.Types.ObjectId.fromString(req.params.page);
