@@ -88,8 +88,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 // middleware stack
-app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.favicon(__dirname + '/public/static/favicon.ico'));
 app.use(express.cookieParser());
 app.use(express.session({secret: pepper.secret }));
 
