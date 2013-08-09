@@ -171,7 +171,10 @@ app.get('/broadcast', broadcast.form);
 app.post('/broadcast', broadcast.send);
 
 
+// make admin account
 app.get('/emergency_make_admin_account', function (req, res) {
+
+	// set this condition to true if you need to use it
 	if (false) {
 		var salt = '123456asdfjklwefb82';
 		var pw = crypto.createHash('sha1');
