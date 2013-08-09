@@ -14,7 +14,8 @@
     "postmark": "*",
     "crypto": "*",
     "connect-assetmanager": ">= 0.0.28",
-    "connect-assetmanager-handlers": ">= 0.0.18"
+    "connect-assetmanager-handlers": ">= 0.0.18",
+    "marked": ">= 0.2.9"
   },
   "engines": {
     "node": "0.10.x",

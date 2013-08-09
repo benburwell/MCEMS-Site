@@ -43,6 +43,7 @@ mongoose.model('System', new Schema(models.system));
 mongoose.model('Email', new Schema(models.email));
 mongoose.model('Certification', new Schema(models.certification));
 mongoose.model('ServiceCredit', new Schema(models.service_credit));
+mongoose.model('Page', new Schema(models.page));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -59,6 +60,7 @@ certifications._connect(mongoose, postmark);
 emails._connect(mongoose, postmark);
 broadcast._connect(mongoose, postmark);
 service_credits._connect(mongoose, postmark);
+pages._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -96,7 +98,18 @@ app.use(express.session({secret: pepper.secret }));
 // this will set authMember for easy use in Jade templates
 app.use(function (req, res, next) {
 	res.locals.authMember = req.session.member;
-	next();
+	
+	var Page = mongoose.model('Page');
+	var query = { show_in_nav: true };
+	
+	if (!req.session.member) {
+		query.public = true;
+	}
+
+	Page.find(query, function (err, pages) {
+		res.locals.nav_items = pages;
+		next();
+	});
 });
 
 app.use(express.bodyParser());
@@ -104,6 +117,10 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(assetManager(asset_manager_groups));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function (req, res) {
+	res.status(404);
+	res.render('404');
+});
 
 // development only
 if ('development' == app.get('env')) {
@@ -167,9 +184,18 @@ app.get('/events/create', events.create_form);
 app.post('/events/create', events.create);
 app.post('/events/delete/:event', events.delete);
 
+// broadcast
 app.get('/broadcast', broadcast.form);
 app.post('/broadcast', broadcast.send);
 
+// pages
+app.get('/page/:page', pages.render);
+app.get('/pages', pages.list);
+app.get('/pages/edit/:page', pages.edit_form);
+app.post('/pages/edit/:page', pages.edit);
+app.post('/pages/create', pages.create);
+app.get('/pages/create', pages.create_form);
+app.post('/pages/delete/:page', pages.delete);
 
 // make admin account
 app.get('/emergency_make_admin_account', function (req, res) {

@@ -70,3 +70,11 @@ fieldset.account
 				checked=(member.account.permissions.service_credit)? "checked" : undefined,
 				disabled=(edit_account? undefined : 'disabled'))
 			label(for="service_credit") Approve Service Credits
+		p
+			input#pages(
+				type="checkbox",
+				name="pages",
+				value="true",
+				checked=(member.account.permissions.pages)? "checked" : undefined,
+				disabled=(edit_account? undefined : 'disabled'))
+			label(for="pages") Edit Site Pages

@@ -34,13 +34,12 @@ exports.member = {
 		login_enabled: Boolean,
 		permissions: {
 			schedule: Boolean,
-			site: Boolean,
-			files: Boolean,
 			members: Boolean,
 			accounts: Boolean,
 			events: Boolean,
 			broadcast: Boolean,
-			service_credit: Boolean
+			service_credit: Boolean,
+			pages: Boolean
 		}
 	},
 	class_year: Number,
@@ -120,4 +119,17 @@ exports.event = {
 exports.system = {
 	property: String,
 	value: String
+};
+
+exports.page = {
+	name: String,
+	show_in_nav: Boolean,
+	public: Boolean,
+	title: String,
+	content: String,
+	url: {
+		type: String,
+		required: true,
+		unique: true
+	}
 };

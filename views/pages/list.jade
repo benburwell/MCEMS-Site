@@ -1,0 +1,18 @@
+extends ../layout
+block content
+	h1 Pages
+	a.button.add.icon(href="/pages/create") New Page
+	table.spread
+		tr
+			th Name
+			th URL
+			th Public
+			th Actions
+		for page in pages
+			tr
+				td= page.name
+				td
+					a(href="/page/" + page.url)= page.url
+				td= page.public? 'Yes' : ''
+				td
+					a.pill.button.edit.icon(href="/pages/edit/"+page.id) Edit

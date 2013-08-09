@@ -1,0 +1,26 @@
+extends ../layout
+block content
+	h1 Create a New Page
+	form(action="/pages/create", method="post")
+		p Name (shown in navigation bar, if appropriate):
+			br
+			input(type="text", name="name")
+		p Title (shown in the title bar of the window or tab):
+			br
+			input(type="text", name="title")
+		p URL (page will live at /page/[url]):
+			br
+			input(type="text", name="url")
+		p
+			label(for="public")
+				input#public(type="checkbox", name="public", value="true", checked="checked")
+				|  Public
+		p
+			label(for="show_in_nav")
+				input#show_in_nav(type="checkbox", name="show_in_nav", value="true")
+				|  Show Page in Nav Bar
+		p Content:
+			br
+			textarea#editing_page_content(name="content")
+		p
+			input.big.button(type="submit", value="Save")

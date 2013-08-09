@@ -138,15 +138,7 @@ exports.create = function (req, res) {
 						salt: salt,
 						hash: hash
 					},
-					login_enabled: true,
-					permissions: {
-						schedule: false,
-						members: false,
-						accounts: false,
-						events: false,
-						broadcast: false,
-						service_credit: false
-					}
+					login_enabled: true
 				},
 				status: {
 					training_corps: false,
@@ -207,6 +199,7 @@ exports.edit = function (req, res) {
 		'account.login_enabled': (req.body.login_enabled == 'true')? true : false,
 		'account.permissions.schedule': (req.body.schedule == 'true')? true : false,
 		'account.permissions.members': (req.body.members == 'true')? true : false,
+		'account.permissions.pages': (req.body.pages == 'true')? true : false,
 		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
 		'account.permissions.events': (req.body.events == 'true')? true : false,
 		'account.permissions.broadcast': (req.body.broadcast == 'true')? true : false,
@@ -220,6 +213,12 @@ exports.edit = function (req, res) {
 		'class_year': req.body.class_year,
 		'campus_box': req.body.campus_box,
 		'campus_address': req.body.campus_address,
+		// 'home_address.line_1': req.body.home_address_line_1,
+		// 'home_address.line_2': req.body.home_address_line_2,
+		// 'home_address.city': req.body.home_city,
+		// 'home_address.state': req.body.home_state,
+		// 'home_address.zip': req.body.home_zip,
+		// 'home_address.country': req.body.home_country,
 		'phone': req.body.phone,
 		'school_email': req.body.school_email,
 		'status.training_corps': (req.body.training_corps == 'true')? true : false,
@@ -236,7 +235,6 @@ exports.edit = function (req, res) {
 	var id = mongoose.Types.ObjectId.fromString(req.params.member);
 	var update;
 
-
 	if (req.session.member != undefined) {
 		if (req.session.member.account.permissions.members) {
 			if (req.session.member.account.permissions.accounts) {
@@ -245,7 +243,7 @@ exports.edit = function (req, res) {
 				update = member;
 			}
 		} else if (req.session.member.account.permissions.accounts) {
-			update = account
+			update = account;
 		} else {
 			return res.redirect('/members');
 		}
@@ -254,6 +252,7 @@ exports.edit = function (req, res) {
 	}
 
 	Member.update({_id: id}, update, function (err, count) {
+		if (err) console.error(err);
 		res.redirect('/members');
 	});
 };

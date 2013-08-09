@@ -1,0 +1,27 @@
+extends ../layout
+block content
+	h1 Edit Page
+	form(action="/pages/edit/"+page.id, method="post")
+		p Name (shown in navigation bar, if appropriate):
+			br
+			input(type="text", name="name", value=page.name)
+		p Title (shown in the title bar of the window or tab):
+			br
+			input(type="text", name="title", value=page.title)
+		p URL (page will live at /page/[url]):
+			br
+			input(type="text", name="url", value=page.url)
+		p
+			label(for="public")
+				input#public(type="checkbox", name="public", value="true", checked=(page.public? 'checked' : undefined))
+				|  Public
+		p
+			label(for="show_in_nav")
+				input#show_in_nav(type="checkbox", name="show_in_nav", value="true", checked=(page.show_in_nav? 'checked' : undefined))
+				|  Show Page in Nav Bar
+		p Content:
+			br
+			textarea#editing_page_content(name="content")= page.content
+		p.button-group
+			button#deletePage.big.danger.button(type="button", data=page.id) Delete
+			input.big.primary.button(type="submit", value="Save")
