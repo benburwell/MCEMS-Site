@@ -170,9 +170,6 @@ app.post('/events/delete/:event', events.delete);
 app.get('/broadcast', broadcast.form);
 app.post('/broadcast', broadcast.send);
 
-// JSON feeds of the models
-app.get('/shifts.json', jsonFeed.shifts);
-app.get('/members.json', jsonFeed.members);
 
 app.get('/emergency_make_admin_account', function (req, res) {
 	if (false) {
