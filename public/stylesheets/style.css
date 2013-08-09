@@ -117,6 +117,12 @@ nav.auth {
 	margin: 1em;
 }
 
+nav.main {
+	position: relative;
+	display: block;
+	height: 3em;
+}
+
 .help {
 	color: #fff;
 	background-color: #900;

@@ -25,30 +25,31 @@ html
                 a(href="/logout") Log Out
             else
                 a(href="/login") Log In
-        ul#nav
-            for page in nav_items
-                li
-                    a(href='/page/'+page.url)= page.name
-            if authMember
-                li
-                    a(href="/me") Tools
-                    ul
-                        li
-                            a(href="/schedule") Schedule
-                        li
-                            a(href="/events") Event Signups
-                        li
-                            a(href="/members") Members
-                        if authMember.account.permissions.members
+        nav.main
+            ul#nav
+                for page in nav_items
+                    li
+                        a(href='/page/'+page.url)= page.name
+                if authMember
+                    li
+                        a(href="/me") Tools
+                        ul
                             li
-                                a(href="/members/certifications") Certifications
-                        if authMember.account.permissions.broadcast
+                                a(href="/schedule") Schedule
                             li
-                                a(href="/broadcast") Broadcast
-                        if authMember.account.permissions.service_credit
+                                a(href="/events") Event Signups
                             li
-                                a(href="/members/service-credits") Service Credits
-                        if authMember.account.permissions.pages
-                            li
-                                a(href="/pages") Pages
+                                a(href="/members") Members
+                            if authMember.account.permissions.members
+                                li
+                                    a(href="/members/certifications") Certifications
+                            if authMember.account.permissions.broadcast
+                                li
+                                    a(href="/broadcast") Broadcast
+                            if authMember.account.permissions.service_credit
+                                li
+                                    a(href="/members/service-credits") Service Credits
+                            if authMember.account.permissions.pages
+                                li
+                                    a(href="/pages") Pages
         block content
