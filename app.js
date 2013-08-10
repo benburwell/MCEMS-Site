@@ -20,7 +20,6 @@ var express         = require('express'),
 	pepper          = require('./pepper'),
 
 	// routes
-	jsonFeed        = require('./routes/json'),
 	member          = require('./routes/member'),
 	events          = require('./routes/events'),
 	pages           = require('./routes/pages'),
@@ -54,7 +53,6 @@ mongoose.connect(uristring);
 // put mongoose in modules
 member._connect(mongoose, postmark);
 schedule._connect(mongoose, postmark);
-jsonFeed._connect(mongoose, postmark);
 events._connect(mongoose, postmark);
 certifications._connect(mongoose, postmark);
 emails._connect(mongoose, postmark);
