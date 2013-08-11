@@ -334,7 +334,7 @@ $(document).ready(function () {
 	};
 
 	$('#hour_range_start').bind('change paste keyup', getHoursForRange);
-	$('#hour_range_start').bind('change paste keyup', getHoursForRange);
+	$('#hour_range_end').bind('change paste keyup', getHoursForRange);
 
 	$('#getHoursForRange').click(function () {
 		$('#hoursInRangeDialog').dialog('open');
