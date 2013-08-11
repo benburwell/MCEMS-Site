@@ -407,19 +407,54 @@ exports.member_hours_json = function (req, res) {
 			|| req.session.member._id == id) {
 
 				var Shift = mongoose.model('Shift');
-				var query = { _member: id };
+				var start, end;
+				var query;
 
 				if (req.query.sy && req.query.sm && req.query.sd) {
-					query.start = { '$gte': new Date(req.query.sy, +req.query.sm - 1, req.query.sd) };
+					start = new Date(req.query.sy, +req.query.sm - 1, req.query.sd);
 				} else if (req.query.start) {
-					query.start = { '$gte' : new Date(req.query.start) };
+					start = new Date(req.query.start);
 				}
 
 				if (req.query.ey && req.query.em && req.query.ed) {
-					query.end = { '$lte': new Date(req.query.ey, +req.query.em - 1, req.query.ed) };
+					end = new Date(req.query.ey, +req.query.em - 1, req.query.ed);
 				} else if (req.query.end) {
-					query.end = { '$lte' : new Date(req.query.end) };
+					end = new Date(req.query.end);
 				}
+
+				if (end) {
+					end = moment(end).endOf('day').toDate();
+				}
+
+				if (start && end) {
+					query = {
+						_member: id,
+						start: {
+							$lte: end
+						},
+						end: {
+							$gte: start
+						}
+					};
+				} else if (start) {
+					query = {
+						_member: id,
+						end: {
+							$gte: start
+						}
+					};
+				} else if (end) {
+					query = {
+						_member: id,
+						start: {
+							$gte: end
+						}
+					};
+				} else {
+					query = { _member: id };
+				}
+
+				console.log(JSON.stringify(query));
 
 				Shift.find(query, function (err, shifts) {
 					
@@ -427,16 +462,33 @@ exports.member_hours_json = function (req, res) {
 
 					shifts.forEach(function (shift) {
 						
-						var start = moment(shift.start);
-						var end = moment(shift.end);
+						var s = moment(shift.start);
+						var e = moment(shift.end);
 
-						var diff = end.diff(start, "hours", true);
+						console.log("Found shift: " 
+							+ s.format("YYYY MM DD HH:mm") 
+							+ " to "
+							+ e.format("YYYY MM DD HH:mm"));
+
+						if (start) {
+							if (moment(start).isAfter(s)) {
+								s = moment(start);
+							}
+						}
+
+						if (end) {
+							if (moment(end).isBefore(e)) {
+								e = moment(end);
+							}
+						}
+
+						var diff = e.diff(s, "hours", true);
 
 						hours += diff;
 					});
 
 					var data = {
-						hours: hours
+						hours: Math.round(hours * 10) / 10
 					}
 
 					res.json(200, data);
