@@ -26,6 +26,7 @@ var express         = require('express'),
 	certifications  = require('./routes/certifications'),
 	emails          = require('./routes/emails'),
 	broadcast       = require('./routes/broadcast'),
+	application     = require('./routes/application'),
 	service_credits = require('./routes/service_credits'),
 	schedule        = require('./routes/schedule');
 
@@ -43,6 +44,8 @@ mongoose.model('Email', new Schema(models.email));
 mongoose.model('Certification', new Schema(models.certification));
 mongoose.model('ServiceCredit', new Schema(models.service_credit));
 mongoose.model('Page', new Schema(models.page));
+mongoose.model('Applicant', new Schema(models.applicant));
+mongoose.model('Interview', new Schema(models.interview));
 
 // connect to db
 var uristring = process.env.MONGOLAB_URI
@@ -59,6 +62,7 @@ emails._connect(mongoose, postmark);
 broadcast._connect(mongoose, postmark);
 service_credits._connect(mongoose, postmark);
 pages._connect(mongoose, postmark);
+application._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -194,6 +198,20 @@ app.post('/pages/edit/:page', pages.edit);
 app.post('/pages/create', pages.create);
 app.get('/pages/create', pages.create_form);
 app.post('/pages/delete/:page', pages.delete);
+
+// application
+app.get('/apply', application.form);
+app.post('/apply', application.submit);
+app.get('/applicants', application.list_applicants);
+app.get('/applicants/edit/:id', application.display_applicant);
+app.post('/applicants/edit/:id', application.update_applicant);
+app.get('/applicants/migrate/:id', application.migration_form);
+app.post('/applicants/delete/:id', application.delete_applicant);
+app.get('/applicants/interview-slots.json', application.interview_slots_json);
+app.post('/applicants/interview-slots', application.create_interview_slot);
+app.post('/applicants/interview-slots/delete/:id', application.delete_interview_slot);
+app.post('/applicants/open', application.open_applications);
+app.post('/applicants/close', application.close_applications);
 
 // make admin account
 app.get('/emergency_make_admin_account', function (req, res) {

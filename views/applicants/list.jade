@@ -1,0 +1,44 @@
+extends ../layout
+block content
+	h1 Applicants
+	div
+		span.button-group
+			a.button#open_applications Open Applications
+			a.button#close_applications Close Applications
+		span.button-group
+			a.button#showInterviewSlots Interview Slots
+	#interview_slots(title="Interview Slots")
+		p
+			a.button.add.icon#addSlot Add Interview Slot
+		#slots
+	#add_slot(title="Add Interview Slot")
+		p
+			input.datepicker#add_slot_date
+			|  at 
+			select#add_slot_hour
+				- for (var i = 0; i < 24; i++) {
+				option= i
+				- }
+			| :
+			select#add_slot_minute
+				- for (var i = 0; i < 60; i++) {
+				option= i
+				- }
+	table.spread
+		tr
+			th Name
+			th Year
+			th Email
+			th Phone
+			th Interview
+			th Actions
+		for applicant in applicants
+			tr
+				td= applicant.name.first + ' ' + applicant.name.last
+				td= applicant.class_year
+				td= applicant.school_email
+				td= applicant.phone
+				td= applicant._interview? moment(applicant._interview.time).format('MMMM D [at] HH:mm') : ''
+				td.button-group
+					a.danger.pill.button.remove.icon.delete_applicant(data=applicant.id) Delete
+					a.pill.button(href="/applicants/edit/" + applicant.id) View

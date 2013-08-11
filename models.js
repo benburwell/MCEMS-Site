@@ -133,3 +133,53 @@ exports.page = {
 		unique: true
 	}
 };
+
+exports.applicant = {
+	name: {
+		first: String,
+		last: String
+	},
+	berg_id: String,
+	class_year: String,
+	campus_address: String,
+	campus_box: String,
+	school_email: String,
+	phone: String,
+	emt: {
+		number: String,
+		state: String,
+		expiry: Date
+	},
+	cpr: {
+		expiry: Date
+	},
+	drivers_license: {
+		number: String,
+		state: String,
+		expiry: Date
+	},
+	member_of_other_ems_org: String,
+	hep_b_date1: Date,
+	hep_b_date2: Date,
+	hep_b_date3: Date,
+	reference1: {
+		name: String,
+		relation: String,
+		phone: String
+	},
+	reference2: {
+		name: String,
+		relation: String,
+		phone: String
+	},
+	interview_notes: String,
+	_interview: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Interview'
+	}
+};
+
+exports.interview = {
+	time: Date,
+	available: Boolean
+}

@@ -1,0 +1,72 @@
+extends ../layout
+block content
+	h1= applicant.name.first + ' ' + applicant.name.last
+	p
+		span Berg ID: 
+		span= applicant.berg_id
+	p
+		span Class Year: 
+		span= applicant.class_year
+	p
+		span Campus Address: 
+		span= applicant.campus_address
+	p
+		span Campus Mailbox: 
+		span= applicant.campus_box
+	p
+		span School Email: 
+		span= applicant.school_email
+	p
+		span Phone: 
+		span= applicant.phone
+	p
+		span EMT: 
+		span= applicant.emt.state + ' #'
+		span= applicant.emt.number + ' exp. '
+		span= moment(applicant.emt.expiry).format('MMMM D, YYYY')
+	p
+		span CPR Expiration: 
+		span= moment(applicant.cpr.expiry).format('MMMM D, YYYY')
+	p
+		span Driver's License: 
+		span= applicant.drivers_license.state + ' #'
+		span= applicant.drivers_license.number + ' exp. '
+		span= moment(applicant.drivers_license.expiry).format('MMMM D, YYYY')
+	p
+		span Hepatitis B vaccination dates: 
+		span= moment(applicant.hep_b_date1).format('MMM D YYYY')
+		if applicant.hep_b_date1
+			span , 
+		span= moment(applicant.hep_b_date2).format('MMM D YYYY')
+		if applicant.hep_b_date2
+			span , 
+		span= moment(applicant.hep_b_date3).format('MMM D YYYY')
+	p References:
+		table
+			tr
+				th Name
+				th Relationship
+				th Phone
+			tr
+				td= applicant.reference1.name
+				td= applicant.reference1.relation
+				td= applicant.reference1.phone
+			tr
+				td= applicant.reference2.name
+				td= applicant.reference2.relation
+				td= applicant.reference2.phone
+	p
+		b Are you a member of any other EMS organization? If so, please list your experience:
+		br
+		span= applicant.member_of_other_ems_org
+	p Interview Time: 
+		span= applicant._interview? moment(applicant._interview.time).format('MMMM D [at] HH:mm') : ''
+	hr
+	form(action="", method="post")
+		p
+			| Interview Notes:
+			br
+			textarea(name="interview_notes")= applicant.interview_notes
+		p
+			input.big.primary.button(type="submit", value="Save")
+			a.delete_applicant.big.danger.button(data=applicant.id) Delete

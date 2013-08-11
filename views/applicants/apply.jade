@@ -1,0 +1,126 @@
+extends ../layout
+block content
+	h1 Apply for Membership
+	if !showForm
+		p
+			| Sorry, we are not currently accepting applications. 
+			| We accept applications and interview 
+			| candidates at the beginning of each semester.
+		p
+			|For more information, please contact us at 
+			a(href="mailto:ems@muhlenberg.edu") ems@muhlenberg.edu
+			| .
+	else
+		form(action="/apply", method="post")
+			.demographics
+				p
+					| First Name:
+					br
+					input(type="text", name="first_name")
+				p
+					| Last Name:
+					br
+					input(type="text", name="last_name")
+				p
+					| Berg ID:
+					br
+					input(type="text", name="berg_id")
+				p
+					| Class Year:
+					br
+					input(type="text", name="class_year")
+				p
+					| Campus Address:
+					br
+					input(type="text", name="campus_address")
+				p
+					| Campus Mailbox
+					br
+					input(type="text", name="campus_box")
+				p
+					| School Email (including @muhlenberg.edu):
+					br
+					input(type="text", name="school_email")
+				p
+					| Cell Phone:
+					br
+					input(type="text", name="phone")
+				p
+					| EMT Number:
+					br
+					input(type="text", name="emt_number")
+				p
+					| EMT State:
+					br
+					select(name="emt_state")
+						include ../state_options
+				p
+					| EMT Expiration:
+					br
+					input.datepicker(type="text", name="emt_expiration")
+				p
+					| CPR Expiration:
+					br
+					input.datepicker(type="text", name="cpr_expiration")
+				p
+					| Driver's License Number
+					br
+					input(type="text", name="driver_number")
+				p
+					| Driver's License State
+					br
+					select(name="driver_state")
+						include ../state_options
+				p
+					| Driver's License Expiration
+					br
+					input.datepicker(type="text", name="driver_expiration")
+				p
+					| If you are vaccinated against Hepatitis B, 
+					| please provide your vaccination dates:
+					br
+					input.datepicker(type="text", name="hep_b_date1")
+					br
+					input.datepicker(type="text", name="hep_b_date2")
+					br
+					input.datepicker(type="text", name="hep_b_date3")
+				p
+					| Please list two personal references whom you have 
+					| known for at least a year. These might be teachers, 
+					| bosses, officers of other EMS organizations, etc.
+					table
+						tr
+							th Name
+							th Relationship
+							th Phone Number
+						tr
+							td
+								input(type="text", name="ref1_name")
+							td
+								input(type="text", name="ref1_relation")
+							td
+								input(type="text", name="ref1_phone")
+						tr
+							td
+								input(type="text", name="ref2_name")
+							td
+								input(type="text", name="ref2_relation")
+							td
+								input(type="text", name="ref2_phone")
+				p
+					a.big.primary.button#detailedQuestions Continue
+			.detailed_questions
+				p
+					| Are you a member of any other EMS organization?
+					| If so, please list your experience:
+					br
+					textarea(name="member_of_other_ems_org")
+				p
+					a.big.primary.button#pickInterview Continue
+			.interview
+				p
+					| Please select an interview time:
+					select#interview_time(name="interview")
+				p Put it on your calendar now!
+				p
+					input.big.primary.button(type="submit", value="Submit Application")
