@@ -454,8 +454,6 @@ exports.member_hours_json = function (req, res) {
 					query = { _member: id };
 				}
 
-				console.log(JSON.stringify(query));
-
 				Shift.find(query, function (err, shifts) {
 					
 					var hours = 0;
@@ -464,11 +462,6 @@ exports.member_hours_json = function (req, res) {
 						
 						var s = moment(shift.start);
 						var e = moment(shift.end);
-
-						console.log("Found shift: " 
-							+ s.format("YYYY MM DD HH:mm") 
-							+ " to "
-							+ e.format("YYYY MM DD HH:mm"));
 
 						if (start) {
 							if (moment(start).isAfter(s)) {
