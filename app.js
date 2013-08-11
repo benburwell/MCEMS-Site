@@ -241,7 +241,7 @@ http.createServer(app).listen(app.get('port'), function () {
 
 // this will prevent heroku from sleeping
 setInterval(function () {
-	http.get('http://bergems.herokuapp.com/', function (res) {
+	http.get('http://www.bergems.org/', function (res) {
 		console.log('Got home page');
 	});
 }, 45 * 60 * 1000);
