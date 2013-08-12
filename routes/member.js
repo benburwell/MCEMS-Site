@@ -368,6 +368,7 @@ exports.display_self = function (req, res) {
 		} else {
 			res.render('members/edit', {
 				member: req.session.member,
+				moment: moment,
 				edit_member: false,
 				edit_account: false
 			});
