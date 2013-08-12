@@ -130,7 +130,10 @@ exports.inbound_hook = function (req, res) {
 	var messages = [];
 
 	var Member = mongoose.model('Member');
-	Member.find().where('school_email').ne(null).exec(function (err, members) {
+	Member.find()
+		.where('school_email').ne(null)
+		.where('email_aliases').ne(null)
+		.exec(function (err, members) {
 
 		members.forEach(function (member) {
 			var aliases = member.account.email_aliases.split(',');
@@ -155,6 +158,7 @@ exports.inbound_hook = function (req, res) {
 		});
 
 		if (messages) {
+		if (messages.length > 0) {
 			postmark.batch(messages, function (err, success) {
 				res.json(200, {status: 'done'});
 			});
