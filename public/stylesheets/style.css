@@ -203,12 +203,20 @@ textarea {
 	margin-bottom: 1em;
 }
 
+.content h1 {
+	margin-bottom: 1em;
+}
+
 .content p, .dialog p {
 	margin-bottom: 1em;
 }
 
 .content ul {
 	margin-left: 2em;
+}
+
+.content li {
+	margin-bottom: 1em;
 }
 
 .dialog textarea {
