@@ -1,15 +1,18 @@
 extends ../layout
 
+block head
+	script(src="/javascripts/members.js")
+
 block content
 	h1 Create Member
 	form(action="", method="post")
-		p First Name:
+		p First Name: 
 			input(type="text", name="first_name")
-		p Last Name:
+		p Last Name: 
 			input(type="text", name="last_name")
-		p Username:
+		p Username: 
 			input(type="text", name="username")
-		p Password:
+		p Password: 
 			input(type="password", name="password")
 		p
-			input.button.big(type="submit", value="Create")
+			input.button.big.primary(type="submit", value="Create")

@@ -66,15 +66,6 @@ application._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
-	'js': {
-		'route': /\/static\/mcems\.js/,
-		'path': './public/javascripts/',
-		'dataType': 'javascript',
-		'files': ['*'],
-		'postManipulate': {
-			'^': [ assetHandler.yuiJsOptimize ]
-		}
-	},
 	'css': {
 		'route': /\/static\/mcems\.css/,
 		'path': './public/stylesheets/',

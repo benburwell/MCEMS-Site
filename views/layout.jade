@@ -6,18 +6,16 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
     script(src='/static/jquery-1.10.2.min.js')
     script(src='/static/jquery-ui-1.10.3.min.js')
     script(src='/static/moment.min.js')
-    script(src='/static/mcems.js')
     link(rel='shortcut icon', href='/static/favicon.ico')
     meta(property="og:image", content="http://www.bergems.org/static/mcems.png")
     meta(property="og:title", content=(title || 'Muhlenberg College EMS'))
     meta(property="og:site_name", content="Muhlenberg College EMS")
     meta(itemprop="name", content="Muhlenberg College EMS")
     meta(itemprop="image", content="http://www.bergems.org/static/mcems.png")
+    block head
   body
-    .master
-        .help Experiencing a problem? This is brand new software. Contact Ben Burwell for help.
-        .title Muhlenberg College EMS
-        nav.auth
+    nav.auth
+        p
             if authMember
                 span Loggged in as 
                 if authMember.account.permissions.accounts || authMember.account.permissions.members
@@ -30,6 +28,11 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
                 a(href="/logout") Log Out
             else
                 a(href="/login") Log In
+    .master
+        h1.title
+            img(src="/static/StarOfLife.png")
+            a(href="/")  Muhlenberg College EMS 
+            img(src="/static/mcems.png")
         nav.main
             ul#nav
                 for page in nav_items
@@ -59,4 +62,7 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
                             if authMember.account.permissions.pages
                                 li
                                     a(href="/pages") Pages
-        block content
+        .content
+            block content
+        footer
+            p Copyright &copy; Muhlenberg College EMS | <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x65;&#109;&#x73;&#64;&#x6d;&#x75;&#x68;&#108;&#x65;&#x6e;&#98;&#x65;&#114;&#103;&#46;&#101;&#100;&#117;">&#x65;&#109;&#x73;&#64;&#x6d;&#x75;&#x68;&#108;&#x65;&#x6e;&#98;&#x65;&#114;&#103;&#46;&#101;&#100;&#117;</a> | 484.664.3112

@@ -1,29 +1,33 @@
 extends ../layout
 
+block head
+	script(src="/javascripts/members.js")
+
 block content
 
 	.hidden#member_home_state= member.home_address.state
 	.hidden#member_id= member._id
-	include reset_password_dialog
-	include add_certification_dialog
-	include add_email_dialog
-	include add_service_credit_dialog
-	include hours_in_range_dialog
+	include dialogs/reset_password
+	include dialogs/add_certification
+	include dialogs/add_email
+	include dialogs/add_service_credit
+	include dialogs/hours_in_range
 
 	.member_details
 		h1= member.name.first + ' ' + member.name.last
 		.buttons.button-group
 			if authMember.account.permissions.members || authMember.account.permissions.accounts
 				button.button.big.primary#saveMember(type="button") Save
+				a.button.big(href="/members") Cancel
 			if authMember.account.permissions.members
 				button.button.big.danger.icon.trash#deleteMember(type="button") Delete
 		form#memberDetailForm(action="", method="post")
 			.edit_member
-				include member_details
-				include account_details
-				include certifications
-				include emails
+				include sections/member_details
+				include sections/account_details
+				include sections/certifications
+				include sections/emails
 
-				include service_credits
-				include shifts
-				include hours
+				include sections/service_credits
+				include sections/shifts
+				include sections/hours

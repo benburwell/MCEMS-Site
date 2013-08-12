@@ -1,13 +1,22 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
-  padding: 3em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #333;
 }
 
 .master {
-	width: 80em;
+	width: 1148px;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
+	margin-bottom: 5em;
+	border: 10px solid #666;
+	border-radius: 10px;
+	background-color: #666;
 }
 
 a {
@@ -23,30 +32,29 @@ a {
     width: 100%;
     position: relative;
     z-index: 5;    
-    background-color: #eee;
-    padding: 3px;
-    border-radius: 0.5em;
-    font-size: 1.2em;
+    background-color: #ddd;
+    font-size: 1em;
+    border-bottom: 1px solid #666;
+    border-top: 1px solid #666;
 }
 
 #nav li {
     float: left;
     margin-right: 5px;
     position: relative;
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 #nav a {
     display: block;
-    padding: 5px;
-    color: #00B7FF;
+    padding: 1em;
+    color: #900;
     text-decoration: none;
 }
 
 #nav a:hover {
     color: #fff;
-    background: #00B7FF;
-    border-radius: 0.5em;
+    background: #999;
 }
 
 #nav ul {
@@ -78,7 +86,24 @@ a {
 	font-size: 2.5em;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 0;
+	background-color: #900;
+	padding: 0.5em;
+	color: #fff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	text-shadow: 2px 2px 1px rgba(0, 0, 0, .5);
+}
+
+.title a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.title img {
+	height: 2em;
+	margin-left: 2em;
+	margin-right: 2em;
+	vertical-align: middle;
 }
 
 .hidden  {
@@ -112,29 +137,24 @@ a.danger {
 }
 
 nav.auth {
-	font-size: 0.85em;
+	font-size: 0.8em;
 	text-align: right;
-	margin: 1em;
+	padding: 1em;
+	color: #ccc;
+	width: 1148px;
+	margin-left: auto;
+	margin-right: auto;
+	text-shadow: 0 1px 0 rgb(0, 0, 0);
+}
+
+nav.auth a {
+	color: #ccc;
 }
 
 nav.main {
 	position: relative;
 	display: block;
 	height: 3em;
-}
-
-.help {
-	color: #fff;
-	background-color: #900;
-	font-size: 0.8em;
-	text-align: center;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	margin: 0;
-	padding: 1em;
-	z-index: 100;
 }
 
 .expiring_soon {
@@ -172,4 +192,39 @@ table.data td {
 textarea {
 	width: 50em;
 	height: 10em;
+}
+
+.content {
+	padding: 1em;
+	background-color: #fff;
+}
+
+.content h1 {
+	margin-bottom: 1em;
+}
+
+.content p, .dialog p {
+	margin-bottom: 1em;
+}
+
+.content ul {
+	margin-left: 2em;
+}
+
+.dialog textarea {
+	width: 380px;
+}
+
+footer {
+	background-color: #900;
+	color: #fff;
+	font-size: 0.7em;
+	padding: 1em;
+	text-align: center;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+footer a {
+	color: #fff;
 }

@@ -1,10 +1,15 @@
 extends ../layout
 
+block head
+	script(src="/javascripts/members.js")
+
 block content
 	h1 Members
 	if authMember.account.permissions.accounts || authMember.account.permissions.members
 		p
 			a.button.icon.add(href="/members/create") Create Member
+			if authMember.account.permissions.members
+				a.button(href="/applicants") Applicants
 	table.spread
 		tr
 			th Name

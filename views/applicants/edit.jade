@@ -1,4 +1,8 @@
 extends ../layout
+
+block head
+	script(src="/javascripts/applicants.js")
+
 block content
 	h1= applicant.name.first + ' ' + applicant.name.last
 	p

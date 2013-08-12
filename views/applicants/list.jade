@@ -1,4 +1,8 @@
 extends ../layout
+
+block head
+	script(src="/javascripts/applicants.js")
+
 block content
 	h1 Applicants
 	div
@@ -7,11 +11,11 @@ block content
 			a.button#close_applications Close Applications
 		span.button-group
 			a.button#showInterviewSlots Interview Slots
-	#interview_slots(title="Interview Slots")
+	.dialog#interview_slots(title="Interview Slots")
 		p
 			a.button.add.icon#addSlot Add Interview Slot
 		#slots
-	#add_slot(title="Add Interview Slot")
+	.dialog#add_slot(title="Add Interview Slot")
 		p
 			input.datepicker#add_slot_date
 			|  at 

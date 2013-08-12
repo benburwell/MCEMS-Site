@@ -1,4 +1,8 @@
 extends ../layout
+
+block head
+	srcipt(src="/javascripts/pages.js")
+
 block content
 	h1 Create a New Page
 	form(action="/pages/create", method="post")
