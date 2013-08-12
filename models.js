@@ -29,6 +29,7 @@ exports.member = {
 			reset_key: String,
 			reset_key_expiry: Date
 		},
+		email_aliases: String,
 		last_login: Date,
 		created: Date,
 		login_enabled: Boolean,

@@ -15,6 +15,13 @@ fieldset.account
 			|  
 			if authMember.account.permissions.accounts
 				button#resetPassword.button.pill(type="button") Reset
+		p Email Aliases:
+			br
+			input(
+				type="text",
+				name="email_aliases",
+				value=member.account.email_aliases,
+				disabled=(edit_account? undefined : 'disabled'))
 		p
 			input#login_enabled(
 				type="checkbox",

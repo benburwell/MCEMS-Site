@@ -204,6 +204,8 @@ app.post('/applicants/interview-slots/delete/:id', application.delete_interview_
 app.post('/applicants/open', application.open_applications);
 app.post('/applicants/close', application.close_applications);
 
+app.post('/hooks/postmark_inbound', emails.inbound_hook);
+
 // make admin account
 app.get('/emergency_make_admin_account', function (req, res) {
 

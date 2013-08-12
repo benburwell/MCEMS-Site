@@ -247,7 +247,8 @@ exports.edit = function (req, res) {
 		'account.permissions.accounts': (req.body.accounts == 'true')? true : false,
 		'account.permissions.events': (req.body.events == 'true')? true : false,
 		'account.permissions.broadcast': (req.body.broadcast == 'true')? true : false,
-		'account.permissions.service_credit': (req.body.service_credit == 'true')? true : false
+		'account.permissions.service_credit': (req.body.service_credit == 'true')? true : false,
+		'account.email_aliases': req.body.email_aliases
 	};
 
 	var member = {

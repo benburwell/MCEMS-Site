@@ -124,3 +124,40 @@ exports.confirm = function (req, res) {
 		res.json(403, {status: 'done'});
 	}
 };
+
+exports.inbound_hook = function (req, res) {
+
+	var messages = [];
+
+	var Member = mongoose.model('Member');
+	Member.find().where('school_email').ne(null).exec(function (err, members) {
+
+		members.forEach(function (member) {
+			var aliases = member.account.email_aliases.split(',');
+			aliases.forEach(function (alias) {
+
+				if (alias == req.body.To || req.body.ToFull && alias == req.body.ToFull.Email) {
+
+					var email = {
+						'From': 'ems@muhlenberg.edu',
+						'To': member.school_email,
+						'ReplyTo': req.body.FromFull ? req.body.FromFull.Email : req.body.From,
+						'Subject': '[MCEMS] ' + req.body.Subject,
+						'TextBody': req.body.TextBody,
+						'HtmlBody': req.body.HtmlBody,
+						'Attachments': req.body.Attachments
+					};
+
+					messages.push(email);
+				}
+
+			});
+		});
+
+		if (messages) {
+			postmark.batch(messages, function (err, success) {
+				res.json(200, {status: 'done'});
+			});
+		}
+	});
+};
