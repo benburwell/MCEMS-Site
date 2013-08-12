@@ -155,11 +155,12 @@ exports.inbound_hook = function (req, res) {
 			});
 		});
 
-		if (messages) {
 		if (messages.length > 0) {
 			postmark.batch(messages, function (err, success) {
 				res.json(200, {status: 'done'});
 			});
+		} else {
+			res.json(200, {status: 'no_address_match'});
 		}
 	});
 };
