@@ -127,6 +127,7 @@ exports.page = {
 	public: Boolean,
 	title: String,
 	content: String,
+	description: String,
 	url: {
 		type: String,
 		required: true,

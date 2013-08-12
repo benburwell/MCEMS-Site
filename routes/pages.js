@@ -22,7 +22,8 @@ exports.index = function (req, res) {
 		if (page) {
 			res.render('page', {
 				title: page.title,
-				content: marked(page.content)
+				content: marked(page.content),
+				description: page.description
 			});
 		} else {
 			res.status(404);
@@ -45,7 +46,8 @@ exports.render = function (req, res) {
 		if (page) {
 			res.render('page', {
 				title: page.title,
-				content: marked(page.content)
+				content: marked(page.content),
+				description: page.description
 			});
 		} else {
 			res.status(404);
@@ -95,6 +97,7 @@ exports.edit = function (req, res) {
 			show_in_nav: (req.body.show_in_nav == 'true')? true : false,
 			public: (req.body.public == 'true')? true : false,
 			title: req.body.title,
+			description: req.body.description,
 			content: req.body.content,
 			url: req.body.url
 		}, function (err) {
@@ -117,6 +120,7 @@ exports.create = function (req, res) {
 			show_in_nav: (req.body.show_in_nav == 'true')? true : false,
 			public: (req.body.public == 'true')? true : false,
 			title: req.body.title,
+			description: req.body.description,
 			content: req.body.content,
 			url: req.body.url
 		}).save(function (err) {

@@ -23,6 +23,9 @@ block content
 			label(for="show_in_nav")
 				input#show_in_nav(type="checkbox", name="show_in_nav", value="true", checked=(page.show_in_nav? 'checked' : undefined))
 				|  Show Page in Nav Bar
+		p Description: (for social media and search engines):
+			br
+			input(type="text", name="description", value=page.description)
 		p Content:
 			br
 			textarea#editing_page_content(name="content")= page.content
