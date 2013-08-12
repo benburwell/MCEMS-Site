@@ -138,9 +138,9 @@ exports.inbound_hook = function (req, res) {
 		members.forEach(function (member) {
 			var aliases = member.account.email_aliases.split(',');
 			aliases.forEach(function (alias) {
-
-				if (alias == req.body.To || req.body.ToFull && alias == req.body.ToFull.Email) {
-
+				var a = alias + '@bergems.org';
+				a = a.toLowerCase();
+				if (a == req.body.To.toLowerCase() || req.body.ToFull && a == req.body.ToFull.Email.toLowerCase()) {
 					var email = {
 						'From': 'ems@muhlenberg.edu',
 						'To': member.school_email,
@@ -150,10 +150,8 @@ exports.inbound_hook = function (req, res) {
 						'HtmlBody': req.body.HtmlBody,
 						'Attachments': req.body.Attachments
 					};
-
 					messages.push(email);
 				}
-
 			});
 		});
 
