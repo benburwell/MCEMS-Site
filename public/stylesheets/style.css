@@ -219,6 +219,10 @@ textarea {
 	margin-bottom: 1em;
 }
 
+.content img {
+	padding: 1em;
+}
+
 .dialog textarea {
 	width: 380px;
 }
