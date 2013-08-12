@@ -132,7 +132,8 @@ exports.inbound_hook = function (req, res) {
 	var Member = mongoose.model('Member');
 	Member.find()
 		.where('school_email').ne(null)
-		.where('email_aliases').ne(null)
+		.where('school_email').ne('')
+		.where('account.email_aliases').ne(null)
 		.exec(function (err, members) {
 
 		members.forEach(function (member) {
@@ -140,7 +141,7 @@ exports.inbound_hook = function (req, res) {
 			aliases.forEach(function (alias) {
 				var a = alias + '@bergems.org';
 				a = a.toLowerCase();
-				if (a == req.body.To.toLowerCase() || req.body.ToFull && a == req.body.ToFull.Email.toLowerCase()) {
+				if (a == req.body.To.toLowerCase()) {
 					var email = {
 						'From': 'ems@muhlenberg.edu',
 						'To': member.school_email,
@@ -154,7 +155,7 @@ exports.inbound_hook = function (req, res) {
 				}
 			});
 		});
-
+		
 		if (messages.length > 0) {
 			postmark.batch(messages, function (err, success) {
 				res.json(200, {status: 'done'});
