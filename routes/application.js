@@ -120,7 +120,18 @@ exports.update_applicant = function (req, res) {
 };
 
 exports.migration_form = function (req, res) {
+	if (req.session.member &&
+		req.session.member.account.permissions.members) {
 
+			var Applicant = mongoose.model('Applicant');
+			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			Applicant.findOne({_id: id}, function (err, applicant) {
+				res.render('applicants/migrate', {applicant: applicant});
+			});
+
+	} else {
+		res.redirect('/');
+	}
 };
 
 exports.delete_applicant = function (req, res) {

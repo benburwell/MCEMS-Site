@@ -40,5 +40,6 @@ block content
 				td= applicant.phone
 				td= applicant._interview? moment(applicant._interview.time).format('MMMM D [at] HH:mm') : ''
 				td.button-group
+					a.pill.button(href="/applicants/migrate/" + applicant.id) Migrate
 					a.danger.pill.button.remove.icon.delete_applicant(data=applicant.id) Delete
 					a.pill.button(href="/applicants/edit/" + applicant.id) View

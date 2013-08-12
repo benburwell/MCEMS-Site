@@ -1,0 +1,35 @@
+extends ../layout
+block content
+	h1 Migrate Applicant
+	form(action="/members/create", method="post")
+		p First Name:
+			br
+			input(type="text", name="first_name", value=applicant.name.first)
+		p Last Name:
+			br
+			input(type="text", name="last_name", value=applicant.name.last)
+		p Username and Password:
+			br
+			input(type="text", name="username", value=applicant.name.first.substring(0, 1).toLowerCase() + applicant.name.last.toLowerCase())
+			input(type="hidden", name="password", value=applicant.name.first.substring(0, 1).toLowerCase() + applicant.name.last.toLowerCase())
+		p Class Year:
+			br
+			input(type="text", name="class_year", value=applicant.class_year)
+		p Campus Mailbox:
+			br
+			input(type="text", name="campus_box", value=applicant.campus_box)
+		p Campus Address:
+			br
+			input(type="text", name="campus_address", value=applicant.campus_address)
+		p School Email:
+			br
+			input(type="text", name="school_email", value=applicant.school_email)
+		p Phone:
+			br
+			input(type="text", name="phone", value=applicant.phone)
+		if applicant.emt.state
+			input(type="hidden", name="emt", value="true")
+		else
+			input(type="hidden", name="training_corps", value="true")
+		p
+			input.big.primary.button(type="submit", value="Migrate Applicant to Member Records")

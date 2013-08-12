@@ -127,7 +127,8 @@ exports.create = function (req, res) {
 			var hash = password.digest('hex');
 
 			var Member = mongoose.model('Member');
-			new Member({
+
+			var data = {
 				name: {
 					first: req.body.first_name,
 					last: req.body.last_name
@@ -138,7 +139,19 @@ exports.create = function (req, res) {
 						salt: salt,
 						hash: hash
 					},
-					login_enabled: true
+					login_enabled: true,
+					permissions: {
+						schedule: false,
+						members: false,
+						accounts: false,
+						events: false,
+						broadcast: false,
+						service_credit: false,
+						pages: false
+					}
+				},
+				home_address: {
+					line_1: null
 				},
 				status: {
 					training_corps: false,
@@ -149,7 +162,38 @@ exports.create = function (req, res) {
 					crew_chief_trainee: false,
 					crew_chief: false
 				}
-			}).save(function (err, member) {
+			};
+
+			if (req.body.class_year) {
+				data.class_year = req.body.class_year;
+			}
+
+			if (req.body.campus_box) {
+				data.campus_box = req.body.campus_box;
+			}
+
+			if (req.body.campus_address) {
+				data.campus_address = req.body.campus_address;
+			}
+
+			if (req.body.school_email) {
+				data.school_email = req.body.school_email;
+			}
+
+			if (req.body.phone) {
+				data.phone = req.body.phone;
+			}
+
+			if (req.body.emt) {
+				data.status.emt = true;
+				data.status.probationary = true;
+			}
+
+			if (req.body.training_corps) {
+				data.status.training_corps = true;
+			}
+
+			new Member(data).save(function (err, member) {
 				return res.redirect('/members');
 			});
 		});
