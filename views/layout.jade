@@ -39,6 +39,8 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
             img(src="/static/mcems.png")
         nav.main
             ul#nav
+                li
+                    a(href="/") Home
                 for page in nav_items
                     li
                         a(href='/page/'+page.url)= page.name
