@@ -120,11 +120,53 @@ block content
 					br
 					textarea(name="member_of_other_ems_org")
 				p
+					| Have you been convicted of any crimes? If so, 
+					| please explain. If not, simply write "No":
+					br
+					textarea(name="convicted_of_crimes")
+				p
+					| Do you consent to a driving and criminal records
+					| check? 
+					br
+					select(name="consent_records_check")
+						option Yes
+						option No
+				p
+					| What other activities, if any, are you involved in
+					| on campus?
+					br
+					textarea(name="other_activities")
+				p
+					| Why do you want to join Muhlenberg College EMS?
+					br
+					textarea(name="why_join")
+				p
+					| Please list any other certifications or qualifications 
+					| you may have (CPR instructor, EVOC, etc):
+					br
+					textarea(name="other_certs")
+				p
+					| Additional Comments:
+					br
+					textarea(name="additional_comments")
+				p
 					a.big.primary.button#pickInterview Continue
 			.interview
+				p The next phase of the application is an interview with our Executive board.
+				p
+					b
+						| You must bring front and back photocopies of the following to 
+						| your interview: current CPR, EMT card(s), driver's license, and 
+						| Muhlenberg ID.
 				p
 					| Please select an interview time:
 					select#interview_time(name="interview")
 				p Put it on your calendar now!
+				p
+					b
+						| By submitting this application, you understand that 
+						| if accepted, you will abide by all Bylaws and Standard Operating 
+						| Procedures. You will be required to complete one or more training 
+						| sessions and serve a probationary period of at least four weeks.
 				p
 					input.big.primary.button(type="submit", value="Submit Application")

@@ -175,6 +175,12 @@ exports.applicant = {
 		phone: String
 	},
 	interview_notes: String,
+	consent_records_check: Boolean,
+	convicted_of_crimes: String,
+	other_activities: String,
+	why_join: String,
+	other_certs: String,
+	additional_comments: String,
 	_interview: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Interview'

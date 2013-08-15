@@ -63,6 +63,30 @@ block content
 		b Are you a member of any other EMS organization? If so, please list your experience:
 		br
 		span= applicant.member_of_other_ems_org
+	p
+		b Have you been convicted of any crimes? If so, please explain. If not, simply write "No":
+		br
+		span= applicant.convicted_of_crimes
+	p
+		b Do you consent to a driving and criminal records check?
+		br
+		span= applicant.consent_records_check? 'Yes' : 'No'
+	p
+		b What other activities are you involved in on campus?
+		br
+		span= applicant.other_activities
+	p
+		b Why do you want to join MCEMS?
+		br
+		span= applicant.why_join
+	p
+		b Please list any other certifications or qualifications you may have:
+		br
+		span= applicant.other_certs
+	p
+		b Additional comments:
+		br
+		span= applicant.additional_comments
 	p Interview Time: 
 		span= applicant._interview? moment(applicant._interview.time).format('MMMM D [at] HH:mm') : ''
 	hr

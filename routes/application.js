@@ -61,6 +61,12 @@ exports.submit = function (req, res) {
 			relation: req.body.ref2_relation,
 			phone: req.body.ref2_phone
 		},
+		consent_records_check: (req.body.consent_records_check == 'Yes')? true : false,
+		convicted_of_crimes: req.body.convicted_of_crimes,
+		other_activities: req.body.other_activities,
+		why_join: req.body.why_join,
+		other_certs: req.body.other_certs,
+		additional_comments: req.body.additional_comments,
 		_interview: interview
 	}).save(function (err) {
 		var Interview = mongoose.model('Interview');
