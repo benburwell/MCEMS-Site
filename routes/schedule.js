@@ -123,7 +123,7 @@ exports.month_schedule = function (req, res) {
 			"$gte": moment()
 				.year(req.params.year)
 				.month(req.params.month - 1)
-				.date(1)
+				.startOf('month')
 				.toDate(),
 			"$lte": moment()
 				.year(req.params.year)
