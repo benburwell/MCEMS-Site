@@ -91,6 +91,12 @@ app.use(express.session({secret: pepper.secret }));
 // this will set authMember for easy use in Jade templates
 app.use(function (req, res, next) {
 	res.locals.authMember = req.session.member;
+
+	if (req.path == '/page/home') {
+		res.locals.canonical_link = 'http://www.bergems.org/';
+	} else {
+		res.locals.canonical_link = 'http://www.bergems.org' + req.path;
+	}
 	
 	var Page = mongoose.model('Page');
 	var query = { show_in_nav: true };
