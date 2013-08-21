@@ -24,6 +24,9 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-43375446-1', 'bergems.org');
         ga('send', 'pageview');
+    if authMember
+        script.
+            ga('set', 'dimension1', 'true');
     block head
   body
     nav.auth
