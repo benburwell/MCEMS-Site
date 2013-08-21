@@ -212,44 +212,6 @@ app.post('/applicants/close', application.close_applications);
 
 app.post('/hooks/postmark_inbound', emails.inbound_hook);
 
-// make admin account
-app.get('/emergency_make_admin_account', function (req, res) {
-
-	// set this condition to true if you need to use it
-	if (false) {
-		var salt = '123456asdfjklwefb82';
-		var pw = crypto.createHash('sha1');
-		pw.update('temp_123');
-		pw.update(salt);
-		pw.update(pepper.pepper);
-
-
-		var Member = mongoose.model('Member');
-		new Member({
-			name: {
-				first: 'Admin',
-				last: 'User'
-			},
-			account: {
-				username: 'admin',
-				password: {
-					salt: salt,
-					hash: pw.digest('hex')
-				},
-				login_enabled: true,
-				permissions: {
-					schedule: true,
-					members: true,
-					accounts: true
-				}
-			}
-		}).save(function (err, member) {
-			return res.redirect('/login');
-		});
-	} else {
-		res.redirect('/');
-	}
-});
 
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {
