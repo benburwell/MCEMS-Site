@@ -274,7 +274,7 @@ Certification.find().populate('_member').exec(function (err, certs) {
 
 				var email = {
 					'To': cert._member.school_email,
-					'From': 'ems@muhlenberg.edu',
+					'From': 'webmaster@bergems.org',
 					'Subject': 'Expiring Certification',
 					'TextBody': 'Hi '
 						+ cert._member.name.first + ', \n\n'

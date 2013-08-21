@@ -5,6 +5,7 @@ exports._connect = function (m, p) {
 };
 
 var moment = require('moment');
+var cron = require('cron').CronJob;
 
 exports.get_json = function (req, res) {
 	
@@ -78,7 +79,45 @@ exports.create = function (req, res) {
 		if (err) {
 			res.json(500, {status: 'error', message: err});
 		} else {
-			res.json(200, {status: 'ok'});
+
+			if (data.expiry) {
+
+				var Member = mongoose.model('Member');
+				Member.findOne({_id: id}).exec(function (err, member) {
+
+					var email = {
+						'To': member.school_email,
+						'From': 'webmaster@bergems.org',
+						'Subject': 'Expiring Certification',
+						'TextBody': 'Hi '
+							+ member.name.first + ', \n\n'
+							+ 'The ' + data.type + ' certification you have on '
+							+ 'file with MCEMS expires in 60 days on '
+							+ moment(data.expiry).format('MMMM D, YYYY') + '. \n\n'
+							+ 'Please provide the secretary with your updated certification '
+							+ 'as soon as you are able. \n\n'
+							+ 'Thanks!'
+					};
+
+					var send_date = moment(data.expiry)
+						.subtract('days', 60)
+						.toDate();
+
+					var job = new cron({
+						cronTime: send_date,
+						onTick: function () {
+							postmark.send(email)
+						},
+						start: true
+					});
+
+					res.json(200, {status: 'ok'});
+					
+				});
+
+			} else {
+				res.json(200, {status: 'ok'});
+			}
 		}
 	});
 };
