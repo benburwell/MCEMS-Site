@@ -15,7 +15,8 @@
     "crypto": "*",
     "connect-assetmanager": ">= 0.0.28",
     "connect-assetmanager-handlers": ">= 0.0.18",
-    "marked": ">= 0.2.9"
+    "marked": ">= 0.2.9",
+    "jsontoxml": ">= 0.0.11"
   },
   "engines": {
     "node": "0.10.x",

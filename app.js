@@ -12,6 +12,7 @@ var express         = require('express'),
 	assetHandler    = require('connect-assetmanager-handlers'),
 	cron            = require('cron').CronJob,
 	moment          = require('moment'),
+	jsontoxml       = require('jsontoxml'),
 
 	// models for mongoose
 	models          = require('./models'),
@@ -212,6 +213,43 @@ app.post('/applicants/close', application.close_applications);
 
 app.post('/hooks/postmark_inbound', emails.inbound_hook);
 
+app.get('/sitemap.xml', function (req, res) {
+
+	var Page = mongoose.model('Page');
+	Page.find({
+		public: true
+	}).exec(function (err, pages) {
+		var sitemap = [
+			{
+				name: 'urlset',
+				attrs: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
+				children: []
+			}
+		];
+
+		pages.forEach(function (page) {
+
+			var data = {};
+			data.loc = (page.url == 'home')? 'http://www.bergems.org/' : 'http://www.bergems.org/page/' + page.url
+
+			if (page.last_modified) {
+				data.lastmod = moment(page.last_modified).format();
+			}
+
+			sitemap[0].children.push({
+				url: [
+					data
+				]
+			});
+		});
+
+		res.type('xml');
+		var xml = jsontoxml(sitemap, {
+			xmlHeader: true
+		});
+		res.send(xml);
+	});
+});
 
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {

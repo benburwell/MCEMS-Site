@@ -99,7 +99,8 @@ exports.edit = function (req, res) {
 			title: req.body.title,
 			description: req.body.description,
 			content: req.body.content,
-			url: req.body.url
+			url: req.body.url,
+			last_modified: new Date()
 		}, function (err) {
 			if (err) console.log(err);
 			res.redirect('/pages');
@@ -122,7 +123,8 @@ exports.create = function (req, res) {
 			title: req.body.title,
 			description: req.body.description,
 			content: req.body.content,
-			url: req.body.url
+			url: req.body.url,
+			last_modified: new Date()
 		}).save(function (err) {
 			res.redirect('/pages');
 		});

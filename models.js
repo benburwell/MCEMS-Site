@@ -133,7 +133,8 @@ exports.page = {
 		type: String,
 		required: true,
 		unique: true
-	}
+	},
+	last_modified: Date
 };
 
 exports.applicant = {
