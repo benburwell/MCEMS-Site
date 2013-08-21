@@ -43,7 +43,7 @@ exports.create = function (req, res) {
 		data.address = req.body.address;
 
 		postmark.send({
-			"From": "ems@muhlenberg.edu",
+			"From": "webmaster@bergems.org",
 			"To": data.address,
 			"Subject": "MCEMS Confirmation Code",
 			"TextBody": "Hi,\n\nTo confirm this email address, go to "
@@ -72,7 +72,7 @@ exports.create = function (req, res) {
 		}
 
 		postmark.send({
-			"From": "ems@muhlenberg.edu",
+			"From": "webmaster@bergems.org",
 			"To": data.address,
 			"Subject": "",
 			"TextBody": "MCEMS Confirmation Code: " + data.confirm_code
@@ -143,7 +143,7 @@ exports.inbound_hook = function (req, res) {
 				a = a.toLowerCase();
 				if (a == req.body.To.toLowerCase()) {
 					var email = {
-						'From': 'ems@muhlenberg.edu',
+						'From': 'webmaster@bergems.org',
 						'To': member.school_email,
 						'ReplyTo': req.body.FromFull ? req.body.FromFull.Email : req.body.From,
 						'Subject': '[MCEMS] ' + req.body.Subject,

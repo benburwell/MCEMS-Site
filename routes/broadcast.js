@@ -25,7 +25,7 @@ exports.send = function (req, res) {
 			emails.forEach(function (email) {
 
 				var message = {
-					'From': 'ems@muhlenberg.edu',
+					'From': 'webmaster@bergems.org',
 					'To': email.address,
 					'Subject': req.body.subject,
 					'TextBody': null
@@ -61,7 +61,7 @@ exports.send = function (req, res) {
 
 					emails.forEach(function (email) {
 						var message = {
-							'From': 'ems@muhlenberg.edu',
+							'From': 'webmaster@bergems.org',
 							'To': email.school_email,
 							'Subject': req.body.subject,
 							'TextBody': req.body.full

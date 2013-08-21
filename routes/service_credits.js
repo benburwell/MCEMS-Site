@@ -81,7 +81,7 @@ exports.create = function (req, res) {
 
 						var message = {
 							'To': email.school_email,
-							'From': 'ems@muhlenberg.edu',
+							'From': 'webmaster@bergems.org',
 							'Subject': 'Service Credit Requested',
 							'TextBody': 'A member has requested a service'
 								+ 'credit. Description:\n\n'
