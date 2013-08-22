@@ -27,7 +27,8 @@ exports.on_duty = function (req, res) {
 					start: shift.start,
 					end: shift.end,
 					phone: shift._member.phone,
-					address: shift._member.campus_address
+					address: shift._member.campus_address,
+					unit: shift._member.unit
 				});
 			});
 
