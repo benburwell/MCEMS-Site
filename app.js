@@ -85,6 +85,16 @@ app.set('view engine', 'jade');
 
 // middleware stack
 app.use(express.logger('dev'));
+
+// redirect to www.
+app.use(function (req, res, next) {
+
+	if (req.host == 'bergems.org') {
+		return res.redirect('http://www.bergems.org' + req.originalUrl);
+	}
+
+});
+
 app.use(express.favicon(__dirname + '/public/static/favicon.ico'));
 app.use(express.cookieParser());
 app.use(express.session({secret: pepper.secret }));
