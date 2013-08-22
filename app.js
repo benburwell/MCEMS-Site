@@ -29,6 +29,7 @@ var express         = require('express'),
 	broadcast       = require('./routes/broadcast'),
 	application     = require('./routes/application'),
 	service_credits = require('./routes/service_credits'),
+	api             = require('./routes/api'),
 	schedule        = require('./routes/schedule');
 
 var app = express();
@@ -64,6 +65,7 @@ broadcast._connect(mongoose, postmark);
 service_credits._connect(mongoose, postmark);
 pages._connect(mongoose, postmark);
 application._connect(mongoose, postmark);
+api._connect(mongoose, postmark);
 
 // asset manager configuration
 var asset_manager_groups = {
@@ -210,6 +212,8 @@ app.post('/applicants/interview-slots', application.create_interview_slot);
 app.post('/applicants/interview-slots/delete/:id', application.delete_interview_slot);
 app.post('/applicants/open', application.open_applications);
 app.post('/applicants/close', application.close_applications);
+
+app.get('/api/cad/on_duty.json', api.on_duty);
 
 app.post('/hooks/postmark_inbound', emails.inbound_hook);
 
