@@ -13,6 +13,8 @@ var express         = require('express'),
 	cron            = require('cron').CronJob,
 	moment          = require('moment'),
 	jsontoxml       = require('jsontoxml'),
+	passport        = require('passport'),
+	DigestStrategy  = require('passport-http').DigestStrategy,
 
 	// models for mongoose
 	models          = require('./models'),
@@ -114,6 +116,10 @@ app.use(function (req, res, next) {
 	});
 });
 
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
@@ -128,6 +134,15 @@ app.use(function (req, res) {
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+// passport config
+passport.use(new DigestStrategy({ qop: 'auth' }, function (username, done) {
+	if (username == process.env.MCEMS_API_USER) {
+		return done(null, username, process.env.MCEMS_API_PASS);
+	} else {
+		return done(null, false);
+	}
+}));
 
 // static content pages
 app.get('/', pages.index);
@@ -213,7 +228,7 @@ app.post('/applicants/interview-slots/delete/:id', application.delete_interview_
 app.post('/applicants/open', application.open_applications);
 app.post('/applicants/close', application.close_applications);
 
-app.get('/api/cad/on_duty.json', api.on_duty);
+app.get('/api/cad/on_duty.json', passport.authenticate('digest', { session: false }), api.on_duty);
 
 app.post('/hooks/postmark_inbound', emails.inbound_hook);
 
