@@ -142,6 +142,8 @@ passport.use(new DigestStrategy({ qop: 'auth' }, function (username, done) {
 	} else {
 		return done(null, false);
 	}
+}, function (params, done) {
+	done(null, true);
 }));
 
 // static content pages
