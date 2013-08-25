@@ -230,7 +230,8 @@ app.post('/applicants/interview-slots/delete/:id', application.delete_interview_
 app.post('/applicants/open', application.open_applications);
 app.post('/applicants/close', application.close_applications);
 
-app.get('/api/cad/on_duty.json', passport.authenticate('digest', { session: false }), api.on_duty);
+// app.get('/api/cad/on_duty.json', passport.authenticate('digest', { session: false }), api.on_duty);
+app.get('/api/cad/on_duty.json', api.on_duty);
 
 app.post('/hooks/postmark_inbound', emails.inbound_hook);
 
