@@ -160,6 +160,7 @@ exports.interview_slots_json = function (req, res) {
 	Interview
 		.find()
 		.select('time _id available')
+		.sort({time: 'ascending'})
 		.exec(function (err, slots) {
 			res.json(200, slots)
 		});
