@@ -67,10 +67,20 @@ $(document).ready(function () {
 		$('#slots').text('');
 		$.getJSON('/applicants/interview-slots.json', function (slots) {
 			slots.forEach(function (slot) {
-				$('#slots').append('<p>'
-					+ moment(slot.time).format('MMMM D HH:mm') 
+
+				var html;
+
+				if (slot.available) {
+					html = '<p style="color:#090;">';
+				} else {
+					html = '<p>';
+				}
+
+				html += moment(slot.time).format('MMMM D HH:mm') 
 					+ ' <a class="delete_slot button danger" data="' + slot._id + '">'
-					+ 'Delete</a></p>');
+					+ 'Delete</a></p>';
+
+				$('#slots').append(html);
 			});
 
 			$('.delete_slot').click(function () {
