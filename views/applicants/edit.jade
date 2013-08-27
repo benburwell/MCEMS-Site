@@ -6,38 +6,38 @@ block head
 block content
 	h1= applicant.name.first + ' ' + applicant.name.last
 	p
-		span Berg ID: 
+		b Berg ID: 
 		span= applicant.berg_id
 	p
-		span Class Year: 
+		b Class Year: 
 		span= applicant.class_year
 	p
-		span Campus Address: 
+		b Campus Address: 
 		span= applicant.campus_address
 	p
-		span Campus Mailbox: 
+		b Campus Mailbox: 
 		span= applicant.campus_box
 	p
-		span School Email: 
+		b School Email: 
 		span= applicant.school_email
 	p
-		span Phone: 
+		b Phone: 
 		span= applicant.phone
 	p
-		span EMT: 
+		b EMT: 
 		span= applicant.emt.state + ' #'
 		span= applicant.emt.number + ' exp. '
 		span= moment(applicant.emt.expiry).format('MMMM D, YYYY')
 	p
-		span CPR Expiration: 
+		b CPR Expiration: 
 		span= moment(applicant.cpr.expiry).format('MMMM D, YYYY')
 	p
-		span Driver's License: 
+		b Driver's License: 
 		span= applicant.drivers_license.state + ' #'
 		span= applicant.drivers_license.number + ' exp. '
 		span= moment(applicant.drivers_license.expiry).format('MMMM D, YYYY')
 	p
-		span Hepatitis B vaccination dates: 
+		b Hepatitis B vaccination dates: 
 		span= moment(applicant.hep_b_date1).format('MMM D YYYY')
 		if applicant.hep_b_date1
 			span , 

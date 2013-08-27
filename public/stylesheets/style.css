@@ -241,3 +241,12 @@ footer {
 footer a {
 	color: #fff;
 }
+
+table td, table th {
+	padding: 0.5em;
+}
+
+hr {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
