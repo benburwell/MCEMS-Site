@@ -83,7 +83,7 @@ exports.create = function (req, res) {
 							'To': email.school_email,
 							'From': 'webmaster@bergems.org',
 							'Subject': 'Service Credit Requested',
-							'TextBody': 'A member has requested a service'
+							'TextBody': 'A member has requested a service '
 								+ 'credit. Description:\n\n'
 								+ data.description
 								+ '\n\nSign on to approve or reject.'
