@@ -131,7 +131,7 @@ exports.month_schedule = function (req, res) {
 				.endOf('month')
 				.toDate()
 		}
-	}).exec(function (err, shifts, count) {
+	}).sort({start: 'ascending'}).exec(function (err, shifts, count) {
 
 		shifts.forEach(function (shift) {
 
