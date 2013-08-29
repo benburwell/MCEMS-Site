@@ -67,6 +67,10 @@ exports.create = function (req, res) {
 				data.address = req.body.number + '@txt.att.com';
 				data.mobile.carrier = 'AT&T';
 				data.mobile.number = req.body.number;
+			case 'T-Mobile':
+				data.address = req.body.number + '@tmomail.net';
+				data.mobile.carrier = 'T-Mobile';
+				data.mobile.number = req.body.number;
 			default:
 				return;
 		}
