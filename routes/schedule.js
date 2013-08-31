@@ -118,18 +118,16 @@ exports.month_schedule = function (req, res) {
 	// populate shifts
 	var Shift = mongoose.model('Shift');
 
+	var start_date = moment(now).startOf('month').toDate();
+	var end_date = moment(now).endOf('month').toDate();
+
+	console.log(start_date);
+	console.log(end_date);
+
 	Shift.find({
 		"start": {
-			"$gte": moment()
-				.year(req.params.year)
-				.month(req.params.month - 1)
-				.startOf('month')
-				.toDate(),
-			"$lte": moment()
-				.year(req.params.year)
-				.month(req.params.month - 1)
-				.endOf('month')
-				.toDate()
+			"$gte": start_date,
+			"$lte": end_date
 		}
 	}).sort({start: 'ascending'}).exec(function (err, shifts, count) {
 
