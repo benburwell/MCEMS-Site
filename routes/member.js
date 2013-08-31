@@ -343,9 +343,21 @@ exports.reset_password = function (req, res) {
 
 exports.delete = function (req, res) {
 	var Member = mongoose.model('Member');
+	var Certification = mongoose.model('Certification');
+	var Email = mongoose.model('Email');
+	var ServiceCredit = mongoose.model('ServiceCredit');
+
+	var id = mongoose.Types.ObjectId.fromString(req.params.member);
+
 	if (req.session.member && req.session.member.account.permissions.members) {
-		Member.remove({ _id: mongoose.Types.ObjectId.fromString(req.params.member) }, function (err) {
-			res.json(200, {status: 'done'});
+		Member.remove({ _id: id }, function (err) {
+			Certification.remove({ _member: id}, function (err) {
+				Email.remove({ _member: id}, function (err) {
+					ServiceCredit.remove({ _member: id}, function (Err) {
+						res.json(200, {status: 'done'});
+					});
+				});
+			});
 		});
 	}
 };
