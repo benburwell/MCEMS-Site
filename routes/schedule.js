@@ -72,9 +72,9 @@ exports.month_schedule = function (req, res) {
 	var days = [];
 
 	var now = moment()
+		.startOf('month')
 		.year(req.params.year)
-		.month(req.params.month-1)
-		.date(1);
+		.month(req.params.month-1);
 
 	var prev_month = moment(now).subtract('months', 1);
 	var next_month = moment(now).add('months', 1);
