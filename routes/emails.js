@@ -57,20 +57,20 @@ exports.create = function (req, res) {
 		});
 
 	} else {
+
+		data.mobile.number = req.body.number.replace(/\D/g, '');
+
 		switch (req.body.carrier) {
 			case 'Verizon':
-				data.address = req.body.number + '@vtext.com';
+				data.address = data.mobile.number + '@vtext.com';
 				data.mobile.carrier = 'Verizon';
-				data.mobile.number = req.body.number.replace(/\D/g, '');
 				break;
 			case 'AT&T':
-				data.address = req.body.number + '@txt.att.com';
+				data.address = data.mobile.number + '@txt.att.com';
 				data.mobile.carrier = 'AT&T';
-				data.mobile.number = req.body.number;
 			case 'T-Mobile':
-				data.address = req.body.number + '@tmomail.net';
+				data.address = data.mobile.number + '@tmomail.net';
 				data.mobile.carrier = 'T-Mobile';
-				data.mobile.number = req.body.number;
 			default:
 				return;
 		}
