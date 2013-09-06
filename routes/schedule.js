@@ -221,7 +221,11 @@ exports.create_shift = function (req, res) {
 						probationary: member.status.probationary,
 						driver: member.status.driver,
 						training_corps: member.status.training_corps,
-						_member: member._id
+						_member: member._id,
+						added_on: new Date(),
+						added_by: req.session.member.name.first + ' ' + req.session.member.name.last,
+						modified_on: new Date(),
+						modified_by: req.session.member.name.first + ' ' + req.session.member.name.last
 					};
 
 					new Shift(data).save(function (err) {
@@ -241,7 +245,11 @@ exports.create_shift = function (req, res) {
 					probationary: req.session.member.status.probationary,
 					driver: req.session.member.status.driver,
 					training_corps: req.session.member.status.training_corps,
-					_member: req.session.member._id
+					_member: req.session.member._id,
+					added_on: new Date(),
+					added_by: req.session.member.name.first + ' ' + req.session.member.name.last,
+					modified_on: new Date(),
+					modified_by: req.session.member.name.first + ' ' + req.session.member.name.last
 				};
 
 				new Shift(data).save(function (err) {
@@ -312,7 +320,9 @@ exports.update_shift = function (req, res) {
 
 				Shift.update(search, {
 					start: new Date(req.body.start),
-					end: new Date(req.body.end)
+					end: new Date(req.body.end),
+					modified_on: new Date(),
+					modified_by: req.session.member.name.first + ' ' + req.session.member.name.last
 				}, function (err, count) {
 					if (err) {
 						res.json(500, {status: "error"});

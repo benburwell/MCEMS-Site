@@ -12,7 +12,11 @@ exports.shift = {
 	_member: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Member'
-	}
+	},
+	added_on: Date,
+	added_by: String,
+	modified_on: Date,
+	modified_by: String
 };
 
 exports.member = {

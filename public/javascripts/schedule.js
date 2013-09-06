@@ -157,6 +157,16 @@ $(document).ready(function () {
 			$('#edit_end_hour').val(shift_end.format('H'));
 			$('#edit_end_minute').val(shift_end.format('mm'));
 
+			if (shift.added_by && shift.added_on) {
+				$('#added_by').text(shift.added_by);
+				$('#added_on').text(moment(shift.added_on).format('MMMM D, YYYY [at] HH:mm'));
+			}
+			
+			if (shift.modified_by && shift.modified_on) {
+				$('#modified_by').text(shift.modified_by);
+				$('#modified_on').text(moment(shift.modified_on).format('MMMM D, YYYY [at] HH:mm'));
+			}
+
 			// finished loading, enable editing
 			$('#edit_shift').find('input').removeAttr('disabled');
 			$('#edit_shift').find('select').removeAttr('disabled');
