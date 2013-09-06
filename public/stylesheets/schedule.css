@@ -110,3 +110,7 @@ table.calendar td.editable .shift.editable .name:hover {
 #message #updated_message {
 	width: 40em;
 }
+
+.small {
+	font-size: 12px;
+}
