@@ -32,7 +32,7 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
     nav.auth
         p
             if authMember
-                span Loggged in as 
+                span Logged in as 
                 if authMember.account.permissions.accounts || authMember.account.permissions.members
                     a(href='/members/edit/' + authMember._id)= authMember.name.first + ' ' + authMember.name.last
                 else
