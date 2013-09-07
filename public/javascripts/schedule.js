@@ -160,11 +160,17 @@ $(document).ready(function () {
 			if (shift.added_by && shift.added_on) {
 				$('#added_by').text(shift.added_by);
 				$('#added_on').text(moment(shift.added_on).format('MMMM D, YYYY [at] HH:mm'));
+			} else {
+				$('#added_by').text('unknown user');
+				$('#added_on').text('unknown time');
 			}
 			
 			if (shift.modified_by && shift.modified_on) {
 				$('#modified_by').text(shift.modified_by);
 				$('#modified_on').text(moment(shift.modified_on).format('MMMM D, YYYY [at] HH:mm'));
+			} else {
+				$('#modified_by').text('unknown user');
+				$('#modified_on').text('unknown time');
 			}
 
 			// finished loading, enable editing
