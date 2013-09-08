@@ -71,6 +71,18 @@ exports.create = function (req, res) {
 			case 'T-Mobile':
 				data.address = data.mobile.number + '@tmomail.net';
 				data.mobile.carrier = 'T-Mobile';
+			case 'Virgin Mobile':
+				data.address = data.mobile.number + '@vmobl.com';
+				data.mobile.carrier = 'Virgin Mobile';
+			case 'Cingular':
+				data.address = data.mobile.number + '@cingularme.com';
+				data.mobile.carrier = 'Cingular';
+			case 'Sprint':
+				data.address = data.mobile.number + '@messaging.sprintpcs.com';
+				data.mobile.carrier = 'Sprint';
+			case 'Nextel':
+				data.address = data.mobile.number + '@messaging.nextel.com';
+				data.mobile.carrier = 'Nextel';
 			default:
 				return;
 		}
