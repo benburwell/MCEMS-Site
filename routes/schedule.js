@@ -229,7 +229,21 @@ exports.create_shift = function (req, res) {
 					};
 
 					new Shift(data).save(function (err) {
-						res.json(200, {status: 'ok'});
+						var s = moment(req.body.start).format('HH:mm [on] MMMM Do YYYY');
+						var e = moment(req.body.end).format('HH:mm [on] MMMM Do YYYY');
+						postmark.send({
+							'From': 'webmaster@bergems.org',
+							'To': member.school_email,
+							'Subject': 'Shift Signup Confirmation',
+							'TextBody': 'Hi ' + member.name.first + ', \n\n'
+								+ 'This email is to confirm that you have signed up '
+								+ 'for a shift starting from ' + s + ' until ' + e + '.\n\n'
+								+ 'If this is incorrect, please log on to the website and change '
+								+ 'your shift. If you need assistance, please contact the calendar '
+								+ 'administrator for help.'
+							}, function (err, success) {
+								res.json(200, {status: 'ok'});
+							});
 					});
 				})
 			} else {
