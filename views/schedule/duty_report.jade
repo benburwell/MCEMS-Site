@@ -51,7 +51,7 @@ block content
 
                 $.getJSON(url, function (data) {
                     console.log(data);
-                    el.text(data.hours);
+                    $(this).text(data.hours);
                 });
             });
         };
