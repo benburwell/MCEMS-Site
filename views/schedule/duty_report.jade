@@ -22,8 +22,11 @@ block content
         loadTable = function () {
             $('.member_hours').each(function (el) {
 
-                var id = $(this).attr('data');
-                var qs;
+                var o = $(this);
+
+                var id = o.attr('data');
+
+                o.text('Loading...');
 
                 var start = moment( $('#start_date').val() );
                 var end = moment( $('#end_date').val() );
@@ -37,7 +40,7 @@ block content
                 var em = end.month() + 1;
                 var ed = end.date();
 
-                qs = '?sy=' + sy
+                var qs = '?sy=' + sy
                     + '&sm=' + sm
                     + '&sd=' + sd
                     + '&ey=' + ey
@@ -51,7 +54,7 @@ block content
 
                 $.getJSON(url, function (data) {
                     console.log(data);
-                    $(this).text(data.hours);
+                    o.text(data.hours);
                 });
             });
         };
