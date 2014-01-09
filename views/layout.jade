@@ -65,6 +65,9 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
                                 a(href="/events") Event Signups
                             li
                                 a(href="/members") Members
+                            if authMember.account.permissions.schedule || authMember.account.permissions.members
+                                li
+                                    a(href="/schedule/duty-report/")
                             if authMember.account.permissions.members
                                 li
                                     a(href="/applicants") Applicants

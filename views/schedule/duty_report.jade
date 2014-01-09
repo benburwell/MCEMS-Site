@@ -1,6 +1,6 @@
 extends ../layout
 block content
-    h1 Hour Report
+    h1 Hours On Duty Report
     p
         | From 
         input#start_date(type='text')
@@ -10,6 +10,7 @@ block content
         p
             | #{member.name.last}, #{member.name.first}: 
             span.member_hours(data=member.id) Loading...
+            |  hours
     script.
         // set current date
         $('#start_date').val(moment().format('MM/DD/YYYY'));

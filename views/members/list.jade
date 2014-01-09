@@ -10,6 +10,8 @@ block content
 			a.button.icon.add(href="/members/create") Create Member
 			if authMember.account.permissions.members
 				a.button(href="/applicants") Applicants
+			if authMember.account.permissions.members || authMember.account.permissions.schedule
+				a.button(href="/schedule/duty-report/") Duty Hour Report
 	table.spread
 		tr
 			th Name
