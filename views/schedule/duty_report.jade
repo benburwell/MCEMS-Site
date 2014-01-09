@@ -9,19 +9,20 @@ block content
     each member in members
         p
             | #{member.name.last}, #{member.name.first}: 
-            span.member_hours(data=member.id) Loading...
+            span.member_hours(id=member.id) Loading...
     script.
-        //- set current date
+        // set current date
         $('#start_date').val(moment().format('MM/DD/YYYY'));
         $('#end_date').val(moment().format('MM/DD/YYYY'));
 
         $('#start_date').datepicker();
         $('#end_date').datepicker();
 
-        //- load table
+        // load table
         loadTable = function () {
             $('.member_hours').each(function (el) {
-                var id = $(el).attr('data');
+
+                var id = $(el).attr('id');
                 var qs;
 
                 var start = moment( $('#start_date').val() );
@@ -45,8 +46,11 @@ block content
 
                 var url = '/member/stats/' + id + '.json' + qs;
 
+                console.log('fetching ' + url);
+
 
                 $.getJSON(url, function (data) {
+                    console.log(data);
                     el.text(data.hours);
                 });
             });
