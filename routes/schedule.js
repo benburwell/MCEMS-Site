@@ -568,7 +568,7 @@ exports.future_shift_ics = function (req, res) {
 // Show semester totals for hours
 exports.duty_report = function (req, res) {
 
-	if (req.session.member && req.session.member.permissions.members) {
+	if (req.session.member && req.session.member.account.permissions.members) {
 
 		var Member = mongoose.model('Member');
 
