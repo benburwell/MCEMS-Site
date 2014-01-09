@@ -12,8 +12,11 @@ block content
             span.member_hours(data=member.id) Loading...
     script.
         //- set current date
-        $('#start_date').value(moment().format('MM/DD/YYYY'));
-        $('#end_date').value(moment().format('MM/DD/YYYY'));
+        $('#start_date').val(moment().format('MM/DD/YYYY'));
+        $('#end_date').val(moment().format('MM/DD/YYYY'));
+
+        $('#start_date').datepicker();
+        $('#end_date').datepicker();
 
         //- load table
         loadTable = function () {
@@ -48,3 +51,8 @@ block content
                 });
             });
         };
+
+        $('#start_date').on('change', loadTable);
+        $('#end_date').on('change', loadTable);
+
+        loadTable();
