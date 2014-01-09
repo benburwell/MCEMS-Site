@@ -21,7 +21,7 @@ block content
         //- load table
         loadTable = function () {
             $('.member_hours').each(function (el) {
-                var id = el.attr('data');
+                var id = $(el).attr('data');
                 var qs;
 
                 var start = moment( $('#start_date').value() );
