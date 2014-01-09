@@ -568,11 +568,13 @@ exports.future_shift_ics = function (req, res) {
 // Show semester totals for hours
 exports.duty_report = function (req, res) {
 
-	if (req.session.member && req.session.member.account.permissions.members) {
+	if (req.session.member &&
+		(req.session.member.account.permissions.members
+			|| req.session.member.account.permissions.schedule)) {
 
 		var Member = mongoose.model('Member');
 
-		Member.find().exec(function (err, members) {
+		Member.find().sort('name.last').exec(function (err, members) {
 			if (err) {
 				res.render('error', {
 					title: 'Database Error',
