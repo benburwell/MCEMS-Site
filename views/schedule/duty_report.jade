@@ -9,7 +9,7 @@ block content
     each member in members
         p
             | #{member.name.last}, #{member.name.first}: 
-            span.member_hours(id=member.id) Loading...
+            span.member_hours(data=member.id) Loading...
     script.
         // set current date
         $('#start_date').val(moment().format('MM/DD/YYYY'));
@@ -22,7 +22,7 @@ block content
         loadTable = function () {
             $('.member_hours').each(function (el) {
 
-                var id = $(el).attr('id');
+                var id = $(el).attr('data');
                 var qs;
 
                 var start = moment( $('#start_date').val() );
