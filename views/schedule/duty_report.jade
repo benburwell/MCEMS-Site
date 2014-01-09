@@ -24,8 +24,8 @@ block content
                 var id = $(el).attr('data');
                 var qs;
 
-                var start = moment( $('#start_date').value() );
-                var end = moment( $('#end_date').value() );
+                var start = moment( $('#start_date').val() );
+                var end = moment( $('#end_date').val() );
 
                 var sy = start.year();
                 //- months are zero-indexed
