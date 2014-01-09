@@ -564,3 +564,32 @@ exports.future_shift_ics = function (req, res) {
 	}
 
 }
+
+// Show semester totals for hours
+exports.duty_report = function (req, res) {
+
+	if (req.session.member && req.session.member.permissions.members) {
+
+		var Member = mongoose.model('Member');
+
+		Member.find().exec(function (err, members) {
+			if (err) {
+				res.render('error', {
+					title: 'Database Error',
+					message: 'The system experienced an internal error. Please try again shortly.'
+				});
+			}
+
+			res.render('schedule/duty_report', {
+				members: members
+			});
+		});
+
+	} else {
+		res.render('error', {
+			title: 'Not Authorized',
+			message: 'Please log in to view reports.'
+		});
+	}
+
+};
