@@ -1,0 +1,50 @@
+extends ../layout
+block content
+    h1 Hour Report
+    p
+        | From 
+        input#start_date(type='text')
+        |  to 
+        input#end_date(type='text')
+    each member in members
+        p
+            | #{member.name.last}, #{member.name.first}: 
+            span.member_hours(data=member.id) Loading...
+    script.
+        //- set current date
+        $('#start_date').value(moment().format('MM/DD/YYYY'));
+        $('#end_date').value(moment().format('MM/DD/YYYY'));
+
+        //- load table
+        loadTable = function () {
+            $('.member_hours').each(function (el) {
+                var id = el.attr('data');
+                var qs;
+
+                var start = moment( $('#start_date').value() );
+                var end = moment( $('#end_date').value() );
+
+                var sy = start.year();
+                //- months are zero-indexed
+                var sm = start.month() + 1;
+                var sd = start.date();
+
+                var ey = end.year();
+                var em = end.month() + 1;
+                var ed = end.date();
+
+                qs = '?sy=' + sy
+                    + '&sm=' + sm
+                    + '&sd=' + sd
+                    + '&ey=' + ey
+                    + '&em=' + em
+                    + '&ed=' + ed;
+
+                var url = '/member/stats/' + id + '.json' + qs;
+
+
+                $.getJSON(url, function (data) {
+                    el.text(data.hours);
+                });
+            });
+        };
