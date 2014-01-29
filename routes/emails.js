@@ -166,6 +166,18 @@ exports.inbound_hook = function (req, res) {
 
 						var sender = req.body.FromFull ? req.body.FromFull.Email : req.body.From;
 
+						var attachments = [];
+
+						if (req.body.Attachments) {
+							for (var k = 0; k < req.body.Attachments.length; k++) {
+								attachments.push({
+									'Name': req.body.Attachments[k].Name,
+									'Content': req.body.Attachments[k].Content,
+									'ContentType': req.body.Attachments[k].ContentType
+								});
+							}
+						}
+
 						var email = {
 							'From': 'bounce@bergems.org',
 							'To': members[i].school_email,
@@ -173,7 +185,7 @@ exports.inbound_hook = function (req, res) {
 							'Subject': '[MCEMS] ' + req.body.Subject,
 							'TextBody': req.body.TextBody,
 							'HtmlBody': req.body.HtmlBody,
-							'Attachments': req.body.Attachments,
+							'Attachments': attachments,
 							'Headers': [
 								{
 									'X-Forwarded-For': sender
