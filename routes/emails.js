@@ -163,14 +163,22 @@ exports.inbound_hook = function (req, res) {
 					a = a.toLowerCase();
 					
 					if (a == req.body.To.toLowerCase()) {
+
+						var sender = req.body.FromFull ? req.body.FromFull.Email : req.body.From;
+
 						var email = {
-							'From': 'webmaster@bergems.org',
+							'From': 'bounce@bergems.org',
 							'To': members[i].school_email,
-							'ReplyTo': req.body.FromFull ? req.body.FromFull.Email : req.body.From,
+							'ReplyTo': sender,
 							'Subject': '[MCEMS] ' + req.body.Subject,
 							'TextBody': req.body.TextBody,
 							'HtmlBody': req.body.HtmlBody,
-							'Attachments': req.body.Attachments
+							'Attachments': req.body.Attachments,
+							'Headers': [
+								{
+									'X-Forwarded-For': sender
+								}
+							]
 						};
 						messages.push(email);
 					}
