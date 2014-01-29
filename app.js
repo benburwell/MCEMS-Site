@@ -5,7 +5,7 @@ var express         = require('express'),
 	path            = require('path'),
 
 	// use the local version until npmjs is updated
-	postmark        = require('./postmark')(process.env.POSTMARK_API_KEY),
+	postmark        = require('postmark')(process.env.POSTMARK_API_KEY),
 	
 	crypto          = require('crypto'),
 	assetManager    = require('connect-assetmanager'),
