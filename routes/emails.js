@@ -152,32 +152,37 @@ exports.inbound_hook = function (req, res) {
 		.where('account.email_aliases').ne(null)
 		.exec(function (err, members) {
 
-		members.forEach(function (member) {
-			var aliases = member.account.email_aliases.split(',');
-			aliases.forEach(function (alias) {
-				var a = alias + '@bergems.org';
-				a = a.toLowerCase();
-				if (a == req.body.To.toLowerCase()) {
-					var email = {
-						'From': 'webmaster@bergems.org',
-						'To': member.school_email,
-						'ReplyTo': req.body.FromFull ? req.body.FromFull.Email : req.body.From,
-						'Subject': '[MCEMS] ' + req.body.Subject,
-						'TextBody': req.body.TextBody,
-						'HtmlBody': req.body.HtmlBody,
-						'Attachments': req.body.Attachments
-					};
-					messages.push(email);
+			var num_members = members.length;
+			for (var i = 0; i < num_members; i++) {
+				
+				var aliases = members[i].account.email_aliases.split(',');
+				var num_aliases = aliases.length;
+
+				for (var j = 0; j < num_aliases; j++) {
+					var a = aliases[j] + '@bergems.org';
+					a = a.toLowerCase();
+					
+					if (a == req.body.To.toLowerCase()) {
+						var email = {
+							'From': 'webmaster@bergems.org',
+							'To': member.school_email,
+							'ReplyTo': req.body.FromFull ? req.body.FromFull.Email : req.body.From,
+							'Subject': '[MCEMS] ' + req.body.Subject,
+							'TextBody': req.body.TextBody,
+							'HtmlBody': req.body.HtmlBody,
+							'Attachments': req.body.Attachments
+						};
+						messages.push(email);
+					}
 				}
-			});
-		});
-		
-		if (messages.length > 0) {
-			postmark.batch(messages, function (err, success) {
-				res.json(200, {status: 'done'});
-			});
-		} else {
-			res.json(200, {status: 'no_address_match'});
-		}
+			}
+			
+			if (messages.length > 0) {
+				postmark.batch(messages, function (err, success) {
+					res.json(200, {status: 'done'});
+				});
+			} else {
+				res.json(200, {status: 'no_address_match'});
+			}
 	});
 };
