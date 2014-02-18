@@ -19,7 +19,8 @@
     "jsontoxml": ">= 0.0.11",
     "passport": "*",
     "passport-http": "*",
-    "postmark": "0.2.0"
+    "postmark": "0.2.0",
+    "icalendar": "0.6.5"
   },
   "engines": {
     "node": "0.10.x",

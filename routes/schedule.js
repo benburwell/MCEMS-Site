@@ -1,4 +1,5 @@
 var moment = require('moment');
+var icalendar = require('icalendar');
 
 var mongoose, postmark;
 exports._connect = function (m, p) {
@@ -594,4 +595,35 @@ exports.duty_report = function (req, res) {
 		});
 	}
 
+};
+
+exports.duty_ics = function (req, res) {
+	var Shift = mongoose.model('Shift');
+
+	var start = moment().subtract('months', 3).toDate();
+	var end = moment().add('months', 3).toDate();
+
+	Shift.find({
+		start: { $gte: start },
+		end: { $lte: end }
+	}, function (err, result) {
+
+		if (err || result == null) {
+			return res.json(500, {error: 'server error'});
+		}
+		
+		var ical = new icalendar.iCalendar();
+		var e;
+
+		for (var i = 0; i < result.length; i++) {
+			e = ical.addComponent('VEVENT');
+			e.setSummary(result[i].name + ' ' + result[i].unit);
+			e.setDescription('Description');
+			e.setDate(result[i].start, result[i].end);
+		}
+
+		res.type('ics');
+
+		res.send(ical.toString());
+	});
 };

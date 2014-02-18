@@ -165,6 +165,7 @@ app.post('/schedule/message', schedule.edit_message);
 app.get('/members/shifts/:member.json', schedule.member_shifts);
 app.get('/members/stats/:member.json', schedule.member_hours_json);
 app.get('/schedule/ical/:member/:id.ics', schedule.future_shift_ics);
+app.get('/duty.ics', schedule.duty_ics);
 app.get('/schedule/duty-report/', schedule.duty_report);
 
 // member management
