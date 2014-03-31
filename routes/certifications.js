@@ -150,7 +150,7 @@ exports.table = function (req, res) {
 		&& req.session.member.account.permissions.members) {
 
 		var Certification = mongoose.model('Certification');
-		Certification.find().populate('_member').exec(function (err, certs) {
+		Certification.find().populate('_member').sort('_member.name.last').exec(function (err, certs) {
 			res.render('members/certification_table', {certs: certs, moment: moment});
 		});
 	} else {
