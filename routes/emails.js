@@ -65,9 +65,9 @@ exports.create = function (req, res) {
 				data.address = data.mobile.number + '@vtext.com';
 				data.mobile.carrier = 'Verizon';
 				break;
-			case 'AT&T':
+			case 'ATT':
 				data.address = data.mobile.number + '@txt.att.com';
-				data.mobile.carrier = 'AT&T';
+				data.mobile.carrier = 'ATT';
 			case 'T-Mobile':
 				data.address = data.mobile.number + '@tmomail.net';
 				data.mobile.carrier = 'T-Mobile';
