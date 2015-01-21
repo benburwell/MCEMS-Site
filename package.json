@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "test": "echo No tests specified",
     "start": "node app.js"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "passport": "*",
     "passport-http": "*",
     "postmark": "0.2.0",
+    "newrelic": "latest",
     "icalendar": "0.6.5"
   },
   "engines": {
