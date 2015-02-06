@@ -7,6 +7,9 @@ exports._connect = function (m, p) {
 };
 
 exports.on_duty = function (req, res) {
+	
+	res.set('Access-Control-Allow-Origin', '*');
+
 	var Shift = mongoose.model('Shift');
 	Shift
 		.find({
