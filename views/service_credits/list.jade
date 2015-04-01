@@ -14,17 +14,20 @@ block content
 			th Approved By
 			th Actions
 		for credit in credits
-			tr(class=(credit.approved? 'approved' : undefined)) 
+			tr(class=(credit.approved? 'approved' : undefined))
 				td= credit._member.name.first + ' ' + credit._member.name.last
 				td= moment(credit.credit_date).format('MMMM D YYYY')
 				td= credit.description
 				td= moment(credit.request_date).format('MMMM D YYYY')
 				if credit.approved
-					td= credit._approver.name.first + ' ' + credit._approver.name.last
+					if credit._approver
+						td= credit._approver.name.first + ' ' + credit._approver.name.last
+					else
+						td No longer in system
 					td
 						button.reject.button.pill.danger.icon.trash(data=credit.id) Delete
 				else
-					td  
+					td
 					td.button-group
 						button.approve.button.pill.icon.approve(data=credit.id) Approve
 						button.reject.button.pill.danger.icon.remove(data=credit.id) Reject
