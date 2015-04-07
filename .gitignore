@@ -3,3 +3,4 @@ node_modules/*
 Todo
 MCEMS.sublime-workspace
 MCEMS.sublime-project
+.vagrant/*
