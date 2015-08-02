@@ -33,10 +33,7 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
         p
             if authMember
                 span Logged in as 
-                if authMember.account.permissions.accounts || authMember.account.permissions.members
                     a(href='/members/edit/' + authMember._id)= authMember.name.first + ' ' + authMember.name.last
-                else
-                    a(href='/me')= authMember.name.first + ' ' + authMember.name.last
                 span  — 
                 a(href="/me/change_password") Change Password
                 span  — 

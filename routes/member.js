@@ -424,11 +424,3 @@ exports.change_password = function (req, res) {
 		res.redirect('/');
 	}
 };
-
-exports.display_self = function (req, res) {
-	if (req.session.member) {
-		res.redirect('/members/edit/' + req.session.member._id);
-	} else {
-		res.redirect('/');
-	}
-}
