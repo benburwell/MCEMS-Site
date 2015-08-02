@@ -283,13 +283,6 @@ http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-// this will prevent heroku from sleeping
-setInterval(function () {
-	http.get('http://www.bergems.org/', function (res) {
-		console.log('Got home page');
-	});
-}, 45 * 60 * 1000);
-
 // set up certification expiry emails
 var Certification = mongoose.model('Certification');
 Certification.find().populate('_member').exec(function (err, certs) {
