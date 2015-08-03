@@ -219,6 +219,14 @@ exports.edit_form = function (req, res) {
 					var edit_account = req.session.member.account.permissions.accounts;
 					var edit_member = req.session.member.account.permissions.members;
 
+					//if the user is viewing themself, let them edit their info
+					//however, if they are not an admin, and not viewing themself, redirect them to the main page
+					if(req.session.member._id == item._id) {
+						edit_member = true;
+					} else if (!edit_account) {
+						return res.redirect('/');
+					}
+
 					res.render('members/edit', {
 						member: item,
 						edit_account: edit_account,
@@ -416,21 +424,3 @@ exports.change_password = function (req, res) {
 		res.redirect('/');
 	}
 };
-
-exports.display_self = function (req, res) {
-	if (req.session.member) {
-		if (req.session.member.account.permissions.members
-			|| req.session.member.account.permissions.accounts) {
-			res.redirect('/members/edit/' + req.session.member._id);
-		} else {
-			res.render('members/edit', {
-				member: req.session.member,
-				moment: moment,
-				edit_member: false,
-				edit_account: false
-			});
-		}
-	} else {
-		res.redirect('/');
-	}
-}
