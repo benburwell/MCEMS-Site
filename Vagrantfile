@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
   #      - Add nvm commands to our current shell
   #      - Use nvm to install an appropriate Node version
   #      - Finally, use that version
-  #   3. Run our code
+  #   3. Install Nodemon using npm
+  #   4. Run our code
   #      - Change to the code directory
   #      - Install npm dependencies
   #      - Run the account bootstrap script to create an admin account
@@ -33,6 +34,7 @@ Vagrant.configure("2") do |config|
     apt-get install -y curl
     curl -sL https://deb.nodesource.com/setup | sudo bash -
     sudo apt-get install -y nodejs
+    npm install nodemon
     cd /vagrant
     npm install
     node bootstrap_accounts.js
