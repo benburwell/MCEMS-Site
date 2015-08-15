@@ -215,13 +215,19 @@ exports.edit_form = function (req, res) {
 				return res.json(404, {error: 'No such member'});
 			} else {
 				if (req.session.member != undefined) {
+					
+					//if the db did not find the id requested, return to main page
+					if(item == undefined || !item.hasOwnProperty('id')) {
+						return res.redirect('/');
+					}
 
 					var edit_account = req.session.member.account.permissions.accounts;
 					var edit_member = req.session.member.account.permissions.members;
 
 					//if the user is viewing themself, let them edit their info
 					//however, if they are not an admin, and not viewing themself, redirect them to the main page
-					if(req.session.member._id == item._id) {
+					if(req.session.member._id === item._id) {
+						edit_member = true;
 						edit_member = true;
 					} else if (!edit_account) {
 						return res.redirect('/');
