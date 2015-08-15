@@ -57,7 +57,7 @@ mongoose.model('Interview', new Schema(models.interview));
 // connect to db
 var uristring = process.env.MONGOLAB_URI
 	|| process.env.MONGOHQ_URL
-	|| 'mongodb://localhost/mcems';
+	|| 'mongodb://127.0.0.1/mcems';
 mongoose.connect(uristring);
 
 // put mongoose in modules
