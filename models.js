@@ -72,7 +72,16 @@ exports.member = {
 	},
 	emails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Email' }],
 	certifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Certification' }],
-	service_credits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ServiceCredit' }]
+	service_credits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ServiceCredit' }],
+	forms: {
+		photo_release: Boolean,
+		uniform: Boolean,
+		bylaws: Boolean,
+		bylaws_quiz: Boolean,
+		stairchair_quiz: Boolean,
+		stairchair_waiver: Boolean,
+		infection: Boolean,
+	}
 };
 
 exports.certification = {

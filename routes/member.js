@@ -286,7 +286,14 @@ exports.edit = function (req, res) {
 		'status.driver_trainee': (req.body.driver_trainee == 'true')? true : false,
 		'status.driver': (req.body.driver == 'true')? true : false,
 		'status.crew_chief_trainee': (req.body.crew_chief_trainee == 'true')? true : false,
-		'status.crew_chief': (req.body.crew_chief == 'true')? true : false
+		'status.crew_chief': (req.body.crew_chief == 'true')? true : false,
+		'forms.photo_release': (req.body.photo_release == 'true')? true : false,
+		'forms.uniform': (req.body.uniform == 'true')? true : false,
+		'forms.bylaws': (req.body.bylaws == 'true')? true : false,
+		'forms.bylaws_quiz': (req.body.bylaws_quiz == 'true')? true : false,
+		'forms.stairchair_quiz': (req.body.stairchair_quiz == 'true')? true : false,
+		'forms.stairchair_waiver': (req.body.stairchair_waiver == 'true')? true : false,
+		'forms.infection': (req.body.infection == 'true')? true : false
 	};
 
 	var both = jsonConcat(account, member);

@@ -156,3 +156,60 @@ fieldset.member
 				checked=(member.status.crew_chief)? "checked" : undefined,
 				disabled=(edit_member? undefined : 'disabled'))
 			label(for="crew_chief")  Crew Chief
+		p  Forms:
+		p
+			input#photo_release(
+				type="checkbox",
+				name="photo_release",	
+				value="true",
+				checked=(member.forms.photo_release)? "checked" : undefined,
+				disabled=(edit_member? undefined : 'disabled'))
+			label(for="photo_release") Photo Release
+		p
+			input#uniform(
+				type="checkbox",
+				name="uniform",
+				value="true",
+				checked=(member.forms.uniform) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="uniform") Uniform Waiver
+		p
+			input#bylaws(
+				type="checkbox",
+				name="bylaws",
+				value="true",
+				checked=(member.forms.bylaws) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="bylaws") Bylaws/SOP Acknowledgement
+		p
+			input#bylaws_quiz(
+				type="checkbox",
+				name="bylaws_quiz",
+				value="true",
+				checked=(member.forms.bylaws_quiz) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="bylaws_quiz") Bylaws/SOPs Quiz
+		p
+			input#stairchair_quiz(
+				type="checkbox",
+				name="stairchair_quiz",
+				value="true",
+				checked=(member.forms.stairchair_quiz) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="stairchair_quiz") Stairchair Quiz
+		p
+			input#stairchair_waiver(
+				type="checkbox",
+				name="stairchair_waiver",
+				value="true",
+				checked=(member.forms.stairchair_waiver) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="stairchair_waiver") Stairchair Waiver
+		p
+			input#infection(
+				type="checkbox",
+				name="infection",
+				value="true",
+				checked=(member.forms.infection) ? "checked" : undefined,
+				disabled=(edit_member ? undefined : 'disabled'))
+			label(for="infection") Infection Control Waiver
