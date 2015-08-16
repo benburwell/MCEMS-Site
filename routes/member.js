@@ -217,7 +217,7 @@ exports.edit_form = function (req, res) {
 				if (req.session.member != undefined) {
 					
 					//if the db did not find the id requested, return to main page
-					if(item == undefined || !item.hasOwnProperty('id')) {
+					if(item == undefined) {
 						return res.redirect('/');
 					}
 
