@@ -1,0 +1,34 @@
+{
+  "name": "BergEMS",
+  "description": "The MCEMS website",
+  "scripts": {
+    "postdeploy": "node bootstrap_accounts.js"
+  },
+  "env": {
+    "ERROR_PAGE_URL": {
+      "description": "The error page to display if the app crashes",
+      "value": "https://dl.dropboxusercontent.com/s/iw8xo5jxrn0ra67/error.html"
+    },
+    "MCEMS_API_USER": {
+      "description": "The username needed to log in as an API client",
+      "value": "api"
+    },
+    "MCEMS_API_PASS": {
+      "description": "The password needed to log in as an API client",
+      "generator": "secret"
+    },
+    "MCEMS_PEPPER": {
+      "description": "Random value to use in generating password hashes",
+      "generator": "secret"
+    },
+    "MCEMS_SESSION_SECRET": {
+      "description": "A session secret",
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "mongolab:sandbox",
+    "newrelic:wayne",
+    "postmark:10k"
+  ]
+}
