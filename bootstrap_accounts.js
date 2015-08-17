@@ -7,7 +7,7 @@
   var DEFAULT_USERNAME = 'admin';
   var DEFAULT_PASSWORD = 'admin';
 
-  mongoose.connect('mongodb://localhost/mcems');
+  mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/mcems');
   mongoose.model('Member', new mongoose.Schema(models.member));
   mongoose.model('System', new mongoose.Schema(models.system));
 
