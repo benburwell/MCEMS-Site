@@ -225,8 +225,9 @@ exports.edit_form = function (req, res) {
 					var edit_member = req.session.member.account.permissions.members;
 
 					//if the user is viewing themself, let them edit their info
-					//however, if they are not an admin, and not viewing themself, redirect them to the main page
-					if(req.session.member._id === item._id) {
+					//however, if they do not have permission to edit accounts, 
+					//and are not viewing themself, redirect them to the main page
+					if(req.session.member._id == item._id) {
 						edit_member = true;
 						edit_member = true;
 					} else if (!edit_account) {
