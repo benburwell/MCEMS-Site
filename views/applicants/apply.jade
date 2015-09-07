@@ -5,7 +5,7 @@ block head
 
 block content
 	h1 Apply for Membership
-	if !showForm
+	if showForm
 		p
 			| Sorry, we are not currently accepting applications. 
 			| We accept applications and interview 
@@ -66,28 +66,28 @@ block content
 					| CPR Expiration:
 					br
 					input.datepicker(type="text", name="cpr_expiration")
-				p
-					| Driver's License Number
-					br
-					input(type="text", name="driver_number")
-				p
-					| Driver's License State
-					br
-					select(name="driver_state")
-						include ../state_options
-				p
-					| Driver's License Expiration
-					br
-					input.datepicker(type="text", name="driver_expiration")
-				p
-					| If you are vaccinated against Hepatitis B, 
-					| please provide your vaccination dates:
-					br
-					input.datepicker(type="text", name="hep_b_date1")
-					br
-					input.datepicker(type="text", name="hep_b_date2")
-					br
-					input.datepicker(type="text", name="hep_b_date3")
+				//- p
+				//- 	| Driver's License Number
+				//- 	br
+				//- 	input(type="text", name="driver_number")
+				//- p
+				//- 	| Driver's License State
+				//- 	br
+				//- 	select(name="driver_state")
+				//- 		include ../state_options
+				//- p
+				//- 	| Driver's License Expiration
+				//- 	br
+				//- 	input.datepicker(type="text", name="driver_expiration")
+				//- p
+				//- 	| If you are vaccinated against Hepatitis B, 
+				//- 	| please provide your vaccination dates:
+				//- 	br
+				//- 	input.datepicker(type="text", name="hep_b_date1")
+				//- 	br
+				//- 	input.datepicker(type="text", name="hep_b_date2")
+				//- 	br
+				//- 	input.datepicker(type="text", name="hep_b_date3")
 				p
 					| Please list two personal references whom you have 
 					| known for at least a year. These might be teachers, 
@@ -152,12 +152,12 @@ block content
 				p
 					a.big.primary.button#pickInterview Continue
 			.interview
-				p The next phase of the application is an interview with our Executive board.
-				p
-					b
-						| You must bring front and back photocopies of the following to 
-						| your interview: current CPR, EMT card(s), driver's license, and 
-						| Muhlenberg ID.
+				p The next phase of the application is an interview with our [Closed] Executive board.
+				//- p
+				//- 	b
+				//- 		| You must bring front and back photocopies of the following to 
+				//- 		| your interview: current CPR, EMT card(s), driver's license, and 
+				//- 		| Muhlenberg ID.
 				p
 					| Please select an interview time:
 					select#interview_time(name="interview")
