@@ -42,15 +42,15 @@ exports.submit = function (req, res) {
 		cpr: {
 			expiry: new Date(req.body.cpr_expiration)
 		},
-		drivers_license: {
-			number: req.body.driver_number,
-			state: req.body.driver_state,
-			expiry: new Date(req.body.driver_expiration)
-		},
+		// drivers_license: {
+		// 	number: req.body.driver_number,
+		// 	state: req.body.driver_state,
+		// 	expiry: new Date(req.body.driver_expiration)
+		// },
 		member_of_other_ems_org: req.body.member_of_other_ems_org,
-		hep_b_date1: new Date(req.body.hep_b_date1),
-		hep_b_date2: new Date(req.body.hep_b_date2),
-		hep_b_date3: new Date(req.body.hep_b_date3),
+		// hep_b_date1: new Date(req.body.hep_b_date1),
+		// hep_b_date2: new Date(req.body.hep_b_date2),
+		// hep_b_date3: new Date(req.body.hep_b_date3),
 		reference1: {
 			name: req.body.ref1_name,
 			relation: req.body.ref1_relation,

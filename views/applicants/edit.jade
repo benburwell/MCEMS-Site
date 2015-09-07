@@ -31,20 +31,20 @@ block content
 	p
 		b CPR Expiration: 
 		span= moment(applicant.cpr.expiry).format('MMMM D, YYYY')
-	p
-		b Driver's License: 
-		span= applicant.drivers_license.state + ' #'
-		span= applicant.drivers_license.number + ' exp. '
-		span= moment(applicant.drivers_license.expiry).format('MMMM D, YYYY')
-	p
-		b Hepatitis B vaccination dates: 
-		span= moment(applicant.hep_b_date1).format('MMM D YYYY')
-		if applicant.hep_b_date1
-			span , 
-		span= moment(applicant.hep_b_date2).format('MMM D YYYY')
-		if applicant.hep_b_date2
-			span , 
-		span= moment(applicant.hep_b_date3).format('MMM D YYYY')
+	//- p
+	//- 	b Driver's License: 
+	//- 	span= applicant.drivers_license.state + ' #'
+	//- 	span= applicant.drivers_license.number + ' exp. '
+	//- 	span= moment(applicant.drivers_license.expiry).format('MMMM D, YYYY')
+	//- p
+	//- 	b Hepatitis B vaccination dates: 
+	//- 	span= moment(applicant.hep_b_date1).format('MMM D YYYY')
+	//- 	if applicant.hep_b_date1
+	//- 		span , 
+	//- 	span= moment(applicant.hep_b_date2).format('MMM D YYYY')
+	//- 	if applicant.hep_b_date2
+	//- 		span , 
+	//- 	span= moment(applicant.hep_b_date3).format('MMM D YYYY')
 	p References:
 		table
 			tr
