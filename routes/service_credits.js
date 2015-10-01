@@ -35,7 +35,7 @@ exports.json = function (req, res) {
 			return res.json(403, {});
 		}
 
-		var id = mongoose.Types.ObjectId.fromString(req.params.member);
+		var id = mongoose.Types.ObjectId(req.params.member);
 
 		var ServiceCredit = mongoose.model('ServiceCredit');
 		ServiceCredit
@@ -109,7 +109,7 @@ exports.approve = function (req, res) {
 	if (req.session.member
 		&& req.session.member.account.permissions.service_credit) {
 
-		var id = mongoose.Types.ObjectId.fromString(req.params.credit);
+		var id = mongoose.Types.ObjectId(req.params.credit);
 
 		var ServiceCredit = mongoose.model('ServiceCredit');
 		ServiceCredit.update( { _id: id }, {
@@ -128,7 +128,7 @@ exports.reject = function (req, res) {
 	if (req.session.member
 		&& req.session.member.account.permissions.service_credit) {
 
-		var id = mongoose.Types.ObjectId.fromString(req.params.credit);
+		var id = mongoose.Types.ObjectId(req.params.credit);
 
 		var ServiceCredit = mongoose.model('ServiceCredit');
 		ServiceCredit.remove({ _id: id }, function (err) {

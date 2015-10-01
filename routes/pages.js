@@ -76,7 +76,7 @@ exports.edit_form = function (req, res) {
 		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
-		var id = mongoose.Types.ObjectId.fromString(req.params.page);
+		var id = mongoose.Types.ObjectId(req.params.page);
 		Page.findOne({_id: id}, function (err, page) {
 			res.render('pages/edit', {page: page});
 		});
@@ -91,7 +91,7 @@ exports.edit = function (req, res) {
 		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
-		var id = mongoose.Types.ObjectId.fromString(req.params.page);
+		var id = mongoose.Types.ObjectId(req.params.page);
 		Page.update({ _id: id }, {
 			name: req.body.name,
 			show_in_nav: (req.body.show_in_nav == 'true')? true : false,
@@ -150,7 +150,7 @@ exports.delete = function (req, res) {
 		&& req.session.member.account.permissions.pages) {
 
 		var Page = mongoose.model('Page');
-		var id = mongoose.Types.ObjectId.fromString(req.params.page);
+		var id = mongoose.Types.ObjectId(req.params.page);
 		Page.remove({ _id: id}, function (err) {
 			res.json(200, {status: 'ok'});
 		});

@@ -21,7 +21,7 @@ exports.form = function (req, res) {
 exports.submit = function (req, res) {
 	var Applicant = mongoose.model('Applicant');
 
-	var interview = mongoose.Types.ObjectId.fromString(req.body.interview);
+	var interview = mongoose.Types.ObjectId(req.body.interview);
 
 	new Applicant({
 		name: {
@@ -96,7 +96,7 @@ exports.display_applicant = function (req, res) {
 		req.session.member.account.permissions.members) {
 
 			var Applicant = mongoose.model('Applicant');
-			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			var id = mongoose.Types.ObjectId(req.params.id);
 
 			Applicant
 				.findOne({_id:id})
@@ -114,7 +114,7 @@ exports.update_applicant = function (req, res) {
 		req.session.member.account.permissions.members) {
 
 			var Applicant = mongoose.model('Applicant');
-			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			var id = mongoose.Types.ObjectId(req.params.id);
 			Applicant.update({ _id: id }, {
 				interview_notes: req.body.interview_notes
 			}, function (err) {
@@ -130,7 +130,7 @@ exports.migration_form = function (req, res) {
 		req.session.member.account.permissions.members) {
 
 			var Applicant = mongoose.model('Applicant');
-			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			var id = mongoose.Types.ObjectId(req.params.id);
 			Applicant.findOne({_id: id}, function (err, applicant) {
 				res.render('applicants/migrate', {applicant: applicant});
 			});
@@ -145,7 +145,7 @@ exports.delete_applicant = function (req, res) {
 		req.session.member.account.permissions.members) {
 
 			var Applicant = mongoose.model('Applicant');
-			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			var id = mongoose.Types.ObjectId(req.params.id);
 
 			Applicant.remove({_id: id}, function (err) {
 				res.redirect('/applicants');
@@ -187,7 +187,7 @@ exports.delete_interview_slot = function (req, res) {
 		req.session.member.account.permissions.members) {
 
 			var Interview = mongoose.model('Interview');
-			var id = mongoose.Types.ObjectId.fromString(req.params.id);
+			var id = mongoose.Types.ObjectId(req.params.id);
 			Interview.remove({ _id: id}, function (err) {
 				res.json(200, {status: 'done'});
 			});
