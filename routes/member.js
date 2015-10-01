@@ -209,7 +209,7 @@ exports.create = function (req, res) {
 exports.edit_form = function (req, res) {
 	var Member = mongoose.model('Member');
 	Member
-		.findOne({ _id: mongoose.Types.ObjectId.fromString(req.params.member) })
+		.findOne({ _id: mongoose.Types.ObjectId(req.params.member) })
 		.exec(function (err, item) {
 			if (err) {
 				return res.json(404, {error: 'No such member'});
@@ -299,7 +299,7 @@ exports.edit = function (req, res) {
 
 	var both = jsonConcat(account, member);
 
-	var id = mongoose.Types.ObjectId.fromString(req.params.member);
+	var id = mongoose.Types.ObjectId(req.params.member);
 	var update;
 
 	if (req.session.member != undefined) {
@@ -328,7 +328,7 @@ exports.reset_password = function (req, res) {
 	if (req.session.member) {
 		if (req.session.member.account.permissions.accounts) {
 
-			var id = mongoose.Types.ObjectId.fromString(req.params.member);
+			var id = mongoose.Types.ObjectId(req.params.member);
 			var Member = mongoose.model('Member');
 
 			crypto.randomBytes(134, function (ex, salt) {
@@ -369,7 +369,7 @@ exports.delete = function (req, res) {
 	var Email = mongoose.model('Email');
 	var ServiceCredit = mongoose.model('ServiceCredit');
 
-	var id = mongoose.Types.ObjectId.fromString(req.params.member);
+	var id = mongoose.Types.ObjectId(req.params.member);
 
 	if (req.session.member && req.session.member.account.permissions.members) {
 		Member.remove({ _id: id }, function (err) {

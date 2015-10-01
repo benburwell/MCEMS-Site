@@ -16,7 +16,7 @@ exports.get_json = function (req, res) {
 		return res.redirect('/');
 	}
 
-	var id = mongoose.Types.ObjectId.fromString(req.params.member);
+	var id = mongoose.Types.ObjectId(req.params.member);
 
 	var Email = mongoose.model('Email');
 	Email.find( {_member: id}, 'address mobile confirmed', function (err, items) {
@@ -108,7 +108,7 @@ exports.delete = function (req, res) {
 	}
 
 	var query = {
-		_id: mongoose.Types.ObjectId.fromString(req.body.id),
+		_id: mongoose.Types.ObjectId(req.body.id),
 		_member: req.session.member._id
 	};
 
@@ -127,7 +127,7 @@ exports.confirm = function (req, res) {
 	if (req.session.member) {
 
 		var query = {
-			_id: mongoose.Types.ObjectId.fromString(req.body.id),
+			_id: mongoose.Types.ObjectId(req.body.id),
 			_member: req.session.member._id,
 			confirm_code: req.body.code
 		};

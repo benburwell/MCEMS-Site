@@ -208,7 +208,7 @@ exports.create_shift = function (req, res) {
 			var Shift = mongoose.model('Shift');
 
 			if (req.session.member.account.permissions.schedule) {
-				var id = mongoose.Types.ObjectId.fromString(req.body.member);
+				var id = mongoose.Types.ObjectId(req.body.member);
 
 				var Member = mongoose.model('Member');
 				Member.findOne({_id: id}, function (err, member) {
@@ -286,19 +286,19 @@ exports.delete_shift = function (req, res) {
 		// schedulers can remove anyone's shift
 		if (req.session.member.account.permissions.schedule) {
 			Shift.findOne({
-				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id)
+				_id: mongoose.Types.ObjectId(req.params.shift_id)
 			}).remove(function (err) {
 				res.json(200, {status: 'complete'});
 			});
 		} else {
 			Shift.findOne({
-				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+				_id: mongoose.Types.ObjectId(req.params.shift_id),
 				_member: req.session.member._id
 			}, function (err, shift) {
 
 				if (momentIsEditable( moment(shift.start) )) {
 					Shift.remove({
-						_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+						_id: mongoose.Types.ObjectId(req.params.shift_id),
 						_member: req.session.member._id
 					}, function (err) {
 						res.json(200, {status: "complete"});
@@ -319,11 +319,11 @@ exports.update_shift = function (req, res) {
 		var search;
 		if (req.session.member.account.permissions.schedule) {
 			search = { 
-				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id)
+				_id: mongoose.Types.ObjectId(req.params.shift_id)
 			};
 		} else {
 			search = { 
-				_id: mongoose.Types.ObjectId.fromString(req.params.shift_id),
+				_id: mongoose.Types.ObjectId(req.params.shift_id),
 				_member: req.session.member._id
 			};
 		}
@@ -359,7 +359,7 @@ exports.get_shift = function (req, res) {
 
 	if (req.session.member) {
 		var Shift = mongoose.model('Shift');
-		Shift.findOne({ _id: mongoose.Types.ObjectId.fromString(req.params.shift_id)}, function (err, item) {
+		Shift.findOne({ _id: mongoose.Types.ObjectId(req.params.shift_id)}, function (err, item) {
 			if (err) {
 				res.json(500, {error: err});
 			} else {
@@ -396,7 +396,7 @@ exports.member_shifts = function (req, res) {
 
 	if (req.session.member) {
 
-		var id = mongoose.Types.ObjectId.fromString(req.params.member);
+		var id = mongoose.Types.ObjectId(req.params.member);
 		if (req.session.member.account.permissions.members
 			|| req.session.member.account.permissions.accounts
 			|| req.session.member._id == id) {
@@ -424,7 +424,7 @@ exports.member_hours_json = function (req, res) {
 
 	if (req.session.member) {
 
-		var id = mongoose.Types.ObjectId.fromString(req.params.member);
+		var id = mongoose.Types.ObjectId(req.params.member);
 		if (req.session.member.account.permissions.members
 			|| req.session.member.account.permissions.accounts
 			|| req.session.member._id == id) {
@@ -524,8 +524,8 @@ exports.future_shift_ics = function (req, res) {
 
 	if (req.session.member) {
 
-		var member = mongoose.Types.ObjectId.fromString(req.params.member);
-		var id = mongoose.Types.ObjectId.fromString(req.params.id);
+		var member = mongoose.Types.ObjectId(req.params.member);
+		var id = mongoose.Types.ObjectId(req.params.id);
 
 		if (req.session.member.account.permissions.members
 			|| req.session.member.account.permissions.accounts

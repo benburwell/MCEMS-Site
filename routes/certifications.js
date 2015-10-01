@@ -20,7 +20,7 @@ exports.get_json = function (req, res) {
 		return res.redirect('/');
 	}
 
-	var id = mongoose.Types.ObjectId.fromString(req.params.member);
+	var id = mongoose.Types.ObjectId(req.params.member);
 
 	var Certification = mongoose.model('Certification');
 	Certification
@@ -57,7 +57,7 @@ exports.create = function (req, res) {
 	}
 
 
-	var id = mongoose.Types.ObjectId.fromString(req.body.member);
+	var id = mongoose.Types.ObjectId(req.body.member);
 
 	var Certification = mongoose.model('Certification');
 
@@ -132,7 +132,7 @@ exports.delete = function (req, res) {
 		return res.json(403, {error: 'not authorized'});
 	}
 
-	var query = { _id: mongoose.Types.ObjectId.fromString(req.body.id) };
+	var query = { _id: mongoose.Types.ObjectId(req.body.id) };
 
 	var Certification = mongoose.model('Certification');
 	Certification.findOne(query).remove(function (err) {
