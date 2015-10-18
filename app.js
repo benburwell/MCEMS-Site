@@ -150,7 +150,7 @@ passport.use(new DigestStrategy({ qop: 'auth' }, function (username, done) {
 }));
 
 // static content pages
-app.get('/', pages.index);
+app.get('/', member.login_form);
 
 // client auth
 app.get('/login', member.login_form);

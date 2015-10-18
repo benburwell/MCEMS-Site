@@ -47,38 +47,33 @@ html(lang="en", itemscope, itemtype="http://schema.org/Organization")
             img(src="/static/mcems.png")
         nav.main
             ul#nav
-                li
-                    a(href="/") Home
                 for page in nav_items
                     li
                         a(href='/page/'+page.url)= page.name
                 if authMember
                     li
-                        a(href="/me") Tools
-                        ul
-                            li
-                                a(href="/schedule") Schedule
-                            li
-                                a(href="/events") Event Signups
-                            li
-                                a(href="/members") Members
-                            if authMember.account.permissions.schedule || authMember.account.permissions.members
-                                li
-                                    a(href="/schedule/duty-report/") Duty Report
-                            if authMember.account.permissions.members
-                                li
-                                    a(href="/applicants") Applicants
-                                li
-                                    a(href="/members/certifications") Certifications
-                            if authMember.account.permissions.broadcast
-                                li
-                                    a(href="/broadcast") Broadcast
-                            if authMember.account.permissions.service_credit
-                                li
-                                    a(href="/members/service-credits") Service Credits
-                            if authMember.account.permissions.pages
-                                li
-                                    a(href="/pages") Pages
+                        a(href="/schedule") Schedule
+                    li
+                        a(href="/events") Event Signups
+                    li
+                        a(href="/members") Members
+                    if authMember.account.permissions.schedule || authMember.account.permissions.members
+                        li
+                            a(href="/schedule/duty-report/") Duty Report
+                    if authMember.account.permissions.members
+                        li
+                            a(href="/applicants") Applicants
+                        li
+                            a(href="/members/certifications") Certifications
+                    if authMember.account.permissions.broadcast
+                        li
+                            a(href="/broadcast") Broadcast
+                    if authMember.account.permissions.service_credit
+                        li
+                            a(href="/members/service-credits") Service Credits
+                    if authMember.account.permissions.pages
+                        li
+                            a(href="/pages") Pages
         .content
             block content
         footer
