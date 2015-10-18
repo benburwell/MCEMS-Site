@@ -47,7 +47,7 @@ exports.login = function (req, res) {
 					if (hash.digest('hex') == member.account.password.hash) {
 						// login success!
 						req.session.member = member;
-						res.redirect('/');
+						res.redirect('/schedule');
 					} else {
 						req.session.invalid_login = true;
 						res.redirect('/login');
