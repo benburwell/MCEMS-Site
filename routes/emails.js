@@ -152,7 +152,12 @@ exports.inbound_hook = function (req, res) {
 		.where('account.email_aliases').ne(null)
 		.exec(function (err, members) {
 
+			if (err) {
+				res.json(200, { status: 'error'})
+			}
+
 			var num_members = members.length;
+			console.log(num_members, 'members found');
 			for (var i = 0; i < num_members; i++) {
 				
 				var aliases = members[i].account.email_aliases.split(',');
@@ -161,6 +166,7 @@ exports.inbound_hook = function (req, res) {
 				for (var j = 0; j < num_aliases; j++) {
 					var a = aliases[j] + '@bergems.org';
 					a = a.toLowerCase();
+					console.log('alias:', a);
 					
 					if (a == req.body.To.toLowerCase()) {
 
