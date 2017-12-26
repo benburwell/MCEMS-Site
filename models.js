@@ -1,24 +1,5 @@
 var mongoose = require('mongoose');
 
-exports.shift = {
-	start: Date,
-	end: Date,
-	name: String,
-	unit: Number,
-	driver: Boolean,
-	probationary: Boolean,
-	crew_chief: Boolean,
-	training_corps: Boolean,
-	_member: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Member'
-	},
-	added_on: Date,
-	added_by: String,
-	modified_on: Date,
-	modified_by: String
-};
-
 exports.member = {
 	name: {
 		first: String,
