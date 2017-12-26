@@ -1,13 +1,13 @@
 Vagrant.configure("2") do |config|
 
-  # Use "precise32" Ubuntu 10.4 box
-  config.vm.box = "hashicorp/precise32"
+  # Use "trusty64" Ubuntu 14.04 box
+  config.vm.box = "ubuntu/trusty64"
 
   # Our app server will run on port 3000, so mirror that to the host
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   # On boot, we need to install some dependencies and such
-  # More precisely (no pun intended):
+  # More precisely:
   #   1. Install MongoDB
   #      - Import code signing key
   #      - Install the package
@@ -30,11 +30,16 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get install -y mongodb-org
     service mongod start
-    apt-get install -y curl
-    curl -sL https://deb.nodesource.com/setup | sudo bash -
-    sudo apt-get install -y nodejs
+    apt-get install -y curl build-essential checkinstall libssl-dev
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    nvm install v8.9.3
+    nvm use v8.9.3
     cd /vagrant
     npm install
     node bootstrap_accounts.js
   END
 end
+
+# vim: :set ft=ruby:
