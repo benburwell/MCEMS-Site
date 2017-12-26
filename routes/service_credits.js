@@ -1,8 +1,9 @@
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 };
+
+var sendgrid = require('../sendgrid');
 
 exports.list = function (req, res) {
 
@@ -80,10 +81,9 @@ exports.create = function (req, res) {
 					emails.forEach(function (email) {
 
 						var message = {
-							'To': email.school_email,
-							'From': 'webmaster@bergems.org',
-							'Subject': 'Service Credit Requested',
-							'TextBody': 'A member has requested a service '
+							to: email.school_email,
+							subject: 'Service Credit Requested',
+							text: 'A member has requested a service '
 								+ 'credit. Description:\n\n'
 								+ data.description
 								+ '\n\nSign on to approve or reject.'
@@ -93,7 +93,7 @@ exports.create = function (req, res) {
 
 					});
 
-					postmark.batch(messages, function (error, success) {
+					sendgrid.send(messages, function (error) {
 						res.json(200, {status: 'done'});
 					});
 

@@ -1,8 +1,9 @@
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 }
+
+var sendgrid = require('../sendgrid')
 
 exports.get_json = function (req, res) {
 	// check that there is a member logged in
@@ -42,15 +43,14 @@ exports.create = function (req, res) {
 	if (req.body.address) {
 		data.address = req.body.address;
 
-		postmark.send({
-			"From": "webmaster@bergems.org",
-			"To": data.address,
-			"Subject": "MCEMS Confirmation Code",
-			"TextBody": "Hi,\n\nTo confirm this email address, go to "
+		sendgrid.send({
+			to: data.address,
+			subject: "MCEMS Confirmation Code",
+			text: "Hi,\n\nTo confirm this email address, go to "
 				+ "your profile and click on this address. Enter the "
 				+ "confirmation code: " + data.confirm_code
 				+ "\n\n Thanks!"
-		}, function (error, success) {
+		}, function (error) {
 			new Email(data).save(function (err) {
 				res.json(200, {status: 'ok'});
 			});
@@ -87,12 +87,11 @@ exports.create = function (req, res) {
 				return;
 		}
 
-		postmark.send({
-			"From": "webmaster@bergems.org",
-			"To": data.address,
-			"Subject": "",
-			"TextBody": "MCEMS Confirmation Code: " + data.confirm_code
-		}, function (error, success) {
+		sendgrid.send({
+			to: data.address,
+			subject: "MCEMS",
+			text: "MCEMS Confirmation Code: " + data.confirm_code
+		}, function (error) {
 			new Email(data).save(function (err) {
 				res.json(200, {status: 'ok'});
 			});
@@ -141,68 +140,3 @@ exports.confirm = function (req, res) {
 	}
 };
 
-exports.inbound_hook = function (req, res) {
-
-	var messages = [];
-
-	var Member = mongoose.model('Member');
-	Member.find()
-		.where('school_email').ne(null)
-		.where('school_email').ne('')
-		.where('account.email_aliases').ne(null)
-		.exec(function (err, members) {
-
-			var num_members = members.length;
-			for (var i = 0; i < num_members; i++) {
-				
-				var aliases = members[i].account.email_aliases.split(',');
-				var num_aliases = aliases.length;
-
-				for (var j = 0; j < num_aliases; j++) {
-					var a = aliases[j] + '@bergems.org';
-					a = a.toLowerCase();
-					
-					if (a == req.body.To.toLowerCase()) {
-
-						var sender = req.body.FromFull ? req.body.FromFull.Email : req.body.From;
-
-						var attachments = [];
-
-						if (req.body.Attachments) {
-							for (var k = 0; k < req.body.Attachments.length; k++) {
-								attachments.push({
-									'Name': req.body.Attachments[k].Name,
-									'Content': req.body.Attachments[k].Content,
-									'ContentType': req.body.Attachments[k].ContentType
-								});
-							}
-						}
-
-						var email = {
-							'From': 'bounce@bergems.org',
-							'To': members[i].school_email,
-							'ReplyTo': sender,
-							'Subject': '[MCEMS] ' + req.body.Subject,
-							'TextBody': req.body.TextBody,
-							'HtmlBody': req.body.HtmlBody,
-							'Attachments': attachments,
-							'Headers': [
-								{
-									'X-Forwarded-For': sender
-								}
-							]
-						};
-						messages.push(email);
-					}
-				}
-			}
-			
-			if (messages.length > 0) {
-				postmark.batch(messages, function (err, success) {
-					res.json(200, {status: 'done'});
-				});
-			} else {
-				res.json(200, {status: 'no_address_match'});
-			}
-	});
-};

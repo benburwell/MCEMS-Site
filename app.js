@@ -6,13 +6,15 @@ var express         = require('express'),
 	mongoose        = require('mongoose'),
 	http            = require('http'),
 	path            = require('path'),
+	morgan          = require('morgan'),
+	favicon         = require('serve-favicon'),
+	cookieParser    = require('cookie-parser'),
+	session         = require('express-session'),
+	bodyParser      = require('body-parser'),
+	methodOverride  = require('method-override'),
+	errorHandler    = require('errorhandler'),
 
-	// use the local version until npmjs is updated
-	postmark        = require('postmark')(process.env.POSTMARK_API_KEY),
-	
 	crypto          = require('crypto'),
-	assetManager    = require('connect-assetmanager'),
-	assetHandler    = require('connect-assetmanager-handlers'),
 	cron            = require('cron').CronJob,
 	moment          = require('moment'),
 	jsontoxml       = require('jsontoxml'),
@@ -24,6 +26,9 @@ var express         = require('express'),
 
 	// pepper for passwords
 	pepper          = require('./pepper'),
+
+	// sendgrid for emails
+	sendgrid        = require('./sendgrid'),
 
 	// routes
 	member          = require('./routes/member'),
@@ -61,40 +66,27 @@ var uristring = process.env.MONGOLAB_URI
 mongoose.connect(uristring);
 
 // put mongoose in modules
-member._connect(mongoose, postmark);
-schedule._connect(mongoose, postmark);
-events._connect(mongoose, postmark);
-certifications._connect(mongoose, postmark);
-emails._connect(mongoose, postmark);
-broadcast._connect(mongoose, postmark);
-service_credits._connect(mongoose, postmark);
-pages._connect(mongoose, postmark);
-application._connect(mongoose, postmark);
-api._connect(mongoose, postmark);
-
-// asset manager configuration
-var asset_manager_groups = {
-	'css': {
-		'route': /\/static\/mcems\.css/,
-		'path': './public/stylesheets/',
-		'dataType': 'css',
-		'files': ['*'],
-		'postManipulate': {
-			'^': [ assetHandler.yuiCssOptimize ]
-		}
-	}
-};
+member._connect(mongoose);
+schedule._connect(mongoose);
+events._connect(mongoose);
+certifications._connect(mongoose);
+emails._connect(mongoose);
+broadcast._connect(mongoose);
+service_credits._connect(mongoose);
+pages._connect(mongoose);
+application._connect(mongoose);
+api._connect(mongoose);
 
 // settings for all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // middleware stack
-app.use(express.logger('dev'));
-app.use(express.favicon(__dirname + '/public/static/favicon.ico'));
-app.use(express.cookieParser());
-app.use(express.session({secret: pepper.secret }));
+app.use(morgan('dev'));
+app.use(favicon(__dirname + '/public/static/favicon.ico'));
+app.use(cookieParser());
+app.use(session({secret: pepper.secret }));
 
 // this will set authMember for easy use in Jade templates
 app.use(function (req, res, next) {
@@ -123,20 +115,9 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(assetManager(asset_manager_groups));
+app.use(bodyParser());
+app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function (req, res) {
-	res.status(404);
-	res.render('404');
-});
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 // passport config
 passport.use(new DigestStrategy({ qop: 'auth' }, function (username, done) {
@@ -150,132 +131,93 @@ passport.use(new DigestStrategy({ qop: 'auth' }, function (username, done) {
 }));
 
 // static content pages
-app.get('/', member.login_form);
+app.route('/asdfasdfasdf').get(function(req, res) {
+    res.end("Hello!");
+});
+app.route('/').get(member.login_form);
 
 // client auth
-app.get('/login', member.login_form);
-app.post('/login', member.login);
-app.get('/logout', member.logout);
+app.route('/login').get(member.login_form).post(member.login);
+app.route('/logout').get(member.logout);
 
 // schedule
-app.get('/schedule', schedule.schedule);
-app.get('/schedule/:year/:month', schedule.month_schedule);
-app.post('/schedule', schedule.create_shift);
-app.post('/schedule/shift/delete/:shift_id', schedule.delete_shift);
-app.post('/schedule/shift/:shift_id', schedule.update_shift);
-app.get('/shift/:shift_id', schedule.get_shift);
-app.post('/schedule/message', schedule.edit_message);
-app.get('/members/shifts/:member.json', schedule.member_shifts);
-app.get('/members/stats/:member.json', schedule.member_hours_json);
-app.get('/schedule/ical/:member/:id.ics', schedule.future_shift_ics);
-app.get('/duty.ics', schedule.duty_ics);
-app.get('/schedule/duty-report/', schedule.duty_report);
+app.route('/schedule').get(schedule.schedule).post(schedule.create_shift);
+app.route('/schedule/:year/:month').get(schedule.month_schedule);
+app.route('/schedule/shift/delete/:shift_id').post(schedule.delete_shift);
+app.route('/schedule/shift/:shift_id').post(schedule.update_shift);
+app.route('/shift/:shift_id').get(schedule.get_shift);
+app.route('/schedule/message').post(schedule.edit_message);
+app.route('/members/shifts/:member.json').get(schedule.member_shifts);
+app.route('/members/stats/:member.json').get(schedule.member_hours_json);
+app.route('/schedule/ical/:member/:id.ics').get(schedule.future_shift_ics);
+app.route('/duty.ics').get(schedule.duty_ics);
+app.route('/schedule/duty-report/').get(schedule.duty_report);
 
 // member management
-app.get('/members', member.list);
-app.get('/members/create', member.create_form);
-app.post('/members/create', member.create);
-app.get('/members/edit/:member', member.edit_form);
-app.post('/members/edit/:member', member.edit);
-app.post('/members/delete/:member', member.delete);
-app.post('/members/reset_password/:member', member.reset_password);
-app.get('/me/change_password', member.change_password_form);
-app.post('/me/change_password', member.change_password);
+app.route('/members').get(member.list);
+app.route('/members/create').get(member.create_form).post(member.create);
+app.route('/members/edit/:member').get(member.edit_form).post(member.edit);
+app.route('/members/delete/:member').post(member.delete);
+app.route('/members/reset_password/:member').post(member.reset_password);
+app.route('/me/change_password').get(member.change_password_form).post(member.change_password);
 
 // certifications
-app.get('/members/certifications', certifications.table);
-app.get('/members/certifications/:member.json', certifications.get_json);
-app.post('/members/certifications/create', certifications.create);
-app.post('/members/certifications/delete', certifications.delete);
+app.route('/members/certifications').get(certifications.table);
+app.route('/members/certifications/:member.json').get(certifications.get_json);
+app.route('/members/certifications/create').post(certifications.create);
+app.route('/members/certifications/delete').post(certifications.delete);
 
 // emails
-app.get('/members/emails/:member.json', emails.get_json);
-app.post('/members/emails/create', emails.create);
-app.post('/members/emails/delete', emails.delete);
-app.post('/members/emails/confirm', emails.confirm);
+app.route('/members/emails/:member.json').get(emails.get_json);
+app.route('/members/emails/create').post(emails.create);
+app.route('/members/emails/delete').post(emails.delete);
+app.route('/members/emails/confirm').post(emails.confirm);
 
 // service credits
-app.get('/members/service-credits', service_credits.list);
-app.get('/members/service-credits/:member.json', service_credits.json);
-app.post('/members/service-credits', service_credits.create);
-app.post('/members/service-credits/approve/:credit', service_credits.approve);
-app.post('/members/service-credits/reject/:credit', service_credits.reject);
+app.route('/members/service-credits').get(service_credits.list).post(service_credits.create);
+app.route('/members/service-credits/:member.json').get(service_credits.json);
+app.route('/members/service-credits/approve/:credit').post(service_credits.approve);
+app.route('/members/service-credits/reject/:credit').post(service_credits.reject);
 
 // events
-app.get('/events', events.list);
-app.get('/events/create', events.create_form);
-app.post('/events/create', events.create);
-app.post('/events/delete/:event', events.delete);
+app.route('/events').get(events.list);
+app.route('/events/create').get(events.create_form).post(events.create);
+app.route('/events/delete/:event').post(events.delete);
 
 // broadcast
-app.get('/broadcast', broadcast.form);
-app.post('/broadcast', broadcast.send);
+app.route('/broadcast').get(broadcast.form).post(broadcast.send);
 
 // pages
-app.get('/page/:page', pages.render);
-app.get('/pages', pages.list);
-app.get('/pages/edit/:page', pages.edit_form);
-app.post('/pages/edit/:page', pages.edit);
-app.post('/pages/create', pages.create);
-app.get('/pages/create', pages.create_form);
-app.post('/pages/delete/:page', pages.delete);
+app.route('/page/:page').get(pages.render);
+app.route('/pages').get(pages.list);
+app.route('/pages/edit/:page').get(pages.edit_form).post(pages.edit);
+app.route('/pages/create').post(pages.create).get(pages.create_form);
+app.route('/pages/delete/:page').post(pages.delete);
 
 // application
-app.get('/apply', application.form);
-app.post('/apply', application.submit);
-app.get('/applicants', application.list_applicants);
-app.get('/applicants/edit/:id', application.display_applicant);
-app.post('/applicants/edit/:id', application.update_applicant);
-app.get('/applicants/migrate/:id', application.migration_form);
-app.post('/applicants/delete/:id', application.delete_applicant);
-app.get('/applicants/interview-slots.json', application.interview_slots_json);
-app.post('/applicants/interview-slots', application.create_interview_slot);
-app.post('/applicants/interview-slots/delete/:id', application.delete_interview_slot);
-app.post('/applicants/open', application.open_applications);
-app.post('/applicants/close', application.close_applications);
+app.route('/apply').get(application.form).post(application.submit);
+app.route('/applicants').get(application.list_applicants);
+app.route('/applicants/edit/:id').get(application.display_applicant).post(application.update_applicant);
+app.route('/applicants/migrate/:id').get(application.migration_form);
+app.route('/applicants/delete/:id').post(application.delete_applicant);
+app.route('/applicants/interview-slots.json').get(application.interview_slots_json);
+app.route('/applicants/interview-slots').post(application.create_interview_slot);
+app.route('/applicants/interview-slots/delete/:id').post(application.delete_interview_slot);
+app.route('/applicants/open').post(application.open_applications);
+app.route('/applicants/close').post(application.close_applications);
 
 // app.get('/api/cad/on_duty.json', passport.authenticate('digest', { session: false }), api.on_duty);
-app.get('/api/cad/on_duty.json', api.on_duty);
+app.route('/api/cad/on_duty.json').get(api.on_duty);
 
-app.post('/hooks/postmark_inbound', emails.inbound_hook);
-
-app.get('/sitemap.xml', function (req, res) {
-
-	var Page = mongoose.model('Page');
-	Page.find({
-		public: true
-	}).exec(function (err, pages) {
-		var sitemap = [
-			{
-				name: 'urlset',
-				attrs: { xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' },
-				children: []
-			}
-		];
-
-		pages.forEach(function (page) {
-
-			var data = {};
-			data.loc = (page.url == 'home')? 'http://www.bergems.org/' : 'http://www.bergems.org/page/' + page.url
-
-			if (page.last_modified) {
-				data.lastmod = moment(page.last_modified).format();
-			}
-
-			sitemap[0].children.push({
-				url: [
-					data
-				]
-			});
-		});
-
-		res.type('xml');
-		var xml = jsontoxml(sitemap, {
-			xmlHeader: true
-		});
-		res.send(xml);
-	});
+app.use(function (req, res) {
+	res.status(404);
+	res.render('404');
 });
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(errorHandler());
+}
 
 // finally create the server
 http.createServer(app).listen(app.get('port'), function () {
@@ -292,10 +234,9 @@ Certification.find().populate('_member').exec(function (err, certs) {
 			if (cert._member.school_email) {
 
 				var email = {
-					'To': cert._member.school_email,
-					'From': 'webmaster@bergems.org',
-					'Subject': 'Expiring Certification',
-					'TextBody': 'Hi '
+					to: cert._member.school_email,
+					subject: 'Expiring Certification',
+					text: 'Hi '
 						+ cert._member.name.first + ', \n\n'
 						+ 'The ' + cert.type + ' certification you have on '
 						+ 'file with MCEMS expires in 60 days on '
@@ -312,7 +253,7 @@ Certification.find().populate('_member').exec(function (err, certs) {
 				var job = new cron({
 					cronTime: send_date,
 					onTick: function () {
-						postmark.send(email)
+						sendgrid.send(email)
 					},
 					start: true
 				});

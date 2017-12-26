@@ -1,8 +1,0 @@
-extends ../layout
-block content
-	h1 Message Sent
-	p Your message has been sent to the following addresses:
-	ul
-		for message in messages
-			if message.To
-				li= message.To

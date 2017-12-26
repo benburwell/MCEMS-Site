@@ -1,0 +1,9 @@
+extends ../layout
+block content
+	if !error
+		h1 Message Sent
+		p Your message has been sent!
+	if error
+		h1 Error sending message
+		p There was an error sending your message.
+

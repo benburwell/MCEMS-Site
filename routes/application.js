@@ -1,8 +1,7 @@
 var moment = require('moment');
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 };
 
 exports.form = function (req, res) {

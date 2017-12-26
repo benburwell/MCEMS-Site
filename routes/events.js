@@ -1,8 +1,7 @@
-var mongoose, postmark;
+var mongoose;
 
-exports._connect = function (m, p) {
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 	return;
 };
 
