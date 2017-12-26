@@ -1,9 +1,9 @@
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 };
 
+var sendgrid = require('../sendgrid');
 var moment = require('moment');
 var cron = require('cron').CronJob;
 
@@ -86,10 +86,9 @@ exports.create = function (req, res) {
 				Member.findOne({_id: id}).exec(function (err, member) {
 
 					var email = {
-						'To': member.school_email,
-						'From': 'webmaster@bergems.org',
-						'Subject': 'Expiring Certification',
-						'TextBody': 'Hi '
+						to: member.school_email,
+						subject: 'Expiring Certification',
+						text: 'Hi '
 							+ member.name.first + ', \n\n'
 							+ 'The ' + data.type + ' certification you have on '
 							+ 'file with MCEMS expires in 60 days on '
@@ -106,7 +105,7 @@ exports.create = function (req, res) {
 					var job = new cron({
 						cronTime: send_date,
 						onTick: function () {
-							postmark.send(email)
+							sendgrid.send(email)
 						},
 						start: true
 					});

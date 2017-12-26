@@ -9,10 +9,9 @@ var pepper = require('../pepper'),
 	moment = require('moment'),
 	crypto = require('crypto');
 
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 	return;
 }
 

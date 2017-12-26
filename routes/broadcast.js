@@ -1,8 +1,9 @@
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 };
+
+var sendgrid = require('../sendgrid');
 
 exports.form = function (req, res) {
 	if (req.session.member
@@ -19,37 +20,15 @@ exports.send = function (req, res) {
 		
 		var Email = mongoose.model('Email');
 		Email.find({confirmed: true}).populate('_member').exec(function (err, emails) {
-
-			var messages = [];
+			var briefRecipients = [];
+			var fullRecipients = [];
 
 			emails.forEach(function (email) {
-
-				var message = {
-					'From': 'webmaster@bergems.org',
-					'To': email.address,
-					'Subject': req.body.subject,
-					'TextBody': null
-				};
-
 				if (email.mobile.carrier != undefined) {
-					if (req.body.brief) {
-						message.TextBody = req.body.brief,
-						message.Subject = ''
-					} else {
-						return;
-					}
+					briefRecipients.push(email.address);
 				} else {
-					if (req.body.full) {
-						message.TextBody = req.body.full
-					} else {
-						return;
-					}
+					fullRecipients.push(email.address);
 				}
-
-				message.TextBody += ' (#' + req.session.member.unit + ')';
-
-				messages.push(message);
-
 			});
 
 			// now get school_emails
@@ -58,23 +37,29 @@ exports.send = function (req, res) {
 				.where('school_email').ne(null)
 				.select('school_email')
 				.exec(function (err, emails) {
-
-					emails.forEach(function (email) {
-						var message = {
-							'From': 'webmaster@bergems.org',
-							'To': email.school_email,
-							'Subject': req.body.subject,
-							'TextBody': req.body.full
-						};
-						messages.push(message);
+					emails.forEach(function(email) {
+						fullRecipients.push(email.school_email);
 					});
 
-					postmark.batch(messages, function (error, success) {
-						res.render('broadcast/sent', {emails: emails});
+					var fullMessage = {
+						to: fullRecipients,
+						subject: req.body.subject,
+						text: req.body.full,
+						isMultiple: true,
+					};
+
+					var briefMessage = {
+						to: briefRecipients,
+						subject: 'MCEMS',
+						text: req.body.brief,
+						isMultiple: true,
+					};
+
+					sendgrid.send([ fullMessage, briefMessage ], function (error) {
+						return res.render('broadcast/sent', {
+							error: error,
+						});
 					});
-
-					res.render('broadcast/sent', {messages: messages});
-
 				});
 		});
 

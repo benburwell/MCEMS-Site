@@ -1,10 +1,10 @@
 var moment = require('moment');
 var icalendar = require('icalendar');
+var sendgrid = require('../sendgrid');
 
-var mongoose, postmark;
-exports._connect = function (m, p) {
+var mongoose;
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 	return;
 }
 
@@ -232,17 +232,16 @@ exports.create_shift = function (req, res) {
 					new Shift(data).save(function (err) {
 						var s = moment(req.body.start).format('HH:mm [on] MMMM Do YYYY');
 						var e = moment(req.body.end).format('HH:mm [on] MMMM Do YYYY');
-						postmark.send({
-							'From': 'webmaster@bergems.org',
-							'To': member.school_email,
-							'Subject': 'Shift Signup Confirmation',
-							'TextBody': 'Hi ' + member.name.first + ', \n\n'
+						sendgrid.send({
+							to: member.school_email,
+							subject: 'Shift Signup Confirmation',
+							text: 'Hi ' + member.name.first + ', \n\n'
 								+ 'This email is to confirm that you have signed up '
 								+ 'for a shift starting from ' + s + ' until ' + e + '.\n\n'
 								+ 'If this is incorrect, please log on to the website and change '
 								+ 'your shift. If you need assistance, please contact the calendar '
 								+ 'administrator for help.'
-							}, function (err, success) {
+							}, function (err) {
 								res.json(200, {status: 'ok'});
 							});
 					});

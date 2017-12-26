@@ -27,6 +27,9 @@ var express         = require('express'),
 	// pepper for passwords
 	pepper          = require('./pepper'),
 
+	// sendgrid for emails
+	sendgrid        = require('./sendgrid'),
+
 	// routes
 	member          = require('./routes/member'),
 	events          = require('./routes/events'),
@@ -62,20 +65,17 @@ var uristring = process.env.MONGOLAB_URI
 	|| 'mongodb://127.0.0.1/mcems';
 mongoose.connect(uristring);
 
-// todo: fix this
-var postmark = undefined;
-
 // put mongoose in modules
-member._connect(mongoose, postmark);
-schedule._connect(mongoose, postmark);
-events._connect(mongoose, postmark);
-certifications._connect(mongoose, postmark);
-emails._connect(mongoose, postmark);
-broadcast._connect(mongoose, postmark);
-service_credits._connect(mongoose, postmark);
-pages._connect(mongoose, postmark);
-application._connect(mongoose, postmark);
-api._connect(mongoose, postmark);
+member._connect(mongoose);
+schedule._connect(mongoose);
+events._connect(mongoose);
+certifications._connect(mongoose);
+emails._connect(mongoose);
+broadcast._connect(mongoose);
+service_credits._connect(mongoose);
+pages._connect(mongoose);
+application._connect(mongoose);
+api._connect(mongoose);
 
 // settings for all environments
 app.set('port', process.env.PORT || 3000);
@@ -209,8 +209,6 @@ app.route('/applicants/close').post(application.close_applications);
 // app.get('/api/cad/on_duty.json', passport.authenticate('digest', { session: false }), api.on_duty);
 app.route('/api/cad/on_duty.json').get(api.on_duty);
 
-app.route('/hooks/postmark_inbound').post(emails.inbound_hook);
-
 app.use(function (req, res) {
 	res.status(404);
 	res.render('404');
@@ -236,10 +234,9 @@ Certification.find().populate('_member').exec(function (err, certs) {
 			if (cert._member.school_email) {
 
 				var email = {
-					'To': cert._member.school_email,
-					'From': 'webmaster@bergems.org',
-					'Subject': 'Expiring Certification',
-					'TextBody': 'Hi '
+					to: cert._member.school_email,
+					subject: 'Expiring Certification',
+					text: 'Hi '
 						+ cert._member.name.first + ', \n\n'
 						+ 'The ' + cert.type + ' certification you have on '
 						+ 'file with MCEMS expires in 60 days on '
@@ -256,7 +253,7 @@ Certification.find().populate('_member').exec(function (err, certs) {
 				var job = new cron({
 					cronTime: send_date,
 					onTick: function () {
-						postmark.send(email)
+						sendgrid.send(email)
 					},
 					start: true
 				});

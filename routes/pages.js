@@ -1,8 +1,7 @@
-var mongoose, postmark;
+var mongoose;
 var marked = require('marked');
-exports._connect = function (m, p) {
+exports._connect = function (m) {
 	mongoose = m;
-	postmark = p;
 
 	marked.setOptions({
 		gfm: true,
