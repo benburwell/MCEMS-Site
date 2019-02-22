@@ -243,17 +243,17 @@ Certification.find().populate('_member').exec(function (err, certs) {
 						+ 'Thanks!'
 				};
 
-				var send_date = moment(cert.expiry)
-					.subtract('days', 60)
-					.toDate();
+				var send_date = moment(cert.expiry).subtract('days', 60);
 
-				var job = new cron({
-					cronTime: send_date,
-					onTick: function () {
-						sendgrid.send(email)
-					},
-					start: true
-				});
+				if (send_date.isAfter(moment())) {
+					var job = new cron({
+						cronTime: send_date.toDate(),
+						onTick: function () {
+							sendgrid.send(email)
+						},
+						start: true
+					});
+				}
 			}
 		}
 	});
