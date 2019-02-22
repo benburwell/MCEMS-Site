@@ -28,7 +28,6 @@
   },
   "addons": [
     "mongolab:sandbox",
-    "newrelic:wayne",
     "postmark:10k"
   ]
 }

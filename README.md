@@ -16,8 +16,6 @@ Development
   # cd /vagrant
   # node app.js
   ```
-  You'll see an error in the console about a NewRelic license key, but it's fine
-  to ignore in the local version.
 * In your browser, open [localhost:3000](http://localhost:3000).
 * Log in with username `admin` and password `admin`.
 

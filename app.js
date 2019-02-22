@@ -1,6 +1,3 @@
-// initialize logging
-require('newrelic');
-
 // require components
 var express         = require('express'),
 	mongoose        = require('mongoose'),
