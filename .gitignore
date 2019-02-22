@@ -1,7 +1,3 @@
 node_modules/*
-.DS_Store
-Todo
-MCEMS.sublime-workspace
-MCEMS.sublime-project
 .vagrant/*
-newrelic_agent.log
+*.log

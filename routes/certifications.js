@@ -98,17 +98,16 @@ exports.create = function (req, res) {
 							+ 'Thanks!'
 					};
 
-					var send_date = moment(data.expiry)
-						.subtract('days', 60)
-						.toDate();
-
-					var job = new cron({
-						cronTime: send_date,
-						onTick: function () {
-							sendgrid.send(email)
-						},
-						start: true
-					});
+					var send_date = moment(data.expiry).subtract('days', 60);
+					if (send_date.isAfter(moment())) {
+						var job = new cron({
+							cronTime: send_date.toDate(),
+							onTick: function () {
+								sendgrid.send(email)
+							},
+							start: true
+						});
+					}
 
 					res.json(200, {status: 'ok'});
 					
