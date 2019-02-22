@@ -10,6 +10,7 @@ var express         = require('express'),
 	bodyParser      = require('body-parser'),
 	methodOverride  = require('method-override'),
 	errorHandler    = require('errorhandler'),
+	MemoryStore     = require('memorystore')(session),
 
 	crypto          = require('crypto'),
 	cron            = require('cron').CronJob,
@@ -60,7 +61,7 @@ mongoose.model('Interview', new Schema(models.interview));
 var uristring = process.env.MONGOLAB_URI
 	|| process.env.MONGOHQ_URL
 	|| 'mongodb://127.0.0.1/mcems';
-mongoose.connect(uristring);
+mongoose.connect(uristring, { useNewUrlParser: true });
 
 // put mongoose in modules
 member._connect(mongoose);
@@ -83,7 +84,14 @@ app.set('view engine', 'pug');
 app.use(morgan('dev'));
 app.use(favicon(__dirname + '/public/static/favicon.ico'));
 app.use(cookieParser());
-app.use(session({secret: pepper.secret }));
+app.use(session({
+	secret: pepper.secret,
+	resave: false,
+	saveUninitialized: true,
+	store: new MemoryStore({
+		checkPeriod: 86400000
+	})
+}));
 
 // this will set authMember for easy use in Jade templates
 app.use(function (req, res, next) {
@@ -112,7 +120,8 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
