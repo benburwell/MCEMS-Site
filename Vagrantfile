@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
 
-  # Use "trusty64" Ubuntu 14.04 box
-  config.vm.box = "ubuntu/trusty64"
+  # Use "trusty64" Ubuntu 18.04 box
+  config.vm.box = "ubuntu/bionic64"
 
   # Our app server will run on port 3000, so mirror that to the host
   config.vm.network "forwarded_port", guest: 3000, host: 3000
@@ -25,17 +25,13 @@ Vagrant.configure("2") do |config|
   #        in the database
   #      - Start the server
   config.vm.provision :shell, inline: <<-END
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-    echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-    apt-get update
-    apt-get install -y mongodb-org
-    service mongod start
-    apt-get install -y curl build-essential checkinstall libssl-dev
+    sudo apt update
+    apt-get install -y mongodb curl build-essential checkinstall libssl-dev
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-    nvm install v8.9.3
-    nvm use v8.9.3
+    nvm install v11.9.0
+    nvm use v11.9.0
     cd /vagrant
     npm install
     node bootstrap_accounts.js
