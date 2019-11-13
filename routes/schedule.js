@@ -19,7 +19,7 @@ var beginEditingForMoment = function (m) {
 	}
 
 	return moment(m)
-		.subtract('months', 1)
+		.subtract(1, 'months')
 		.date(15)
 		.hour(0)
 		.minute(0)
@@ -37,7 +37,7 @@ var endEditingForMoment = function (m) {
 	}
 
 	return moment(m)
-		.subtract('months', 1)
+		.subtract(1, 'months')
 		.endOf('month')
 		.hour(23)
 		.minute(59)
@@ -77,8 +77,8 @@ exports.month_schedule = function (req, res) {
 		.year(req.params.year)
 		.month(req.params.month-1);
 
-	var prev_month = moment(now).subtract('months', 1);
-	var next_month = moment(now).add('months', 1);
+	var prev_month = moment(now).subtract(1, 'months');
+	var next_month = moment(now).add(1, 'months');
 
 	var month_start = now.day() - 1;
 	if (month_start == -1) month_start = 6;
@@ -599,8 +599,8 @@ exports.duty_report = function (req, res) {
 exports.duty_ics = function (req, res) {
 	var Shift = mongoose.model('Shift');
 
-	var start = moment().subtract('months', 3).toDate();
-	var end = moment().add('months', 3).toDate();
+	var start = moment().subtract(3, 'months').toDate();
+	var end = moment().add(3, 'months').toDate();
 
 	Shift.find({
 		start: { $gte: start },

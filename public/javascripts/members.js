@@ -382,8 +382,8 @@ $(document).ready(function () {
 	    });
 
 	    var m1 = moment();
-	    var m2 = moment().subtract('months', 1);
-	    var m3 = moment().subtract('months', 2);
+	    var m2 = moment().subtract(1, 'months');
+	    var m3 = moment().subtract(2, 'months');
 
 	    var base = '/members/stats/' + id + '.json';
 

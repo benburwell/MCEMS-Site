@@ -5,8 +5,8 @@ fieldset.hours
 			a#getHoursForRange.button.pill Select Range...
 		table.data
 			tr
-				th= moment().subtract('months', 2).format('MMMM')
-				th= moment().subtract('months', 1).format('MMMM')
+				th= moment().subtract(2, 'months').format('MMMM')
+				th= moment().subtract(1, 'months').format('MMMM')
 				th= moment().format('MMMM')
 				th All-Time
 			tr
