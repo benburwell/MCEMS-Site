@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Truck Check</title>
+    <style>
+        h2 {
+            text-align: left
+        }
+        p {
+            text-align: left
+        }
+        #submit {
+            text-align: center;
+        }
+        legend {
+            font-weight: bold;
+            font-size: 115%;
+        }
+        td {
+            height: 30px;
+            width: fixed
+        }
+    </style>
+    <script
+        src="../routes/truckcheck.js">
+    </script>
+    
+</head>
+<body>
+<h1>Truck Check</h1>
+    
+<form action="info.html" target="_blank" method="post">
+    
+ <p> Crew: <input type="text" name="crew"> <br>
+     Date: <input type="date"> <br>
+     Time: <input type="time"> <br>
+    </p>  
+    
+<!-- First in---><fieldset>
+        <legend>First In Bag</legend>
+<table style="width:100%">
+<tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="stethoscope"> Stethoscope<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="pulse"> Pulse Oximeter<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="BP"> BP Cuff<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="penlight"> Penlights (2)<br>
+    </td>
+</tr>
+  
+   
+<tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="emesis"> Emesis Bags (3)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="shears"> Shears<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="pedsNRB"> Peds NRB (2)<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="pedsNC"> Peds NC (2)<br>
+    </td>
+</tr>
+    
+      <tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="NPA"> NPAs with lubricant (5)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="OPA"> OPA Set<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="BVM"> BVM<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="aNRB"> Adult NRB (2)<br>
+    </td>
+</tr>
+      
+      <tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="aNC"> Adult NC (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="traumaDress"> Trauma Dressing<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="tourniquet"> Tourniquet<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="SAM"> SAM Splint<br>
+    </td>
+</tr>
+      
+          <tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="coldPack"> Cold Packs (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="rollGauze"> Roller Gauze (2)<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="5x9"> 5x9 Gauze (4)<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="4x4"> 4x4 Gauze (6)<br>
+    </td>
+</tr>
+      
+          <tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="tape"> Tape (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="bandaids"> Band-Aids<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="cravats"> Cravats (2)<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="saljets"> Sal-Jets (3)<br>
+    </td>
+</tr>
+      
+      <tr>      
+<td>
+  <input type="checkbox" name="firstIn" value="bioBags"> Biohazard Bags (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="firstIn" value="gloves"> Gloves (2 pairs)<br>
+    </td>
+<td>
+  <input type="checkbox" name="firstIn" value="faceMask"> Face Masks (4)<br>
+    </td>
+<td>
+    <input type="checkbox" name="firstIn" value="handSani"> Hand Sanitizer (8)<br>
+    </td>
+</tr>
+      
+    <tr>      
+<td>
+    O2 Level:
+  <input type="text" name="firstIn" <br>
+    </td>  
+<td>
+    Aspirin Expiration Date:
+  <input type="text" name="firstIn" <br>
+    </td>  
+<td>
+    Glucose Expiration Date:
+  <input type="text" name="firstIn" <br>
+    </td>  
+</tr>
+
+   
+
+</table>
+   </fieldset>
+    <br>
+
+<!-- Trauma---><fieldset>
+        <legend>Trauma Bag</legend>
+    <table style="width:100%">
+
+
+<tr>      
+<td>
+  <input type="checkbox" name="trauma" value="stethoscope"> Stethoscope<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="pulse"> Pulse Oximeter<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="BP"> BP Cuff<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="BVM"> BVM<br>
+    </td>
+</tr>
+
+<tr>      
+<td>
+  <input type="checkbox" name="trauma" value="emesis"> Emesis Bags (3)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="shears"> Shears<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="pedsNRB"> Peds NRB (2)<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="pedsNC"> Peds NC (2)<br>
+    </td>
+</tr>
+    
+      <tr>      
+<td>
+  <input type="checkbox" name="trauma" value="NPA"> NPAs with lubricant (5)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="OPA"> OPA Set<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="aNC"> Adult NC (2)<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="aNRB"> Adult NRB (2)<br>
+    </td>
+</tr>
+      
+      <tr>      
+<td>
+  <input type="checkbox" name="trauma" value="traumaDress"> Trauma Dressing (3)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="tourniquet"> Tourniquet<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="rollSAM"> Roll SAM Splint (2)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="foldSAM"> Fold SAM Splint (2)<br>
+    </td>  
+</tr>
+      
+          <tr>      
+<td>
+  <input type="checkbox" name="trauma" value="coldPack"> Cold Packs (4)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="heatPack"> Heat Packs (2)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="5x9"> 5x9 Gauze (15)<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="4x4"> 4x4 Gauze (15)<br>
+    </td>
+</tr>
+      
+          <tr>      
+<td>
+  <input type="checkbox" name="trauma" value="tape"> Tape (3)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="rollGauze"> Roller Gauze (4)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="cravats"> Cravats (4)<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="ACE"> ACE Bandage<br>
+    </td>
+</tr>
+      <tr>
+<td>
+  <input type="checkbox" name="trauma" value="coflex"> Co-flex (3)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="occDress"> Occlusive Dressings (4)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="salBottle"> Saline Bottle<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="saljets"> Sal-Jets (4)<br>
+    </td>
+</tr>
+      <tr>      
+<td>
+  <input type="checkbox" name="trauma" value="insBlanket"> Insulated Blanket<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="burnSheet"> Burn Sheet<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="ringCutter"> Ring Cutter<br>
+    </td>
+<td>
+    <input type="checkbox" name="trauma" value="RMA"> RMAs (3)<br>
+    </td>
+</tr>
+      <tr>  
+<td>
+<input type="checkbox" name="trauma" value="transferCare"> Transfer of Care (3)<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="bioBags"> Biohazard Bags (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="trauma" value="gloves"> Gloves<br>
+    </td>
+<td>
+  <input type="checkbox" name="trauma" value="goggles"> Goggles (2)<br>
+    </td>
+
+</tr>
+      
+    <tr>      
+<td>
+    O2 Level:
+  <input type="text" name="trauma" <br>
+    </td>   
+</tr>
+
+    </table>
+    </fieldset>
+    <br>
+    
+<!-- Driver---><fieldset>
+        <legend>Driver's Compartment</legend>    
+<table style="width:100%">
+
+<tr>      
+<td>
+  <input type="checkbox" name="driver" value="engine"> Engine Starts<br>
+    </td>  
+<td>
+  <input type="checkbox" name="driver" value="lights"> Working Lights<br>
+    </td>
+<td>
+  <input type="checkbox" name="driver" value="siren"> Working Siren<br>
+    </td>
+<td>
+    <input type="checkbox" name="driver" value="radio"> Working Radio<br>
+    </td>
+</tr>
+      
+<tr>      
+<td>
+  <input type="checkbox" name="driver" value="damage"> No Damage<br>
+    </td>  
+<td>
+    Mileage:
+  <input type="text" name="driver" <br>
+    </td>   
+<td>
+    Fuel Level:
+  <input type="text" name="driver" <br>
+    </td>   
+</tr>
+
+    </table>
+    </fieldset>
+<br>
+
+<!-- Front Seat---><fieldset>
+        <legend>Front Seat</legend>    
+<table style="width:100%">
+ 
+<tr>      
+<td>
+  <input type="checkbox" name="front" value="vest"> Safety Vests (4)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="front" value="erg"> E.R.G.<br>
+    </td>
+<td>
+  <input type="checkbox" name="front" value="fieldGuide"> EMS Field Guide<br>
+    </td>
+<td>
+    <input type="checkbox" name="front" value="sanitizer"> Hand Sanitizer (4)<br>
+    </td>
+</tr>
+      
+<tr>      
+<td>
+  <input type="checkbox" name="front" value="deIcer"> De-Icer<br>
+    </td>     
+</tr>
+    
+
+    </table>
+    </fieldset>    
+    <br>
+    
+<!-- Spinal---><fieldset>
+        <legend>Spinal Bag</legend>    
+<table style="width:100%">
+ 
+
+  <tr>
+<th>
+    <p>Sealed?
+    <input type="radio" name="spinal" value="yes"> Yes</p>
+      </th>
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="spinal" value="headBlock"> Head Blocks (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="spinal" value="aCollar"> Adult Collar (3)<br>
+    </td>
+<td>
+  <input type="checkbox" name="spinal" value="pedsCollar"> Peds Collar (2)<br>
+    </td>
+</tr>    
+ 
+    </table>
+    </fieldset>
+   <br>
+    
+<!-- AED---><fieldset>
+        <legend>AED</legend>    
+<table style="width:100%">
+
+
+  <tr>
+<th>
+    <p>Sealed?
+    <input type="radio" name="aed" value="yes"> Yes</p>
+      </th>
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="aed" value="charge"> Full Charge<br>
+    </td>  
+<td>
+  <input type="checkbox" name="aed" value="pocketMask"> Pocket Mask<br>
+    </td>
+<td>
+  <input type="checkbox" name="aed" value="razor"> Razor<br>
+    </td>
+<td>
+    Adult Pads Expire:
+  <input type="text" name="aed" <br>
+    </td> 
+<td>
+   Peds Pads Expire:
+  <input type="text" name="aed" <br>
+    </td>       
+</tr>    
+
+    </table>
+    </fieldset>
+   <br>
+    
+<!-- Suction---><fieldset>
+        <legend>Suction</legend>    
+<table style="width:100%">
+  
+<tr>      
+<td>
+  <input type="checkbox" name="suction" value="charge"> Full Charge<br>
+    </td>  
+<td>
+  <input type="checkbox" name="suction" value="canister"> Canister<br>
+    </td>
+<td>
+  <input type="checkbox" name="suction" value="yankauer"> Yankauer<br>
+    </td>
+<td>
+  <input type="checkbox" name="suction" value="french"> French Catheter (2)<br>
+    </td>   
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="suction" value="saline"> Saline Bottle<br>
+    </td>    
+<td>
+  <input type="checkbox" name="suction" value="tubing"> Suction Tubing<br>
+    </td>      
+</tr>    
+    
+    </table>
+    </fieldset>    
+<br>
+    
+<!-- Drawer---><fieldset>
+        <legend>Lower Left Drawer</legend>    
+<table style="width:100%">
+  
+<tr>      
+<td>
+  <input type="checkbox" name="lowerLeft" value="gloves"> Gloves (XS, S, M, L, XL)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="lowerLeft" value="bioBin"> Biohazard Bin (with bag)<br>
+    </td>
+<td>
+  <input type="checkbox" name="lowerLeft" value="sharps"> Sharps Container<br>
+    </td>
+<td>
+  <input type="checkbox" name="lowerLeft" value="helmets"> Helemets (3)<br>
+    </td>   
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="lowerLeft" value="wipes"> Sanitizing Wipes<br>
+    </td>    
+<td>
+  <input type="checkbox" name="lowerLeft" value="rope"> Rope<br>
+    </td> 
+<td>
+  <input type="checkbox" name="lowerLeft" value="flares"> Flares (2)<br>
+    </td>     
+<td>
+  <input type="checkbox" name="lowerLeft" value="suctionCharger"> Suction Charger<br>
+    </td> 
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="lowerLeft" value="bbbpKit"> Bloodborne Pathogen Kit<br>
+    </td>     
+<td>
+  <input type="checkbox" name="lowerLeft" value="iceScraper"> Ice Scraper<br>
+    </td>     
+<td>
+  <input type="checkbox" name="lowerLeft" value="trash"> Trash Bin<br>
+    </td>     
+</tr>    
+
+    </table>
+    </fieldset>    
+<br>    
+    
+<!-- Right Cabinets---><fieldset>
+        <legend>Right Cabinets</legend>    
+<table style="width:100%">
+
+
+  
+<tr>      
+<td>
+  <input type="checkbox" name="right" value="woolBlanket"> Wool Blanket<br>
+    </td>  
+<td>
+  <input type="checkbox" name="right" value="emergencyBlanket"> Emergency Blanket<br>
+    </td>
+<td>
+  <input type="checkbox" name="right" value="reeves"> Reeves<br>
+    </td>
+<td>
+  <input type="checkbox" name="right" value="backboard"> Backboard<br>
+    </td>   
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="right" value="longSplints"> Long Splints (2)<br>
+    </td>    
+<td>
+  <input type="checkbox" name="right" value="stairChair"> Stair Chair<br>
+    </td>      
+</tr>    
+
+    </table>
+    </fieldset>    
+<br>
+    
+<!-- PPE---><fieldset>
+        <legend>PPE Bag</legend>    
+<table style="width:100%">
+
+  <tr>
+<th>
+    <p>Sealed?
+    <input type="radio" name="ppe" value="yes"> Yes</p>
+      </th>
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="ppe" value="handSanitizer"> Hand Sanitizer (8)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="ppe" value="faceShield"> Face Shield (3)<br>
+    </td>
+<td>
+  <input type="checkbox" name="ppe" value="bioBags"> Biohazard Bags (3)<br>
+    </td>
+<td>
+  <input type="checkbox" name="ppe" value="goggles"> Goggles (3)<br>
+    </td>   
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="ppe" value="workGloves"> Work Gloves (3)<br>
+    </td>    
+<td>
+  <input type="checkbox" name="ppe" value="gloves"> Gloves<br>
+    </td> 
+<td>
+  <input type="checkbox" name="ppe" value="gowns"> Gowns (3)<br>
+    </td>      
+      </tr>  
+
+    </table>
+    </fieldset>    
+<br>        
+    
+<!-- Peds---><fieldset>
+        <legend>Peds Bag</legend>    
+<table style="width:100%">
+  
+  <tr>
+<th>
+    <p>Sealed?
+    <input type="radio" name="peds" value="yes"> Yes</p>
+      </th>
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="peds" value="pedsBVM"> Peds BVM<br>
+    </td>  
+<td>
+  <input type="checkbox" name="peds" value="neonatalBVM"> Neonatal BVM<br>
+    </td>
+<td>
+  <input type="checkbox" name="peds" value="opa"> OPAs<br>
+    </td>
+<td>
+  <input type="checkbox" name="peds" value="obKit"> OB Kit<br>
+    </td>   
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="peds" value="pedsStethoscope"> Peds Stethoscope<br>
+    </td>    
+<td>
+  <input type="checkbox" name="peds" value="pedsBP"> Peds BP Cuff<br>
+    </td> 
+<td>
+  <input type="checkbox" name="peds" value="bulbSyringe"> Bulb Syringe<br>
+    </td> 
+<td>
+  <input type="checkbox" name="peds" value="icePacks"> Ice Packs (2)<br>
+    </td>            
+      </tr>  
+<tr>
+<td>
+  <input type="checkbox" name="peds" value="pedsNC"> Peds NC (2)<br>
+    </td>    
+<td>
+  <input type="checkbox" name="peds" value="pedsNRB"> Peds NRB (2)<br>
+    </td> 
+<td>
+  <input type="checkbox" name="peds" value="french"> French Catheter (3)<br>
+    </td> 
+<td>
+  <input type="checkbox" name="peds" value="bioBags"> Biohazard Bags (2)<br>
+    </td>            
+      </tr>  
+<tr>
+<td>
+  <input type="checkbox" name="peds" value="gloves"> Gloves<br>
+    </td>    
+<td>
+  <input type="checkbox" name="peds" value="gowns"> Gowns (2)<br>
+    </td>
+      </tr>
+   
+    </table>
+    </fieldset>    
+<br>  
+    
+<!-- MCI---><fieldset>
+        <legend>MCI Bag</legend>    
+<table style="width:100%">
+
+  <tr>
+<th>
+    <p>Sealed?
+    <input type="radio" name="mci" value="yes"> Yes</p>
+      </th>
+      </tr>
+<tr>      
+<td>
+  <input type="checkbox" name="mci" value="clipboard"> Clipboard (2)<br>
+    </td>  
+<td>
+  <input type="checkbox" name="mci" value="comVest"> EMS Com Vest<br>
+    </td>
+<td>
+  <input type="checkbox" name="mci" value="treatmentVest"> Treatment Vest<br>
+    </td>
+<td>
+  <input type="checkbox" name="mci" value="trasnportVest"> Transport Vest<br>
+    </td>   
+      </tr>
+      <tr>
+<td>
+  <input type="checkbox" name="mci" value="opsVest"> EMS Ops Vest<br>
+    </td>    
+<td>
+  <input type="checkbox" name="mci" value="triageVest"> Triage Vest<br>
+    </td>     
+      </tr>  
+   
+    </table>
+    </fieldset>    
+<br>             
+    
+    
+<br> 
+<p>Notes:<br>
+    <textarea name="notes" style="width:350px; height:100px;"></textarea></p>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+    
+    
+    
+</body>
+<html>
