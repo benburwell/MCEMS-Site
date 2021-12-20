@@ -34,8 +34,10 @@ exports.send = function (req, res) {
 			// now get school_emails
 			var Member = mongoose.model('Member');
 			Member.find()
-				.where('school_email').ne(null)
-				.select('school_email')
+				.and([
+					{ 'school_email': { '$ne': null } },
+					{ 'school_email': { '$ne': '' } }
+				])
 				.exec(function (err, emails) {
 					emails.forEach(function(email) {
 						fullRecipients.push(email.school_email);
