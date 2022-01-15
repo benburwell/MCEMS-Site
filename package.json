@@ -15,7 +15,7 @@
     "express-session": "1.17.0",
     "icalendar": "0.7.1",
     "jsontoxml": "1.0.1",
-    "marked": "0.7.0",
+    "marked": "4.0.10",
     "memorystore": "1.6.1",
     "method-override": "3.0.0",
     "moment": "2.24.0",
