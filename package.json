@@ -11,7 +11,7 @@
     "cookie-parser": "1.4.4",
     "cron": "1.7.2",
     "errorhandler": "1.5.1",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-session": "1.17.0",
     "icalendar": "0.7.1",
     "jsontoxml": "1.0.1",
